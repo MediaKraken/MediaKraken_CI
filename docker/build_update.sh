@@ -1,9 +1,6 @@
 git pull
 
-cd clair
-docker build -t mediakraken/mkclair .
-
-cd ../elk
+cd elk
 docker build -t mediakraken/mkelk .
 
 cd ../jenkins
