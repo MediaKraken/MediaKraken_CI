@@ -4,3 +4,5 @@
 /.images_push_to_hub.sh.swp
 /.images_push_to_hub.sh.un~
 /images_push_to_hub.sh~
+/.start_clair.sh.un~
+/start_clair.sh~
