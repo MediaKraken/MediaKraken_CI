@@ -1,6 +1,6 @@
 git pull
 
-cd ../clair
+cd clair
 docker build -t mediakraken/mkclair .
 
 cd ../elk
@@ -11,6 +11,9 @@ docker build -t mediakraken/mkjenkins .
 
 cd ../pgadmin4
 docker build -t mediakraken/mkpgadmin .
+
+cd ../registry
+docker build -t mediakraken/mkregistry .
 
 cd ../sonarqube
 docker build -t mediakraken/mksonarqube .
