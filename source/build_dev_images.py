@@ -54,8 +54,8 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                               'MediaKraken_Deployment/docker/alpine/%s' % docker_images))
         pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                                 ' --build-arg ALPMIRROR=%s'
-                                                ' --build-arg PIPMIRROR=%s .') %
-                                    (build_stages[docker_images][0],
-                                     common_docker_images.ALPINE_MIRROR,
-                                     common_docker_images.PYPI_MIRROR))
+                                                ' --build-arg PIPMIRROR=%s .' %
+                                                (build_stages[docker_images][0],
+                                                 common_docker_images.ALPINE_MIRROR,
+                                                 common_docker_images.PYPI_MIRROR)))
         pid_proc.wait()
