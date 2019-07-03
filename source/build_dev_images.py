@@ -52,6 +52,9 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         # do the actual build process for docker image
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                               'MediaKraken_Deployment/docker/alpine/%s' % docker_images))
+        # TODO should I build to local repo?
+        # docker build -t th-dockerhub-1:5000/mediakraken/mkprefetchtvmaze .
+        # TODO don't pass alpine mirror to non alpine images?
         pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                                 ' --build-arg ALPMIRROR=%s'
                                                 ' --build-arg PIPMIRROR=%s .' %
@@ -59,3 +62,12 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                  common_docker_images.ALPINE_MIRROR,
                                                  common_docker_images.PYPI_MIRROR)))
         pid_proc.wait()
+        # TODO check for errors and stop if found
+        # TODO push images to local repo
+        # docker push th-dockerhub-1:5000/mediakraken/mkbaseffmpeg:dev
+
+# TODO run clair against all images
+# docker-compose run --rm clair-scanner wdijkerman/consu
+# docker-compose run --rm clair-scanner postgres:latest
+# TODO run docker-bench against all images (bench.sh)
+
