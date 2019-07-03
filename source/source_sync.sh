@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # broadcast
 cp ../../source/subprogram_broadcast.py ../../docker/alpine/ComposeMediaKrakenBroadcast/src/.
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenBroadcast/src/.
