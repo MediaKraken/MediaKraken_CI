@@ -41,6 +41,15 @@ PYPI_MIRROR = 'pypi.python.org'
 # RetroArchWeb
 # MusicBrainz
 
+'''
+FROM node:10-alpine 
+RUN mkdir /app
+COPY . /app
+RUN chown -R node:node /app
+USER node
+CMD [“node”, “index.js”]
+'''
+
 # the data is directory, name of container, base image used to build container
 
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
