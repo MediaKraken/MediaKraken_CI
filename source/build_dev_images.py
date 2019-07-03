@@ -23,25 +23,18 @@ import subprocess
 
 from common import common_docker_images
 
-"""
-MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
-MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
-MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
-MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
-MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
-MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
-MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
-"""
+# change this directory to the dir that you have MediaKraken_CI checked out too
+CWD_HOME_DIRECTORY = '/root'
 
-if not os.path.exists('../../MediaKraken_Deployment'):
+if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, '/MediaKraken_Deployment')):
     # backup to main dir with checkouts
-    subprocess.Popen(shlex.split('cd ../../'))
+    os.chdir(CWD_HOME_DIRECTORY)
     subprocess.Popen(
         shlex.split('git clone -b dev https://github.com/MediaKraken/MediaKraken_Deployment'))
-    subprocess.Popen(shlex.split('cd ./MediaKraken_Deployment/docker/alpine'))
+    os.chdir(os.path.join(CWD_HOME_DIRECTORY, '/MediaKraken_Deployment/docker/alpine'))
 else:
     # cd to MediaKraken_Deployment dir
-    subprocess.Popen(shlex.split('cd ../../MediaKraken_Deployment/docker/alpine'))
+    os.chdir(os.path.join(CWD_HOME_DIRECTORY, '/MediaKraken_Deployment/docker/alpine'))
     # pull down latest code
     subprocess.Popen(['git', 'pull'])
 
@@ -57,8 +50,10 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_THREE_IMAGES):
     for docker_images in build_stages:
         # do the actual build process for docker image
-        subprocess.Popen(shlex.split('cd ../%s && docker build -t mediakraken/%s:dev'
+        os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+                              '/MediaKraken_Deployment/docker/alpine/%s' % docker_images))
+        subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                      ' --build-arg ALPMIRROR=%s --build-arg PIPMIRROR=%s .') %
-                         (docker_images, build_stages[docker_images][0],
+                         (build_stages[docker_images][0],
                           common_docker_images.ALPINE_MIRROR,
                           common_docker_images.PYPI_MIRROR))
