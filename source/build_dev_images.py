@@ -25,6 +25,7 @@ from common import common_docker_images
 
 # change this directory to the dir that you have MediaKraken_CI checked out too
 CWD_HOME_DIRECTORY = '/root'
+DOCKER_REPOSITORY = 'th-dockerregistry-1:50000'  # https://index.docker.io:443
 
 if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')):
     # backup to main dir with checkouts
@@ -55,6 +56,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         # TODO should I build to local repo?
         # docker build -t th-dockerhub-1:5000/mediakraken/mkprefetchtvmaze .
         # TODO don't pass alpine mirror to non alpine images?
+        # parse dockerfile for best practices
+        pid_proc = subprocess.Popen(
+            shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'))
+        pid_proc.wait()
+        # TODO check for errors/warnings and stop if found
         pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                                 ' --build-arg ALPMIRROR=%s'
                                                 ' --build-arg PIPMIRROR=%s .' %
@@ -63,11 +69,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                  common_docker_images.PYPI_MIRROR)))
         pid_proc.wait()
         # TODO check for errors and stop if found
-        # TODO push images to local repo
+        # TODO push images to local repo - do I really need this?
+        # TODO what would this actually accomplish for me?
         # docker push th-dockerhub-1:5000/mediakraken/mkbaseffmpeg:dev
 
 # TODO run clair against all images
 # docker-compose run --rm clair-scanner wdijkerman/consu
 # docker-compose run --rm clair-scanner postgres:latest
 # TODO run docker-bench against all images (bench.sh)
-
