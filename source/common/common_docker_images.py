@@ -31,6 +31,16 @@ PYPI_MIRROR = 'pypi.python.org'
 # ComposeMediaKrakenPrefetchTVMaze
 # ComposeMediaKrakenRipper
 
+# TODO user fix for security
+# Redis
+# RabbitMQ
+# NGINX
+# Database
+# Transmission
+# Teamspeak
+# RetroArchWeb
+# MusicBrainz
+
 # the data is directory, name of container, base image used to build container
 
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
@@ -70,7 +80,7 @@ STAGE_THREE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py
                       'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.9'),
                       'ComposeMediaKrakenPGBouncer': ('mkpgbounce', 'alpine:3.8'),
                       'ComposeMediaKrakenPika': ('mkpika', 'mkbase310py3'),
-                      'ComposeMediaKrakenRabbitMQ/management': ('mkrabbitmq', 'alpine:3.8'),
+                      'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.8'),
                       'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase310py3'),
                       'ComposeMediaKrakenRedis': ('mkredis', 'alpine:3.8'),
                       'ComposeMediaKrakenRokuThumb': ('mkrokuthumb', 'mkbasenodeffmpeg'),
