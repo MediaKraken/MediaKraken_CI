@@ -41,7 +41,7 @@ if not os.path.exists('../../MediaKraken_Deployment'):
     subprocess.Popen(shlex.split('cd ./MediaKraken_Deployment/docker/alpine'))
 else:
     # cd to MediaKraken_Deployment dir
-    subprocess.Popen(shlex.split('cd ../../MediaKraken_Deployment//docker/alpine'))
+    subprocess.Popen(shlex.split('cd ../../MediaKraken_Deployment/docker/alpine'))
     # pull down latest code
     subprocess.Popen(['git', 'pull'])
 
