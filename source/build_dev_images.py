@@ -26,15 +26,15 @@ from common import common_docker_images
 # change this directory to the dir that you have MediaKraken_CI checked out too
 CWD_HOME_DIRECTORY = '/root'
 
-if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, '/MediaKraken_Deployment')):
+if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')):
     # backup to main dir with checkouts
     os.chdir(CWD_HOME_DIRECTORY)
     subprocess.Popen(
         shlex.split('git clone -b dev https://github.com/MediaKraken/MediaKraken_Deployment'))
-    os.chdir(os.path.join(CWD_HOME_DIRECTORY, '/MediaKraken_Deployment/docker/alpine'))
+    os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/docker/alpine'))
 else:
     # cd to MediaKraken_Deployment dir
-    os.chdir(os.path.join(CWD_HOME_DIRECTORY, '/MediaKraken_Deployment/docker/alpine'))
+    os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/docker/alpine'))
     # pull down latest code
     subprocess.Popen(['git', 'pull'])
 
@@ -51,7 +51,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
     for docker_images in build_stages:
         # do the actual build process for docker image
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
-                              '/MediaKraken_Deployment/docker/alpine/%s' % docker_images))
+                              'MediaKraken_Deployment/docker/alpine/%s' % docker_images))
         subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                      ' --build-arg ALPMIRROR=%s --build-arg PIPMIRROR=%s .') %
                          (build_stages[docker_images][0],
