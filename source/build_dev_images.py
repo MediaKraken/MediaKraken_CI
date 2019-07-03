@@ -18,22 +18,42 @@
 
 import os
 import shlex
+import shutil
 
 from common import common_docker_images
 
-# pull down latest code
-os.subprocess.Popen(['git', 'pull'])
-# sync the latest code into the image locations for build
-os.subprocess.Popen(['./source_sync.sh'])
+"""
+MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
+MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
+MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
+MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
+MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
+MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
+MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
+"""
 
-# must move base dir so the docker-compose commands work
-os.subprocess.Popen(shlex.split('cd ../docker/alpine'))
-# bring down current running images
-os.subprocess.Popen(shlex.split('docker-compose down'))
+if not os.path.exists('../../MediaKraken_Deployment'):
+    # backup to main dir with checkouts
+    os.subprocess.Popen(shlex.split('cd ../../'))
+    os.subprocess.Popen(
+        shlex.split('git clone -b dev https://github.com/MediaKraken/MediaKraken_Deployment'))
+    os.subprocess.Popen(shlex.split('cd ./MediaKraken_Deployment/docker/alpine'))
+else:
+    # cd to MediaKraken_Deployment dir
+    os.subprocess.Popen(shlex.split('cd ../../MediaKraken_Deployment//docker/alpine'))
+    # pull down latest code
+    os.subprocess.Popen(['git', 'pull'])
+
+# sync the latest code into the image locations for build
+# broadcast
+shutil.copy('../../source/subprogram_broadcast.py', './ComposeMediaKrakenBroadcast/src/')
+shutil.copytree('../../source/common', './ComposeMediaKrakenBroadcast/src/')
+
+# os.subprocess.Popen(['./source_sync.sh'])
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
-               common_docker_images.STAGE_TWO_IMAGES,
-               common_docker_images.STAGE_THREE_IMAGES):
+                     common_docker_images.STAGE_TWO_IMAGES,
+                     common_docker_images.STAGE_THREE_IMAGES):
     for docker_images in build_stages:
         # do the actual build process for docker image
         os.subprocess.Popen(shlex.split('cd ../%s && docker build -t mediakraken/%s:dev'
