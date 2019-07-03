@@ -39,11 +39,7 @@ else:
     subprocess.Popen(['git', 'pull'])
 
 # sync the latest code into the image locations for build
-# broadcast
-shutil.copy('../../source/subprogram_broadcast.py', './ComposeMediaKrakenBroadcast/src/')
-shutil.copytree('../../source/common', './ComposeMediaKrakenBroadcast/src/')
-
-# os.subprocess.Popen(['./source_sync.sh'])
+os.subprocess.Popen([os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source_sync.sh')])
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
