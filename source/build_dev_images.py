@@ -19,6 +19,7 @@
 import os
 import shlex
 import shutil
+import subprocess
 
 from common import common_docker_images
 
@@ -34,15 +35,15 @@ MUST RUN FROM THE SOURCE DIRECTORY IN THE CI PROJECT
 
 if not os.path.exists('../../MediaKraken_Deployment'):
     # backup to main dir with checkouts
-    os.subprocess.Popen(shlex.split('cd ../../'))
-    os.subprocess.Popen(
+    subprocess.Popen(shlex.split('cd ../../'))
+    subprocess.Popen(
         shlex.split('git clone -b dev https://github.com/MediaKraken/MediaKraken_Deployment'))
-    os.subprocess.Popen(shlex.split('cd ./MediaKraken_Deployment/docker/alpine'))
+    subprocess.Popen(shlex.split('cd ./MediaKraken_Deployment/docker/alpine'))
 else:
     # cd to MediaKraken_Deployment dir
-    os.subprocess.Popen(shlex.split('cd ../../MediaKraken_Deployment//docker/alpine'))
+    subprocess.Popen(shlex.split('cd ../../MediaKraken_Deployment//docker/alpine'))
     # pull down latest code
-    os.subprocess.Popen(['git', 'pull'])
+    subprocess.Popen(['git', 'pull'])
 
 # sync the latest code into the image locations for build
 # broadcast
@@ -56,8 +57,8 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_THREE_IMAGES):
     for docker_images in build_stages:
         # do the actual build process for docker image
-        os.subprocess.Popen(shlex.split('cd ../%s && docker build -t mediakraken/%s:dev'
-                                        ' --build-arg ALPMIRROR=%s --build-arg PIPMIRROR=%s .') %
-                            (docker_images, build_stages[docker_images][0],
-                             common_docker_images.ALPINE_MIRROR,
-                             common_docker_images.PYPI_MIRROR))
+        subprocess.Popen(shlex.split('cd ../%s && docker build -t mediakraken/%s:dev'
+                                     ' --build-arg ALPMIRROR=%s --build-arg PIPMIRROR=%s .') %
+                         (docker_images, build_stages[docker_images][0],
+                          common_docker_images.ALPINE_MIRROR,
+                          common_docker_images.PYPI_MIRROR))

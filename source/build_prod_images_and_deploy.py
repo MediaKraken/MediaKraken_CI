@@ -18,6 +18,7 @@
 
 import os
 import shlex
+import subprocess
 
 from common import common_docker_images
 
@@ -26,7 +27,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_THREE_IMAGES):
     for docker_images in build_stages:
         # retag all the images to latest
-        os.subprocess.Popen(shlex.split('docker tag mediakraken/%s:dev mediakraken/%s:latest')
-                            % (docker_images[0], docker_images[0]))
+        subprocess.Popen(shlex.split('docker tag mediakraken/%s:dev mediakraken/%s:latest')
+                         % (docker_images[0], docker_images[0]))
         # push the actual image to docker hub
-        os.subprocess.Popen(shlex.split('docker push mediakraken/%s:latest') % docker_images[0])
+        subprocess.Popen(shlex.split('docker push mediakraken/%s:latest') % docker_images[0])
