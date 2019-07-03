@@ -41,7 +41,9 @@ else:
     pid_proc.wait()
 
 # sync the latest code into the image locations for build
-subprocess.Popen([os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source/source_sync.sh')])
+pid_proc = subprocess.Popen(
+    [os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source/source_sync.sh')])
+pid_proc.wait()
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
