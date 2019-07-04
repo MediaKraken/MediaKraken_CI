@@ -18,7 +18,6 @@
 
 import os
 import shlex
-import shutil
 import subprocess
 
 from common import common_docker_images
