@@ -66,7 +66,8 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 ' --build-arg PIPMIRROR=%s .' %
                                                 (build_stages[docker_images][0],
                                                  common_docker_images.ALPINE_MIRROR,
-                                                 common_docker_images.PYPI_MIRROR)))
+                                                 common_docker_images.PYPI_MIRROR)),
+                                    stdout=subprocess.PIPE, shell=False)
         pid_proc.wait()
         # TODO check for errors and stop if found
         # TODO push images to local repo - do I really need this?
