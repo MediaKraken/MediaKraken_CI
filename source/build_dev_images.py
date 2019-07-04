@@ -63,6 +63,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         pid_proc = subprocess.Popen(
             shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
             stdout=subprocess.PIPE, shell=False)
+        while True:
+            line = pid_proc.stdout.readline()
+            if not line:
+                break
+            print(line.rstrip())
         pid_proc.wait()
         print('After hadolint')
         # TODO check for errors/warnings and stop if found
@@ -73,6 +78,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                  common_docker_images.ALPINE_MIRROR,
                                                  common_docker_images.PYPI_MIRROR)),
                                     stdout=subprocess.PIPE, shell=False)
+        while True:
+            line = pid_proc.stdout.readline()
+            if not line:
+                break
+            print(line.rstrip())
         pid_proc.wait()
         print('After build')
         # TODO check for errors and stop if found
