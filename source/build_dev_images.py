@@ -45,11 +45,14 @@ else:
 pid_proc = subprocess.Popen(
     [os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source/source_sync.sh')])
 pid_proc.wait()
+print('After source sync')
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_THREE_IMAGES):
+    print('Build stage')
     for docker_images in build_stages:
+        print('Image')
         # do the actual build process for docker image
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                               'MediaKraken_Deployment/docker/alpine/%s' % docker_images))
@@ -60,6 +63,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         pid_proc = subprocess.Popen(
             shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'))
         pid_proc.wait()
+        print('After hadolint')
         # TODO check for errors/warnings and stop if found
         pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                                 ' --build-arg ALPMIRROR=%s'
@@ -69,6 +73,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                  common_docker_images.PYPI_MIRROR)),
                                     stdout=subprocess.PIPE, shell=False)
         pid_proc.wait()
+        print('After build')
         # TODO check for errors and stop if found
         # TODO push images to local repo - do I really need this?
         # TODO what would this actually accomplish for me?
