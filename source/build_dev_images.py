@@ -58,7 +58,6 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         print(os.getcwd())
         # TODO should I build to local repo?
         # docker build -t th-dockerhub-1:5000/mediakraken/mkprefetchtvmaze .
-        # TODO don't pass alpine mirror to non alpine images?
         # parse dockerfile for best practices
         pid_proc = subprocess.Popen(
             shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
@@ -71,6 +70,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         pid_proc.wait()
         print('After hadolint')
         # TODO check for errors/warnings and stop if found
+        # TODO don't pass alpine mirror to non alpine images?
         pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                                 ' --build-arg ALPMIRROR=%s'
                                                 ' --build-arg PIPMIRROR=%s .' %
@@ -91,6 +91,6 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         # docker push th-dockerhub-1:5000/mediakraken/mkbaseffmpeg:dev
 
 # TODO run clair against all images
-# docker-compose run --rm clair-scanner wdijkerman/consu
 # docker-compose run --rm clair-scanner postgres:latest
+
 # TODO run docker-bench against all images (bench.sh)
