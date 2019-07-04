@@ -56,12 +56,14 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         # do the actual build process for docker image
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                               'MediaKraken_Deployment/docker/alpine/%s' % docker_images))
+        print(os.getcwd())
         # TODO should I build to local repo?
         # docker build -t th-dockerhub-1:5000/mediakraken/mkprefetchtvmaze .
         # TODO don't pass alpine mirror to non alpine images?
         # parse dockerfile for best practices
         pid_proc = subprocess.Popen(
-            shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'))
+            shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
+            stdout=subprocess.PIPE, shell=False)
         pid_proc.wait()
         print('After hadolint')
         # TODO check for errors/warnings and stop if found
