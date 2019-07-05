@@ -96,3 +96,10 @@ STAGE_THREE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py
                       'ComposeMediaKrakenServer': ('mkserver', 'mkbase38py3'),
                       'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase38py3'),
                       }
+
+# these are for security and linting all code
+# directory, name, base image, build script
+STAGE_SECURITY_TOOLS = {'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
+                        'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
+                        'testssl': ('mktestssl', 'alpine:3.9'),
+                        }

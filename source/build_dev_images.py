@@ -91,7 +91,4 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         # TODO what would this actually accomplish for me?
         # docker push th-dockerhub-1:5000/mediakraken/mkbaseffmpeg:dev
 
-# TODO run clair against all images
-# docker-compose run --rm clair-scanner postgres:latest
 
-# TODO run docker-bench against all images (bench.sh)
