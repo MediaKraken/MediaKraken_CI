@@ -21,9 +21,9 @@ import shlex
 import subprocess
 
 from common import common_docker_images
+from common import common_network_email
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('\\MediaKraken_CI', 1)[0]
-DOCKER_REPOSITORY = 'th-dockerregistry-1:50000'  # https://index.docker.io:443
 
 if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')):
     # backup to main dir with checkouts
@@ -85,7 +85,12 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             print(line.rstrip())
         pid_proc.wait()
         print('After build')
-        # TODO check for errors and stop if found
+        common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                                'spootdev@gmail.com',
+                                                'Build images: ' + build_stages[docker_images][0],
+                                                body,
+                                                smtp_server=os.environ['MAILSERVER'],
+                                                smtp_port=os.environ['MAILPORT'])
         # TODO push images to local repo - do I really need this?
         # TODO what would this actually accomplish for me?
         # docker push th-dockerhub-1:5000/mediakraken/mkbaseffmpeg:dev

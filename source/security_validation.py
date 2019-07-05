@@ -16,7 +16,11 @@
   MA 02110-1301, USA.
 '''
 
+import os
+import time
 from common import common_docker_images
+
+CWD_HOME_DIRECTORY = os.getcwd().rsplit('\\MediaKraken_CI', 1)[0]
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
@@ -34,9 +38,20 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             print(line.rstrip())
         pid_proc.wait()
 
-# TODO start up the app so bench can see running images too?
+# Start up the app so bench can see running images
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/alpine/'))
+pid_proc = subprocess.Popen(shlex.split('docker-compose up -d'),
+                            stdout=subprocess.PIPE, shell=False)
+while True:
+    line = pid_proc.stdout.readline()
+    if not line:
+        break
+    print(line.rstrip())
+pid_proc.wait()
+# this sleep is here so that everything has time to fully start like pika
+time.sleep(15)
 
-# run docker-bench on all images
+# run docker-bench on all images as it checks for common best practices
 pid_proc = subprocess.Popen(shlex.split('./bench.sh'),
                             stdout=subprocess.PIPE, shell=False)
 while True:
@@ -46,8 +61,18 @@ while True:
     print(line.rstrip())
 pid_proc.wait()
 
-# Test the SSL security of the nginx ssl setup
-pid_proc = subprocess.Popen(shlex.split('docker run -ti drwetter/testssl.sh localhost:8900'),
+# Test the SSL security of the nginx ssl setup via testssl.sh
+pid_proc = subprocess.Popen(shlex.split('docker run -ti mediakraken/mktestssl localhost:8900'),
+                            stdout=subprocess.PIPE, shell=False)
+while True:
+    line = pid_proc.stdout.readline()
+    if not line:
+        break
+    print(line.rstrip())
+pid_proc.wait()
+
+# Web Vulnerability Scanner via rapidscan
+pid_proc = subprocess.Popen(shlex.split('docker run -ti mediakraken/mkrapidscan localhost:8900'),
                             stdout=subprocess.PIPE, shell=False)
 while True:
     line = pid_proc.stdout.readline()
