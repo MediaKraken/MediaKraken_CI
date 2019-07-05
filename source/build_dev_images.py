@@ -70,6 +70,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         pid_proc.wait()
         print('After hadolint')
         # TODO check for errors/warnings and stop if found
+        # Successfully tagged
         # TODO don't pass alpine mirror to non alpine images?
         pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                                 ' --build-arg ALPMIRROR=%s'
