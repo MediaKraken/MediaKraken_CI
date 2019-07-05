@@ -22,7 +22,6 @@ curl "https://gitlab.com/kalilinux/packages/debootstrap/raw/kali/master/scripts/
   sudo docker tag kalilinux/kali-linux-docker:$VERSION kalilinux/kali-linux-docker:$TAG && \
   echo "Labeling kali" && \
   sudo docker build \
-    --squash \
     --rm \
     -t kalilinux/kali-linux-docker:$VERSION \
     --build-arg BUILD_DATE=$BUILD_DATE \
