@@ -22,8 +22,7 @@ import subprocess
 
 from common import common_docker_images
 
-# change this directory to the dir that you have MediaKraken_CI checked out too
-CWD_HOME_DIRECTORY = '/root'
+CWD_HOME_DIRECTORY = os.getcwd().rsplit('\\MediaKraken_CI', 1)[0]
 DOCKER_REPOSITORY = 'th-dockerregistry-1:50000'  # https://index.docker.io:443
 
 if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')):
@@ -90,5 +89,3 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         # TODO push images to local repo - do I really need this?
         # TODO what would this actually accomplish for me?
         # docker push th-dockerhub-1:5000/mediakraken/mkbaseffmpeg:dev
-
-
