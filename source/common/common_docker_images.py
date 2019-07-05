@@ -105,7 +105,6 @@ STAGE_ONE_SECURITY_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
                             'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
                             'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
                             'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
-                            'rapidscan': ('mkrapidscan', 'mkkali'),
                             'testssl': ('mktestssl', 'alpine:3.9'),
                             'wireshark': ('mkwireshark', 'debian:stretch-slim'),
                             }

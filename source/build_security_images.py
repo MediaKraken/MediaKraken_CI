@@ -22,7 +22,7 @@ import subprocess
 
 from common import common_docker_images
 
-CWD_HOME_DIRECTORY = os.getcwd().rsplit('\\MediaKraken_CI', 1)[0]
+CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 for build_stages in (common_docker_images.STAGE_ONE_SECURITY_TOOLS,
                      common_docker_images.STAGE_TWO_SECURITY_TOOLS,):
     for docker_images in build_stages:
