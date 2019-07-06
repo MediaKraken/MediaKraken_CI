@@ -58,7 +58,7 @@ CMD [“node”, “index.js”]
 STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8'),
                     'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9'),
                     'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10'),
-                    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.8'),
+                    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.10'),
                     # 'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu', 'ubuntu:18.10'),
                     'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.9'),
                     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04'),
@@ -71,8 +71,8 @@ STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8')
 
 # build on top of base os images from above
 STAGE_TWO_IMAGES = {'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg'),
-                    'ComposeMediaKrakenBaseNodeFFMPEGUbuntu': (
-                        'mkbasenodeffmpegubuntu', 'mkbaseffmpegubuntu'),
+                    #'ComposeMediaKrakenBaseNodeFFMPEGUbuntu': (
+                    #    'mkbasenodeffmpegubuntu', 'mkbaseffmpegubuntu'),
                     'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase38py3'),
                     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase38py3'),
                     'ComposeMediaKrakenGrapesJS': ('mkgrapesjs', 'mkbasenode'),
@@ -82,7 +82,7 @@ STAGE_TWO_IMAGES = {'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mk
 
 # these are the final "compose" images
 STAGE_THREE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py3'),
-                      'ComposeMediaKrakenCron': ('mkcron', 'mkbase38py3'),
+                      'ComposeMediaKrakenCron': ('mkcron', 'mkbase310py3'),
                       'ComposeMediaKrakenDatabase': ('mkdatabase', 'alpine:3.10'),
                       'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase38py3'),
                       'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg'),
