@@ -22,6 +22,10 @@ import subprocess
 
 from common import common_docker_images
 from common import common_network_email
+from dotenv import load_dotenv
+
+# load .env stats
+load_dotenv()
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 
@@ -88,8 +92,8 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         pid_proc.wait()
         print('After build')
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
-                                                'spootdev@gmail.com',
-                                                'Build images: ' + build_stages[docker_images][0],
+                                                os.environ['MAILUSER'],
+                                                'Build image: ' + build_stages[docker_images][0],
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
