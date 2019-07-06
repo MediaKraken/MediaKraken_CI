@@ -37,10 +37,13 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_THREE_IMAGES):
     for docker_images in build_stages:
         # Run Clair on each image
-        pid_proc = subprocess.Popen(
-            shlex.split('docker-compose run --rm clair-scanner mediakraken/%s:dev' %
-                        (build_stages[docker_images][0],)),
-            stdout=subprocess.PIPE, shell=False)
+        try:
+            pid_proc = subprocess.Popen(
+                shlex.split('docker-compose run --rm clair-scanner mediakraken/%s:dev' %
+                            (build_stages[docker_images][0],)),
+                stdout=subprocess.PIPE, shell=False)
+        except subprocess.CalledProcessError as e:
+            print(e.output)
         email_body = ''
         while True:
             line = pid_proc.stdout.readline()
