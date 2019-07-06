@@ -87,7 +87,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             line = pid_proc.stdout.readline()
             if not line:
                 break
-            email_body += line
+            email_body += str(line)
             print(line.rstrip())
         pid_proc.wait()
         print('After build')
