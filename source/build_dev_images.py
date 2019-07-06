@@ -47,18 +47,14 @@ else:
 pid_proc = subprocess.Popen(
     [os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source/source_sync.sh')])
 pid_proc.wait()
-print('After source sync')
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_THREE_IMAGES):
-    print('Build stage')
     for docker_images in build_stages:
-        print('Image')
         # do the actual build process for docker image
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                               'MediaKraken_Deployment/docker/alpine/%s' % docker_images))
-        print(os.getcwd())
         # TODO should I build to local repo?
         # docker build -t th-dockerhub-1:5000/mediakraken/mkprefetchtvmaze .
         # parse dockerfile for best practices
@@ -71,7 +67,6 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 break
             print(line.rstrip())
         pid_proc.wait()
-        print('After hadolint')
         # TODO check for errors/warnings and stop if found
         # Successfully tagged
         # TODO don't pass alpine mirror to non alpine images?
@@ -87,13 +82,17 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             line = pid_proc.stdout.readline()
             if not line:
                 break
-            email_body += str(line)
+            email_body += line.decode("utf-8")
             print(line.rstrip())
         pid_proc.wait()
-        print('After build')
+        subject_text = ' FAILED'
+        if email_body.find('Successfully tagged mediakraken') != -1:
+            subject_text = ' SUCCESS'
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
-                                                'Build image: ' + build_stages[docker_images][0],
+                                                'Build image: '
+                                                + build_stages[docker_images][0]
+                                                + subject_text,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
