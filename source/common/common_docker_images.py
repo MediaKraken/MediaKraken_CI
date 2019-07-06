@@ -59,7 +59,7 @@ STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8')
                     'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9'),
                     'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10'),
                     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.8'),
-                    'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu', 'ubuntu:18.10'),
+                    # 'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu', 'ubuntu:18.10'),
                     'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.9'),
                     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04'),
                     'ComposeMediaKrakenMumble': ('mkmumble', 'alpine:3.6'),
@@ -77,7 +77,7 @@ STAGE_TWO_IMAGES = {'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mk
                     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase38py3'),
                     'ComposeMediaKrakenGrapesJS': ('mkgrapesjs', 'mkbasenode'),
                     'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg'),
-                    'ComposeMediaKrakenSlaveUbuntu': ('mkslaveubuntu', 'mkbasenodeffmpegubuntu'),
+                    # 'ComposeMediaKrakenSlaveUbuntu': ('mkslaveubuntu', 'mkbasenodeffmpegubuntu'),
                     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase38py3')}
 
 # these are the final "compose" images
