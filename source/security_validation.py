@@ -23,6 +23,10 @@ import time
 
 from common import common_docker_images
 from common import common_network_email
+from dotenv import load_dotenv
+
+# load .env stats
+load_dotenv()
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 
