@@ -41,12 +41,21 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             shlex.split('docker-compose run --rm clair-scanner mediakraken/%s:dev' %
                         (build_stages[docker_images][0],)),
             stdout=subprocess.PIPE, shell=False)
+        email_body = ''
         while True:
             line = pid_proc.stdout.readline()
             if not line:
                 break
+            email_body += line.decode("utf-8")
             print(line.rstrip())
         pid_proc.wait()
+        common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                                os.environ['MAILUSER'],
+                                                'Clair image: '
+                                                + build_stages[docker_images][0],
+                                                email_body,
+                                                smtp_server=os.environ['MAILSERVER'],
+                                                smtp_port=os.environ['MAILPORT'])
 
 # Start up the app so bench can see running images
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/alpine/'))
