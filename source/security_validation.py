@@ -52,9 +52,9 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                     break
                 email_body += line.decode("utf-8")
                 print(line.rstrip())
+            pid_proc.wait()
         except:
             pass
-        pid_proc.wait()
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
                                                 'Clair image: '
