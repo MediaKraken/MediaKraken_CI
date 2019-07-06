@@ -1,3 +1,4 @@
+#!/bin/sh
 docker push mediakraken/mkelk:latest
 docker push mediakraken/mkjenkins:latest
 docker push mediakraken/mkpgadmin:latest
