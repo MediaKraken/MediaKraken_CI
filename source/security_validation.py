@@ -17,10 +17,14 @@
 '''
 
 import os
+import shlex
+import subprocess
 import time
-from common import common_docker_images
 
-CWD_HOME_DIRECTORY = os.getcwd().rsplit('\\MediaKraken_CI', 1)[0]
+from common import common_docker_images
+from common import common_network_email
+
+CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
@@ -54,29 +58,50 @@ time.sleep(15)
 # run docker-bench on all images as it checks for common best practices
 pid_proc = subprocess.Popen(shlex.split('./bench.sh'),
                             stdout=subprocess.PIPE, shell=False)
+email_body = ''
 while True:
     line = pid_proc.stdout.readline()
     if not line:
         break
+    email_body += line.decode("utf-8")
     print(line.rstrip())
 pid_proc.wait()
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Docker Bench', email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
 
 # Test the SSL security of the nginx ssl setup via testssl.sh
 pid_proc = subprocess.Popen(shlex.split('docker run -ti mediakraken/mktestssl localhost:8900'),
                             stdout=subprocess.PIPE, shell=False)
+email_body = ''
 while True:
     line = pid_proc.stdout.readline()
     if not line:
         break
+    email_body += line.decode("utf-8")
     print(line.rstrip())
 pid_proc.wait()
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'TestSSL', email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
 
 # Web Vulnerability Scanner via rapidscan
 pid_proc = subprocess.Popen(shlex.split('docker run -ti mediakraken/mkrapidscan localhost:8900'),
                             stdout=subprocess.PIPE, shell=False)
+email_body = ''
 while True:
     line = pid_proc.stdout.readline()
     if not line:
         break
+    email_body += line.decode("utf-8")
     print(line.rstrip())
 pid_proc.wait()
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Rapidscan', email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])

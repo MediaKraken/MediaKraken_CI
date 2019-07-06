@@ -21,6 +21,7 @@ import shlex
 import subprocess
 
 from common import common_docker_images
+from common import common_network_email
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 for build_stages in (common_docker_images.STAGE_ONE_SECURITY_TOOLS,
@@ -35,9 +36,22 @@ for build_stages in (common_docker_images.STAGE_ONE_SECURITY_TOOLS,
                                                  common_docker_images.ALPINE_MIRROR,
                                                  common_docker_images.PYPI_MIRROR)),
                                     stdout=subprocess.PIPE, shell=False)
+        email_body = ''
         while True:
             line = pid_proc.stdout.readline()
             if not line:
                 break
+            email_body += line.decode("utf-8")
             print(line.rstrip())
         pid_proc.wait()
+        subject_text = ' FAILED'
+        if email_body.find('Successfully tagged mediakraken') != -1:
+            subject_text = ' SUCCESS'
+        common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                                os.environ['MAILUSER'],
+                                                'Build image: '
+                                                + build_stages[docker_images][0]
+                                                + subject_text,
+                                                email_body,
+                                                smtp_server=os.environ['MAILSERVER'],
+                                                smtp_port=os.environ['MAILPORT'])
