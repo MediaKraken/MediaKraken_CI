@@ -30,6 +30,8 @@ load_dotenv()
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 
+# change dir for clair scanner
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'docker/clair/'))
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_THREE_IMAGES):
@@ -60,6 +62,7 @@ pid_proc.wait()
 time.sleep(15)
 
 # run docker-bench on all images as it checks for common best practices
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source'))
 pid_proc = subprocess.Popen(shlex.split('./bench.sh'),
                             stdout=subprocess.PIPE, shell=False)
 email_body = ''
