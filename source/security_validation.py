@@ -45,12 +45,15 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         except subprocess.CalledProcessError as e:
             print(e.output)
         email_body = ''
-        while True:
-            line = pid_proc.stdout.readline()
-            if not line:
-                break
-            email_body += line.decode("utf-8")
-            print(line.rstrip())
+        try:
+            while True:
+                line = pid_proc.stdout.readline()
+                if not line:
+                    break
+                email_body += line.decode("utf-8")
+                print(line.rstrip())
+        except:
+            pass
         pid_proc.wait()
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
