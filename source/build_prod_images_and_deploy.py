@@ -30,7 +30,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         # retag all the images to latest
         pid_proc = subprocess.Popen(
             shlex.split('docker tag mediakraken/%s:dev mediakraken/%s:latest')
-            % (docker_images[0], docker_images[0]))
+            % (build_stages[docker_images][0], build_stages[docker_images][0]))
         while True:
             line = pid_proc.stdout.readline()
             if not line:
@@ -39,7 +39,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         pid_proc.wait()
         # push the actual image to docker hub
         pid_proc = subprocess.Popen(
-            shlex.split('docker push mediakraken/%s:latest') % docker_images[0])
+            shlex.split('docker push mediakraken/%s:latest') % build_stages[docker_images][0])
         while True:
             line = pid_proc.stdout.readline()
             if not line:
