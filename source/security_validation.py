@@ -95,7 +95,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_port=os.environ['MAILPORT'])
 
 # Test the SSL security of the nginx ssl setup via testssl.sh
-pid_proc = subprocess.Popen(shlex.split('docker run -ti mediakraken/mktestssl localhost:8900'),
+pid_proc = subprocess.Popen(shlex.split('docker run -ti mediakraken/mktestssl:dev localhost:8900'),
                             stdout=subprocess.PIPE, shell=False)
 email_body = ''
 while True:
@@ -112,8 +112,9 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_port=os.environ['MAILPORT'])
 
 # Web Vulnerability Scanner via rapidscan
-pid_proc = subprocess.Popen(shlex.split('docker run -ti mediakraken/mkrapidscan localhost:8900'),
-                            stdout=subprocess.PIPE, shell=False)
+pid_proc = subprocess.Popen(
+    shlex.split('docker run -ti mediakraken/mkrapidscan:dev localhost:8900'),
+    stdout=subprocess.PIPE, shell=False)
 email_body = ''
 while True:
     line = pid_proc.stdout.readline()
