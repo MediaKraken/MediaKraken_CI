@@ -16,7 +16,6 @@
   MA 02110-1301, USA.
 '''
 
-import os
 import shlex
 import subprocess
 
@@ -24,10 +23,26 @@ from common import common_docker_images
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_THREE_IMAGES):
+                     common_docker_images.STAGE_THREE_IMAGES,
+                     common_docker_images.STAGE_ONE_SECURITY_TOOLS,
+                     common_docker_images.STAGE_TWO_SECURITY_TOOLS):
     for docker_images in build_stages:
         # retag all the images to latest
-        subprocess.Popen(shlex.split('docker tag mediakraken/%s:dev mediakraken/%s:latest')
-                         % (docker_images[0], docker_images[0]))
+        pid_proc = subprocess.Popen(
+            shlex.split('docker tag mediakraken/%s:dev mediakraken/%s:latest')
+            % (docker_images[0], docker_images[0]))
+        while True:
+            line = pid_proc.stdout.readline()
+            if not line:
+                break
+            print(line.rstrip())
+        pid_proc.wait()
         # push the actual image to docker hub
-        subprocess.Popen(shlex.split('docker push mediakraken/%s:latest') % docker_images[0])
+        pid_proc = subprocess.Popen(
+            shlex.split('docker push mediakraken/%s:latest') % docker_images[0])
+        while True:
+            line = pid_proc.stdout.readline()
+            if not line:
+                break
+            print(line.rstrip())
+        pid_proc.wait()
