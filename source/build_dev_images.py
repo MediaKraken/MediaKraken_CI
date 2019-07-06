@@ -23,7 +23,7 @@ import subprocess
 from common import common_docker_images
 from common import common_network_email
 
-CWD_HOME_DIRECTORY = os.getcwd().rsplit('\\MediaKraken_CI', 1)[0]
+CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 
 if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')):
     # backup to main dir with checkouts
@@ -78,17 +78,19 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                  common_docker_images.ALPINE_MIRROR,
                                                  common_docker_images.PYPI_MIRROR)),
                                     stdout=subprocess.PIPE, shell=False)
+        email_body = ''
         while True:
             line = pid_proc.stdout.readline()
             if not line:
                 break
+            email_body += line
             print(line.rstrip())
         pid_proc.wait()
         print('After build')
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 'spootdev@gmail.com',
                                                 'Build images: ' + build_stages[docker_images][0],
-                                                body,
+                                                email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
         # TODO push images to local repo - do I really need this?
