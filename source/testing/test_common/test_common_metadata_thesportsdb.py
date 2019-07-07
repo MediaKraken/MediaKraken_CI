@@ -22,7 +22,7 @@ import pytest  # pylint: disable=W0611
 
 sys.path.append('.')
 from common import common_config_ini
-from common import common_metadata_thesportsdb
+from common import common_metadata_provider_thesportsdb
 
 
 class TestCommonMetadatathesportsdb:
@@ -31,7 +31,7 @@ class TestCommonMetadatathesportsdb:
     def setup_class(self):
         # open the database
         option_config_json, db_connection = common_config_ini.com_config_read(db_prod=False)
-        self.db_connection = common_metadata_thesportsdb.CommonMetadataTheSportsDB(
+        self.db_connection = common_metadata_provider_thesportsdb.CommonMetadataTheSportsDB(
             option_config_json)
 
     @classmethod

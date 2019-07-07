@@ -21,14 +21,14 @@ import sys
 import pytest  # pylint: disable=W0611
 
 sys.path.append('.')
-from common import common_metadata_pitchfork
+from common import common_metadata_provider_pitchfork
 
 
 class TestCommonpitchfork:
 
     @classmethod
     def setup_class(self):
-        self.pitchfork_connection = common_metadata_pitchfork.CommonMetadataPitchfork()
+        self.pitchfork_connection = common_metadata_provider_pitchfork.CommonMetadataPitchfork()
 
     @classmethod
     def teardown_class(self):

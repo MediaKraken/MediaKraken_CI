@@ -20,7 +20,7 @@ import sys
 
 sys.path.append('.')
 from common import common_config_ini
-from common import common_metadata_thelogodb
+from common import common_metadata_provider_thelogodb
 
 
 class TestCommonthelogodb:
@@ -29,7 +29,7 @@ class TestCommonthelogodb:
     def setup_class(self):
         # open the database
         option_config_json, db_connection = common_config_ini.com_config_read(db_prod=False)
-        self.db_connection = common_metadata_thelogodb.CommonMetadataTheLogoDB(
+        self.db_connection = common_metadata_provider_thelogodb.CommonMetadataTheLogoDB(
             option_config_json)
 
     @classmethod

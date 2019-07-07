@@ -21,14 +21,14 @@ import sys
 import pytest  # pylint: disable=W0611
 
 sys.path.append('.')
-from common import common_metadata_thegamesdb
+from common import common_metadata_provider_thegamesdb
 
 
 class TestCommonMetadataGamesDB:
 
     @classmethod
     def setup_class(self):
-        self.gamesdb_connection = common_metadata_thegamesdb.CommonMetadataGamesDB()
+        self.gamesdb_connection = common_metadata_provider_thegamesdb.CommonMetadataGamesDB()
 
     @classmethod
     def teardown_class(self):
