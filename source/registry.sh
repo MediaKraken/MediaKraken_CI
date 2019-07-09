@@ -4,4 +4,4 @@ docker run -d \
   --restart=always \
   --name mkregistry \
   -v /mnt/registry:/var/lib/registry \
-  mkregistry:dev
+  mediakraken/mkregistry:latest
