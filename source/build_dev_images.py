@@ -88,6 +88,30 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         subject_text = ' FAILED'
         if email_body.find('Successfully tagged mediakraken') != -1:
             subject_text = ' SUCCESS'
+            # tag for local repo
+            pid_proc = subprocess.Popen(
+                shlex.split('docker tag mediakraken/%s:dev'
+                            ' th-registry-1.beaverbay.local:5000/mediakraken/%s:dev'
+                            % (build_stages[docker_images][0], build_stages[docker_images][0])),
+                stdout=subprocess.PIPE, shell=False)
+            while True:
+                line = pid_proc.stdout.readline()
+                if not line:
+                    break
+                print(line.rstrip())
+            pid_proc.wait()
+            # push to local repo
+            pid_proc = subprocess.Popen(
+                shlex.split('docker push th-registry-1.beaverbay.local:5000/mediakraken/%s:latest'
+                            % build_stages[docker_images][0]),
+                stdout=subprocess.PIPE, shell=False)
+            while True:
+                line = pid_proc.stdout.readline()
+                if not line:
+                    break
+                print(line.rstrip())
+            pid_proc.wait()
+        # send success/fail email
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
                                                 'Build image: '
@@ -96,6 +120,3 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
-        # TODO push images to local repo - do I really need this?
-        # TODO what would this actually accomplish for me?
-        # docker push th-dockerhub-1:5000/mediakraken/mkbaseffmpeg:dev
