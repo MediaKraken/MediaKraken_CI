@@ -102,7 +102,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             pid_proc.wait()
             # push to local repo
             pid_proc = subprocess.Popen(
-                shlex.split('docker push th-registry-1.beaverbay.local:5000/mediakraken/%s:latest'
+                shlex.split('docker push th-registry-1.beaverbay.local:5000/mediakraken/%s:dev'
                             % build_stages[docker_images][0]),
                 stdout=subprocess.PIPE, shell=False)
             while True:
