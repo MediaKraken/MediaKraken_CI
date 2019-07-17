@@ -31,11 +31,11 @@ DOCKER_REPOSITORY = 'localhost:50000'  # https://index.docker.io:443
 # ComposeMediaKrakenMythTV
 # ComposeMediaKrakenPrefetchTMDB
 # ComposeMediaKrakenPrefetchTVMaze
-# ComposeMediaKrakenRipper
 
 # TODO user fix for security
 # Redis
 # RabbitMQ
+# Ripper
 # NGINX
 # Database
 # Transmission
@@ -76,6 +76,7 @@ STAGE_TWO_IMAGES = {'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mk
                     'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase38py3'),
                     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase38py3'),
                     'ComposeMediaKrakenGrapesJS': ('mkgrapesjs', 'mkbasenode'),
+                    'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg'),
                     'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg'),
                     # 'ComposeMediaKrakenSlaveUbuntu': ('mkslaveubuntu', 'mkbasenodeffmpegubuntu'),
                     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase38py3')}
