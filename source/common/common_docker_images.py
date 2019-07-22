@@ -16,11 +16,11 @@
   MA 02110-1301, USA.
 '''
 
-ALPINE_MIRROR = 'dl-cdn.alpinelinux.org'
+ALPINE_MIRROR = '10.0.0.122'
 
-PYPI_MIRROR = 'pypi.python.org'
+PYPI_MIRROR = 'th-bandersnatch-1'
 
-DOCKER_REPOSITORY = 'localhost:50000'  # https://index.docker.io:443
+DOCKER_REPOSITORY = 'th-registry-1.beaverbay.local'  # https://index.docker.io:443
 
 # TODO?
 # ComposeMediaKrakenBasePYPY
@@ -55,49 +55,50 @@ CMD [“node”, “index.js”]
 # the data is directory, name of container, base image used to build container
 
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
-STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8'),
-                    'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9'),
-                    'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10'),
-                    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.10'),
-                    # 'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu', 'ubuntu:18.10'),
-                    'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.9'),
-                    'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04'),
-                    'ComposeMediaKrakenMumble': ('mkmumble', 'alpine:3.6'),
-                    'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6'),
-                    'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:stretch'),
-                    'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8'),
-                    'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.8'),
+STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8', 'alpine'),
+                    'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9', 'alpine'),
+                    'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10', 'alpine'),
+                    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.10', 'alpine'),
+                    # 'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu', 'ubuntu:18.10', 'ubuntu'),
+                    'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.9', 'alpine'),
+                    'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'ubuntu'),
+                    'ComposeMediaKrakenMumble': ('mkmumble', 'alpine:3.6', 'alpine'),
+                    'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'),
+                    'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:stretch', 'debian'),
+                    'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
+                    'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.8', 'alpine'),
                     }
 
 # build on top of base os images from above
-STAGE_TWO_IMAGES = {'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg'),
+STAGE_TWO_IMAGES = {'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg', 'alpine'),
                     #'ComposeMediaKrakenBaseNodeFFMPEGUbuntu': (
-                    #    'mkbasenodeffmpegubuntu', 'mkbaseffmpegubuntu'),
-                    'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase38py3'),
-                    'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase38py3'),
-                    'ComposeMediaKrakenGrapesJS': ('mkgrapesjs', 'mkbasenode'),
-                    'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg'),
-                    'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg'),
-                    # 'ComposeMediaKrakenSlaveUbuntu': ('mkslaveubuntu', 'mkbasenodeffmpegubuntu'),
-                    'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase38py3')}
+                    #    'mkbasenodeffmpegubuntu', 'mkbaseffmpegubuntu', 'ubuntu'),
+                    'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase38py3', 'alpine'),
+                    'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase38py3', 'alpine'),
+                    'ComposeMediaKrakenGrapesJS': ('mkgrapesjs', 'mkbasenode', 'alpine'),
+                    'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg', 'alpine'),
+                    'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg', 'alpine'),
+                    # 'ComposeMediaKrakenSlaveUbuntu': ('mkslaveubuntu', 'mkbasenodeffmpegubuntu', 'ubuntu'),
+                    'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase38py3', 'alpine')}
 
 # these are the final "compose" images
-STAGE_THREE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py3'),
-                      'ComposeMediaKrakenCron': ('mkcron', 'mkbase310py3'),
-                      'ComposeMediaKrakenDatabase': ('mkdatabase', 'alpine:3.10'),
-                      'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase38py3'),
-                      'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg'),
-                      'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase38py3'),
-                      'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase38py3'),
-                      'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.9'),
-                      'ComposeMediaKrakenPGBouncer': ('mkpgbounce', 'alpine:3.8'),
-                      'ComposeMediaKrakenPika': ('mkpika', 'mkbase310py3'),
-                      'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.8'),
-                      'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase310py3'),
-                      'ComposeMediaKrakenRedis': ('mkredis', 'alpine:3.8'),
-                      'ComposeMediaKrakenRokuThumb': ('mkrokuthumb', 'mkbasenodeffmpeg'),
-                      'ComposeMediaKrakenServer': ('mkserver', 'mkbase38py3'),
-                      'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase38py3'),
+STAGE_THREE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py3', 'alpine'),
+                      'ComposeMediaKrakenCron': ('mkcron', 'mkbase310py3', 'alpine'),
+#                      'ComposeMediaKrakenDatabase': ('mkdatabase', 'alpine:3.10', 'alpine'),
+                      'ComposeMediaKrakenDatabase': ('mkdatabase', 'debian:stretch-slim', 'debian'),
+                      'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase38py3', 'alpine'),
+                      'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
+                      'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase38py3', 'alpine'),
+                      'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase38py3', 'alpine'),
+                      'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.9', 'alpine'),
+                      'ComposeMediaKrakenPGBouncer': ('mkpgbounce', 'alpine:3.8', 'alpine'),
+                      'ComposeMediaKrakenPika': ('mkpika', 'mkbase310py3', 'alpine'),
+                      'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.8', 'alpine'),
+                      'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase310py3', 'alpine'),
+                      'ComposeMediaKrakenRedis': ('mkredis', 'alpine:3.8', 'alpine'),
+                      'ComposeMediaKrakenRokuThumb': ('mkrokuthumb', 'mkbasenodeffmpeg', 'alpine'),
+                      'ComposeMediaKrakenServer': ('mkserver', 'mkbase38py3', 'alpine'),
+                      'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase38py3', 'alpine'),
                       }
 
 # these are for security and linting all code

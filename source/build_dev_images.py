@@ -35,10 +35,9 @@ if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')
     pid_proc = subprocess.Popen(
         shlex.split('git clone -b dev https://github.com/MediaKraken/MediaKraken_Deployment'))
     pid_proc.wait()
-    os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/docker/alpine'))
 else:
     # cd to MediaKraken_Deployment dir
-    os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/docker/alpine'))
+    os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'))
     # pull down latest code
     pid_proc = subprocess.Popen(['git', 'pull'])
     pid_proc.wait()
@@ -54,9 +53,8 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
     for docker_images in build_stages:
         # do the actual build process for docker image
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
-                              'MediaKraken_Deployment/docker/alpine/%s' % docker_images))
-        # TODO should I build to local repo?
-        # docker build -t th-dockerhub-1:5000/mediakraken/mkprefetchtvmaze .
+                              'MediaKraken_Deployment/docker/%s/%s',
+                              (build_stages[docker_images][2], docker_images)))
         # parse dockerfile for best practices
         pid_proc = subprocess.Popen(
             shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
