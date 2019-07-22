@@ -18,7 +18,7 @@
 
 ALPINE_MIRROR = '10.0.0.122'
 
-PYPI_MIRROR = 'th-bandersnatch-1'
+PYPI_MIRROR = 'th-bandersnatch-1' # pypi.python.org
 
 DOCKER_REPOSITORY = 'th-registry-1.beaverbay.local'  # https://index.docker.io:443
 
