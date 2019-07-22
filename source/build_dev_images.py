@@ -53,8 +53,8 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
     for docker_images in build_stages:
         # do the actual build process for docker image
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
-                              'MediaKraken_Deployment/docker/%s/%s',
-                              (build_stages[docker_images][2], docker_images)))
+                              'MediaKraken_Deployment/docker',
+                              build_stages[docker_images][2], docker_images))
         # parse dockerfile for best practices
         pid_proc = subprocess.Popen(
             shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
