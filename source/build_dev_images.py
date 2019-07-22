@@ -50,7 +50,7 @@ pid_proc.wait()
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_THREE_IMAGES):
+                     common_docker_images.STAGE_COMPOSE_IMAGES):
     for docker_images in build_stages:
         # do the actual build process for docker image
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
@@ -119,3 +119,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
+
+# # build the docker-compose images
+# for build_stages in (common_docker_images.STAGE_COMPOSE_IMAGES):
+#     for docker_images in build_stages:
+#         # do the actual build process for docker image
+#         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+#                               'MediaKraken_Deployment/docker',
+#                               build_stages[docker_images][2], docker_images))
