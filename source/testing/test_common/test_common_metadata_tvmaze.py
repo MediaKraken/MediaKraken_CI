@@ -19,14 +19,14 @@
 import sys
 
 sys.path.append('.')
-from common import common_metadata_tvmaze
+from common import common_metadata_provider_tvmaze
 
 
 class TestCommonMetadatatvmaze:
 
     @classmethod
     def setup_class(self):
-        self.db_connection = common_metadata_tvmaze.CommonMetadatatvmaze()
+        self.db_connection = common_metadata_provider_tvmaze.CommonMetadatatvmaze()
 
     @classmethod
     def teardown_class(self):

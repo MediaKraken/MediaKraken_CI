@@ -23,7 +23,7 @@ from common import common_docker_images
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_THREE_IMAGES,
+                     common_docker_images.STAGE_COMPOSE_IMAGES,
                      common_docker_images.STAGE_ONE_SECURITY_TOOLS,
                      common_docker_images.STAGE_TWO_SECURITY_TOOLS):
     for docker_images in build_stages:

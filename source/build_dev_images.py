@@ -35,28 +35,31 @@ if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')
     pid_proc = subprocess.Popen(
         shlex.split('git clone -b dev https://github.com/MediaKraken/MediaKraken_Deployment'))
     pid_proc.wait()
-    os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/docker/alpine'))
 else:
     # cd to MediaKraken_Deployment dir
-    os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/docker/alpine'))
+    os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'))
     # pull down latest code
     pid_proc = subprocess.Popen(['git', 'pull'])
     pid_proc.wait()
 
 # sync the latest code into the image locations for build
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/docker/alpine'))
 pid_proc = subprocess.Popen(
     [os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source/source_sync.sh')])
 pid_proc.wait()
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_THREE_IMAGES):
+                     common_docker_images.STAGE_COMPOSE_IMAGES):
     for docker_images in build_stages:
         # do the actual build process for docker image
-        os.chdir(os.path.join(CWD_HOME_DIRECTORY,
-                              'MediaKraken_Deployment/docker/alpine/%s' % docker_images))
-        # TODO should I build to local repo?
-        # docker build -t th-dockerhub-1:5000/mediakraken/mkprefetchtvmaze .
+        try:
+            # catch images that are in a testing branch that might not exist
+            os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+                                  'MediaKraken_Deployment/docker',
+                                  build_stages[docker_images][2], docker_images))
+        except FileNotFoundError:
+            continue
         # parse dockerfile for best practices
         pid_proc = subprocess.Popen(
             shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
@@ -88,6 +91,30 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         subject_text = ' FAILED'
         if email_body.find('Successfully tagged mediakraken') != -1:
             subject_text = ' SUCCESS'
+            # tag for local repo
+            pid_proc = subprocess.Popen(
+                shlex.split('docker tag mediakraken/%s:dev'
+                            ' th-registry-1.beaverbay.local:5000/mediakraken/%s:dev'
+                            % (build_stages[docker_images][0], build_stages[docker_images][0])),
+                stdout=subprocess.PIPE, shell=False)
+            while True:
+                line = pid_proc.stdout.readline()
+                if not line:
+                    break
+                print(line.rstrip())
+            pid_proc.wait()
+            # push to local repo
+            pid_proc = subprocess.Popen(
+                shlex.split('docker push th-registry-1.beaverbay.local:5000/mediakraken/%s:dev'
+                            % build_stages[docker_images][0]),
+                stdout=subprocess.PIPE, shell=False)
+            while True:
+                line = pid_proc.stdout.readline()
+                if not line:
+                    break
+                print(line.rstrip())
+            pid_proc.wait()
+        # send success/fail email
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
                                                 'Build image: '
@@ -96,6 +123,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
-        # TODO push images to local repo - do I really need this?
-        # TODO what would this actually accomplish for me?
-        # docker push th-dockerhub-1:5000/mediakraken/mkbaseffmpeg:dev
+
+# # build the docker-compose images
+# for build_stages in (common_docker_images.STAGE_COMPOSE_IMAGES):
+#     for docker_images in build_stages:
+#         # do the actual build process for docker image
+#         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+#                               'MediaKraken_Deployment/docker',
+#                               build_stages[docker_images][2], docker_images))
