@@ -59,6 +59,7 @@ CMD [“node”, “index.js”]
 STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8', 'alpine'),
                     'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9', 'alpine'),
                     'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10', 'alpine'),
+                    'ComposeMediaKrakenBase310_1Py3': ('mkbase310_1py3', 'alpine:3.10.1', 'alpine'),
                     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.10', 'alpine'),
                     # 'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu',
                     # 'ubuntu:18.10', 'ubuntu'),
