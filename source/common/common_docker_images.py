@@ -16,7 +16,8 @@
   MA 02110-1301, USA.
 '''
 
-ALPINE_MIRROR = '10.0.0.122'
+#ALPINE_MIRROR = '10.0.0.122'
+ALPINE_MIRROR = 'dl-2.alpinelinux.org'
 
 #PYPI_MIRROR = 'th-bandersnatch-1'  # pypi.python.org
 PYPI_MIRROR = 'pypi.python.org'
