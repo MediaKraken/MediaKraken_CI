@@ -103,7 +103,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38
                         'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.9', 'alpine'),
-                        'ComposeMediaKrakenOdyssey': ('mkodyssey', 'debian:stretch-slim', 'debian'),
+                        'ComposeMediaKrakenOdyssey': ('mkodyssey', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.8', 'alpine'),
                         'ComposeMediaKrakenPika': ('mkpika', 'mkbase310py3', 'alpine'),
                         'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.8', 'alpine'),
