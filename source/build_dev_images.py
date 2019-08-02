@@ -93,9 +93,10 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             subject_text = ' SUCCESS'
             # tag for local repo
             pid_proc = subprocess.Popen(
-                shlex.split('docker tag mediakraken/%s:dev'
-                            ' th-registry-1.beaverbay.local:5000/mediakraken/%s:dev'
-                            % (build_stages[docker_images][0], build_stages[docker_images][0])),
+                shlex.split('docker tag mediakraken/%s:dev %s/mediakraken/%s:dev'
+                            % (build_stages[docker_images][0],
+                               common_docker_images.DOCKER_REPOSITORY,
+                               build_stages[docker_images][0])),
                 stdout=subprocess.PIPE, shell=False)
             while True:
                 line = pid_proc.stdout.readline()
@@ -105,8 +106,9 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             pid_proc.wait()
             # push to local repo
             pid_proc = subprocess.Popen(
-                shlex.split('docker push th-registry-1.beaverbay.local:5000/mediakraken/%s:dev'
-                            % build_stages[docker_images][0]),
+                shlex.split('docker push %s/mediakraken/%s:dev'
+                            % (common_docker_images.DOCKER_REPOSITORY,
+                               build_stages[docker_images][0])),
                 stdout=subprocess.PIPE, shell=False)
             while True:
                 line = pid_proc.stdout.readline()
