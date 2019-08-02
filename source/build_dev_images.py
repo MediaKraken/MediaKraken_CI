@@ -24,6 +24,9 @@ from common import common_docker_images
 from common import common_network_email
 from dotenv import load_dotenv
 
+# TODO proxy docker build -t mediakraken/mkbase38py3 --build-arg http_proxy="http://proxyip:8080" --build-arg ALPMIRROR=dl-cdn.alpinelinux.org --build-arg PIPMIRROR=pypi.python.org .
+
+
 # load .env stats
 load_dotenv()
 
