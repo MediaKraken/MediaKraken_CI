@@ -137,3 +137,6 @@ STAGE_TWO_SECURITY_TOOLS = {'rapidscan': ('mkrapidscan', 'mkkali'),
 STAGE_ONE_TESTING_TOOLS = {'testcode': ('mktestcode', 'mkbase310_1py3'),
                            'testwebapp': ('mktestwebapp', 'mkbase310_1py3'),
                            }
+
+STAGE_TWO_TESTING_TOOLS = {
+                           }
