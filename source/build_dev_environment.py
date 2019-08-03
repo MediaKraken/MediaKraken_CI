@@ -18,10 +18,7 @@
 
 import os
 import shlex
-import shutil
 import subprocess
-
-from common import common_docker_images
 
 # Dockerfile linter
 pid_proc = subprocess.Popen(shlex.split('docker pull hadolint/hadolint'),
