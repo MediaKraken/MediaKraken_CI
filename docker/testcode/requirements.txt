@@ -1,7 +1,5 @@
 ﻿pytest
 pytest-xdist
-pytest-selenium
-selenium
 coverage
 pytest-cov
 tox
@@ -12,5 +10,3 @@ Crypto
 feedgen
 rxv
 bs4
-httplib2
-psycopg2
