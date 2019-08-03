@@ -14,6 +14,7 @@ WORKDIR /mediakraken
 RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPMIRROR}/" /etc/apk/repositories \
   && apk add --no-cache \
   alpine-sdk \
+  py3-psycopg2 \
   && pip3 install --trusted-host ${PIPMIRROR} -i https://${PIPMIRROR}/simple -r requirements.txt \
   && rc-update add netmount \
   && rc-update add rpcbind
