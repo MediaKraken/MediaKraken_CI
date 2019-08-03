@@ -2,15 +2,3 @@
 pytest-xdist
 pytest-selenium
 selenium
-coverage
-pytest-cov
-tox
-pyflakes
-pytest-timeout
-pytest-profiling
-Crypto
-feedgen
-rxv
-bs4
-httplib2
-psycopg2
