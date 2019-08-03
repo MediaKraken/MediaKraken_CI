@@ -123,6 +123,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38
 # directory, name, base image, build script
 STAGE_ONE_SECURITY_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
                             'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
+                            'hadolint': ('mkhadolint', 'debian:stretch-slim '),
                             'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
                             'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
                             'registry': ('mkregistry', 'alpine:3.8'),
