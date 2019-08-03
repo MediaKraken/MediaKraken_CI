@@ -134,3 +134,8 @@ STAGE_ONE_SECURITY_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
 STAGE_TWO_SECURITY_TOOLS = {
     'rapidscan': ('mkrapidscan', 'mkkali'),
 }
+
+STAGE_TESTING_TOOLS = {
+    'testcode': ('mktestcode', 'mkbase310_1py3', 'alpine'),
+    'testwebapp': ('mktestwebapp', 'mkbase310_1py3', 'alpine'),
+}
