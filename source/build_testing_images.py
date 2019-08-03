@@ -28,7 +28,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
-for build_stages in (common_docker_images.STAGE_TESTING_TOOLS):
+for build_stages in (common_docker_images.STAGE_ONE_TESTING_TOOLS):
     for docker_images in build_stages:
         os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'docker/%s' % docker_images))
         print(os.getcwd())

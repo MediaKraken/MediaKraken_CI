@@ -16,10 +16,10 @@
   MA 02110-1301, USA.
 '''
 
-#ALPINE_MIRROR = '10.0.0.122'
+# ALPINE_MIRROR = '10.0.0.122'
 ALPINE_MIRROR = 'dl-2.alpinelinux.org'
 
-#PYPI_MIRROR = 'th-bandersnatch-1'  # pypi.python.org
+# PYPI_MIRROR = 'th-bandersnatch-1'  # pypi.python.org
 PYPI_MIRROR = 'pypi.python.org'
 
 DOCKER_REPOSITORY = 'th-registry-1.beaverbay.local:5000'  # https://index.docker.io:443
@@ -131,11 +131,9 @@ STAGE_ONE_SECURITY_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
                             'wireshark': ('mkwireshark', 'debian:stretch-slim'),
                             }
 
-STAGE_TWO_SECURITY_TOOLS = {
-    'rapidscan': ('mkrapidscan', 'mkkali'),
-}
+STAGE_TWO_SECURITY_TOOLS = {'rapidscan': ('mkrapidscan', 'mkkali'),
+                            }
 
-STAGE_TESTING_TOOLS = {
-    'testcode': ('mktestcode', 'mkbase310_1py3', 'alpine'),
-    'testwebapp': ('mktestwebapp', 'mkbase310_1py3', 'alpine'),
-}
+STAGE_ONE_TESTING_TOOLS = {'testcode': ('mktestcode', 'mkbase310_1py3'),
+                           'testwebapp': ('mktestwebapp', 'mkbase310_1py3'),
+                           }
