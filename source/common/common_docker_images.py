@@ -116,6 +116,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38
                         'ComposeMediaKrakenRokuThumb': (
                             'mkrokuthumb', 'mkbasenodeffmpeg', 'alpine'),
                         'ComposeMediaKrakenServer': ('mkserver', 'mkbase38py3', 'alpine'),
+                        'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.9', 'alpine'),
                         'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase38py3', 'alpine'),
                         }
 
