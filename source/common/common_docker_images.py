@@ -97,10 +97,10 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38
                         'ComposeMediaKrakenCron': ('mkcron', 'mkbase310py3', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_3': ('mkdatabase', 'alpine:3.10', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_4': ('mkdatabase', 'alpine:3.10', 'alpine'),
-                        # 'ComposeMediaKrakenDatabase11_3': (
-                        #      'mkdatabase', 'debian:9.8-slim', 'debian'),
-                        'ComposeMediaKrakenDatabase11_4': (
-                            'mkdatabase', 'debian:9.9-slim', 'debian'),
+                        'ComposeMediaKrakenDatabase11_3': (
+                             'mkdatabase', 'debian:9.8-slim', 'debian'),
+                        #'ComposeMediaKrakenDatabase11_4': (
+                        #    'mkdatabase', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
                         'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.10', 'alpine'),
