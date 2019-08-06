@@ -97,9 +97,9 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38
                         'ComposeMediaKrakenCron': ('mkcron', 'mkbase310py3', 'alpine'),
                         'ComposeMediaKrakenDatabase11_3': ('mkdatabase', 'alpine:3.10', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_4': ('mkdatabase', 'alpine:3.10', 'alpine'),
-                        #'ComposeMediaKrakenDatabase11_3': (
+                        # 'ComposeMediaKrakenDatabase11_3': (
                         #     'mkdatabase', 'debian:9.8-slim', 'debian'),
-                        #'ComposeMediaKrakenDatabase11_4': (
+                        # 'ComposeMediaKrakenDatabase11_4': (
                         #    'mkdatabase', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
@@ -122,23 +122,23 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38
 
 # these are for security and linting all code
 # directory, name, base image, build script
-STAGE_ONE_SECURITY_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
-                            'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
-                            'hadolint': ('mkhadolint', 'debian:stretch-slim '),
+STAGE_ONE_SECURITY_TOOLS = {'hadolint': ('mkhadolint', 'debian:stretch-slim '),
                             'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
-                            'logspout': ('mklogspout', 'alpine:3.9'),
-                            'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
-                            'registry': ('mkregistry', 'alpine:3.8'),
                             'testssl': ('mktestssl', 'alpine:3.9'),
-                            'wireshark': ('mkwireshark', 'debian:stretch-slim'),
                             }
 
 STAGE_TWO_SECURITY_TOOLS = {'rapidscan': ('mkrapidscan', 'mkkali'),
                             }
 
-STAGE_ONE_TESTING_TOOLS = {'testcode': ('mktestcode', 'mkbase310_1py3'),
+STAGE_ONE_TESTING_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
+                           'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
+                           'logspout': ('mklogspout', 'alpine:3.9'),
+                           'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
+                           'registry': ('mkregistry', 'alpine:3.8'),
+                           'testcode': ('mktestcode', 'mkbase310_1py3'),
                            'testwebapp': ('mktestwebapp', 'mkbase310_1py3'),
+                           'wireshark': ('mkwireshark', 'debian:stretch-slim'),
                            }
 
 STAGE_TWO_TESTING_TOOLS = {
-                           }
+}
