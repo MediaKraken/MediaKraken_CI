@@ -51,6 +51,32 @@ for build_stages in (common_docker_images.STAGE_ONE_TESTING_TOOLS,
         subject_text = ' FAILED'
         if email_body.find('Successfully tagged mediakraken') != -1:
             subject_text = ' SUCCESS'
+            # tag for local repo
+            pid_proc = subprocess.Popen(
+                shlex.split('docker tag mediakraken/%s:dev %s/mediakraken/%s:dev'
+                            % (build_stages[docker_images][0],
+                               common_docker_images.DOCKER_REPOSITORY,
+                               build_stages[docker_images][0])),
+                stdout=subprocess.PIPE, shell=False)
+            while True:
+                line = pid_proc.stdout.readline()
+                if not line:
+                    break
+                print(line.rstrip())
+            pid_proc.wait()
+            # push to local repo
+            pid_proc = subprocess.Popen(
+                shlex.split('docker push %s/mediakraken/%s:dev'
+                            % (common_docker_images.DOCKER_REPOSITORY,
+                               build_stages[docker_images][0])),
+                stdout=subprocess.PIPE, shell=False)
+            while True:
+                line = pid_proc.stdout.readline()
+                if not line:
+                    break
+                print(line.rstrip())
+            pid_proc.wait()
+        # send success/fail email
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
                                                 'Build image: '
