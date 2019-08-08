@@ -8,3 +8,5 @@
 /start_clair.sh~
 /.bench.sh.un~
 /bench.sh~
+/.logstash_tcp.conf.un~
+/logstash_tcp.conf~
