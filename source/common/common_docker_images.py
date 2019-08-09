@@ -94,6 +94,7 @@ STAGE_TWO_IMAGES = {
 
 # these are the final "compose" images
 STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py3', 'alpine'),
+                        'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
                         'ComposeMediaKrakenCron': ('mkcron', 'mkbase310py3', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_3': ('mkdatabase', 'alpine:3.10', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_4': ('mkdatabase', 'alpine:3.10', 'alpine'),
@@ -136,6 +137,8 @@ STAGE_ONE_TESTING_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
                            'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
                            'logspout': ('mklogspout', 'alpine:3.9'),
                            'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
+                           'pghero': ('mkpghero', 'ruby:2.6.3-alpine3.9'),
+                           'pgbouncerhero': ('mkpgbouncerhero', 'ruby:2.3.7'),
                            'registry': ('mkregistry', 'alpine:3.8'),
                            'testcode': ('mktestcode', 'mkbase310_1py3'),
                            'testwebapp': ('mktestwebapp', 'mkbase310_1py3'),
