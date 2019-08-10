@@ -79,7 +79,7 @@ for build_stages in (common_docker_images.STAGE_ONE_SECURITY_TOOLS,
         # send success/fail email
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
-                                                'Build image: '
+                                                'Build security image: '
                                                 + build_stages[docker_images][0]
                                                 + subject_text,
                                                 email_body,
