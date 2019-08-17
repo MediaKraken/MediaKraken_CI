@@ -147,3 +147,11 @@ STAGE_ONE_TESTING_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
 
 STAGE_TWO_TESTING_TOOLS = {
 }
+
+STAGE_ONE_FS = {
+    'ComposeMediaKrakenMooseFSChunkServer': ('mkmoosechunkserver', 'debian:strech', 'debian'),
+    'ComposeMediaKrakenMooseFSChunkServerClient': (
+        'mkmoosechunkserverclient', 'debian:strech', 'debian'),
+    'ComposeMediaKrakenMooseFSClient': ('mkmooseclient', 'debian:strech', 'debian'),
+    'ComposeMediaKrakenMooseFSMaster': ('mkmoosemaster', 'debian:strech', 'debian'),
+}
