@@ -1,9 +1,9 @@
-FROM ruby:2.3.7
+FROM ruby:2.6.3
 
 MAINTAINER Quentin Rousseau <contact@quent.in>
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-  build-essential nodejs libpq-dev && gem install bundler
+  build-essential nodejs libpq-dev
 
 ENV INSTALL_PATH /app
 
