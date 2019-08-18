@@ -3,7 +3,7 @@ FROM ruby:2.3.7
 MAINTAINER Quentin Rousseau <contact@quent.in>
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-  build-essential nodejs libpq-dev
+  build-essential nodejs libpq-dev && gem install bundler
 
 ENV INSTALL_PATH /app
 
