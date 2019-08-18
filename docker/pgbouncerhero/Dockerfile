@@ -21,7 +21,7 @@ RUN bundle install --binstubs
 
 COPY . .
 
-RUN bundle exec rake assets:precompile
+RUN SECRET_KEY_BASE=1 RAILS_ENV=production bundle exec rake assets:precompile
 
 ENV PORT 8080
 
