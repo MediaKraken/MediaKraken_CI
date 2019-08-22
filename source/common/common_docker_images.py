@@ -93,7 +93,8 @@ STAGE_TWO_IMAGES = {
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase38py3', 'alpine')}
 
 # these are the final "compose" images
-STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py3', 'alpine'),
+STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
+                        'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
                         'ComposeMediaKrakenCron': ('mkcron', 'mkbase310py3', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_3': ('mkdatabase', 'alpine:3.10', 'alpine'),
