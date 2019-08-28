@@ -111,6 +111,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase310_1py3', 'alpine'),
                         'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.9', 'alpine'),
+                        'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'),
                         'ComposeMediaKrakenOdyssey': ('mkodyssey', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.8', 'alpine'),
                         'ComposeMediaKrakenPika': ('mkpika', 'mkbase310py3', 'alpine'),
