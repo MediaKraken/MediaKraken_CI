@@ -3,7 +3,9 @@ plugins:
   preset-lint-markdown-style-guide:
   preset-lint-recommended:
   validate-links:
+
   # Customized settings
   lint-list-item-indent: mixed
-  lint-maximum-line-length: 100
+  # Docker Hub is not able to unwrap lines
+  lint-maximum-line-length: false
   lint-emphasis-marker: '_'
