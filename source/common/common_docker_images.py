@@ -129,6 +129,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
 # directory, name, base image, build script
 STAGE_ONE_SECURITY_TOOLS = {'hadolint': ('mkhadolint', 'debian:stretch-slim '),
                             'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
+                            'sitadel': ('mksitadel', 'python:3'),
                             'testssl': ('mktestssl', 'alpine:3.9'),
                             }
 
