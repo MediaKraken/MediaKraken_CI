@@ -148,6 +148,7 @@ STAGE_ONE_TESTING_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
                            'registry': ('mkregistry', 'alpine:3.8'),
                            'testcode': ('mktestcode', 'mkbase310_1py3'),
                            'testwebapp': ('mktestwebapp', 'mkbase310_1py3'),
+                           'vuls': ('mknuls', 'golang:alpine'),
                            'wireshark': ('mkwireshark', 'debian:stretch-slim'),
                            }
 
