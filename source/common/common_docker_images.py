@@ -137,6 +137,7 @@ STAGE_TWO_SECURITY_TOOLS = {'rapidscan': ('mkrapidscan', 'mkkali'),
                             }
 
 STAGE_ONE_TESTING_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
+                           'fuxploider': ('mkfuxploider', 'python:3.6-alpine'),
                            'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
                            'logspout': ('mklogspout', 'alpine:3.9'),
                            'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
