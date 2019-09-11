@@ -34,7 +34,7 @@ CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'docker/clair/'))
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_THREE_IMAGES):
+                     common_docker_images.STAGE_COMPOSE_IMAGES):
     for docker_images in build_stages:
         # Run Clair on each image
         try:
