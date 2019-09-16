@@ -1,0 +1,1 @@
+command = 'python3 -m pytest --capture=no testing/test_common/test_common_network_youtube.py'

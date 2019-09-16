@@ -34,13 +34,14 @@ CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'docker/clair/'))
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_THREE_IMAGES):
+                     common_docker_images.STAGE_COMPOSE_IMAGES):
     for docker_images in build_stages:
         # Run Clair on each image
         try:
             pid_proc = subprocess.Popen(
-                shlex.split('docker-compose run --rm clair-scanner mediakraken/%s:dev' %
-                            (build_stages[docker_images][0],)),
+                shlex.split('docker-compose run --rm clair-scanner %s/mediakraken/%s:dev' %
+                            (common_docker_images.DOCKER_REPOSITORY,
+                             build_stages[docker_images][0])),
                 stdout=subprocess.PIPE, shell=False)
         except subprocess.CalledProcessError as e:
             print(e.output)
@@ -64,8 +65,8 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 smtp_port=os.environ['MAILPORT'])
 
 # Start up the app so bench can see running images
-os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/alpine/'))
-pid_proc = subprocess.Popen(shlex.split('docker-compose up -d'),
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
+pid_proc = subprocess.Popen(shlex.split('./mediakraken_start.sh'),
                             stdout=subprocess.PIPE, shell=False)
 while True:
     line = pid_proc.stdout.readline()
@@ -74,7 +75,7 @@ while True:
     print(line.rstrip())
 pid_proc.wait()
 # this sleep is here so that everything has time to fully start like pika
-time.sleep(15)
+time.sleep(60)
 
 # run docker-bench on all images as it checks for common best practices
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source'))
@@ -95,7 +96,8 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_port=os.environ['MAILPORT'])
 
 # Test the SSL security of the nginx ssl setup via testssl.sh
-pid_proc = subprocess.Popen(shlex.split('docker run -ti mediakraken/mktestssl:dev localhost:8900'),
+pid_proc = subprocess.Popen(shlex.split('docker run -ti %s/mediakraken/mktestssl:dev localhost:8900'
+                                        % (common_docker_images.DOCKER_REPOSITORY,)),
                             stdout=subprocess.PIPE, shell=False)
 email_body = ''
 while True:
@@ -113,7 +115,9 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 
 # Web Vulnerability Scanner via rapidscan
 pid_proc = subprocess.Popen(
-    shlex.split('docker run -ti mediakraken/mkrapidscan:dev localhost:8900'),
+    shlex.split(
+        'docker run -ti %s/mediakraken/mkrapidscan:dev localhost:8900' %
+        (common_docker_images.DOCKER_REPOSITORY,)),
     stdout=subprocess.PIPE, shell=False)
 email_body = ''
 while True:
@@ -128,3 +132,8 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         'Rapidscan', email_body,
                                         smtp_server=os.environ['MAILSERVER'],
                                         smtp_port=os.environ['MAILPORT'])
+
+# stop the services
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
+pid_proc = subprocess.Popen(shlex.split('./mediakraken_stop.sh'),
+                            stdout=subprocess.PIPE, shell=False)

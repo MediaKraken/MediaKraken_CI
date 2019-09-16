@@ -16,12 +16,17 @@
   MA 02110-1301, USA.
 '''
 
-ALPINE_MIRROR = '10.0.0.122'
+# ALPINE_MIRROR = '10.0.0.122'
+ALPINE_MIRROR = 'dl-2.alpinelinux.org'
 
-#PYPI_MIRROR = 'th-bandersnatch-1'  # pypi.python.org
+# PYPI_MIRROR = 'th-bandersnatch-1'  # pypi.python.org
 PYPI_MIRROR = 'pypi.python.org'
 
-DOCKER_REPOSITORY = 'th-registry-1.beaverbay.local'  # https://index.docker.io:443
+DOCKER_REPOSITORY = 'th-registry-1.beaverbay.local:5000'  # https://index.docker.io:443
+
+PROXY_IP_PORT = '0.0.0.0:8080'
+PROXY_USER_NAME = None
+PROXY_USER_PASS = None
 
 # TODO?
 # ComposeMediaKrakenBasePYPY
@@ -59,6 +64,8 @@ CMD [“node”, “index.js”]
 STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8', 'alpine'),
                     'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9', 'alpine'),
                     'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10', 'alpine'),
+                    'ComposeMediaKrakenBase310_1Py3': ('mkbase310_1py3', 'alpine:3.10.1', 'alpine'),
+                    'ComposeMediaKrakenBase310_2Py3': ('mkbase310_2py3', 'alpine:3.10.2', 'alpine'),
                     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.10', 'alpine'),
                     # 'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu',
                     # 'ubuntu:18.10', 'ubuntu'),
@@ -87,20 +94,26 @@ STAGE_TWO_IMAGES = {
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase38py3', 'alpine')}
 
 # these are the final "compose" images
-STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py3', 'alpine'),
+STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
+                        'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38py3', 'alpine'),
+                        'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
                         'ComposeMediaKrakenCron': ('mkcron', 'mkbase310py3', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_3': ('mkdatabase', 'alpine:3.10', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_4': ('mkdatabase', 'alpine:3.10', 'alpine'),
                         # 'ComposeMediaKrakenDatabase11_3': (
-                        #      'mkdatabase', 'debian:9.8-slim', 'debian'),
-                        'ComposeMediaKrakenDatabase11_4': (
+                        #     'mkdatabase', 'debian:9.8-slim', 'debian'),
+                        # 'ComposeMediaKrakenDatabase11_4': (
+                        #    'mkdatabase', 'debian:9.9-slim', 'debian'),
+                        'ComposeMediaKrakenDatabase11_5': (
                             'mkdatabase', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
-                        'ComposeMediaKrakenHAProxy': ('mkhaproxy', 'alpine:3.10', 'alpine'),
+                        'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.10', 'alpine'),
                         'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase38py3', 'alpine'),
-                        'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase38py3', 'alpine'),
+                        'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase310_1py3', 'alpine'),
                         'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.9', 'alpine'),
+                        'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'),
+                        'ComposeMediaKrakenOdyssey': ('mkodyssey', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.8', 'alpine'),
                         'ComposeMediaKrakenPika': ('mkpika', 'mkbase310py3', 'alpine'),
                         'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.8', 'alpine'),
@@ -109,20 +122,45 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase38
                         'ComposeMediaKrakenRokuThumb': (
                             'mkrokuthumb', 'mkbasenodeffmpeg', 'alpine'),
                         'ComposeMediaKrakenServer': ('mkserver', 'mkbase38py3', 'alpine'),
+                        'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.9', 'alpine'),
                         'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase38py3', 'alpine'),
                         }
 
 # these are for security and linting all code
 # directory, name, base image, build script
-STAGE_ONE_SECURITY_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
-                            'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
+STAGE_ONE_SECURITY_TOOLS = {'hadolint': ('mkhadolint', 'debian:stretch-slim '),
                             'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
-                            'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
-                            'registry': ('mkregistry', 'alpine:3.8'),
+                            'sitadel': ('mksitadel', 'python:3'),
                             'testssl': ('mktestssl', 'alpine:3.9'),
-                            'wireshark': ('mkwireshark', 'debian:stretch-slim'),
                             }
 
-STAGE_TWO_SECURITY_TOOLS = {
-    'rapidscan': ('mkrapidscan', 'mkkali'),
+STAGE_TWO_SECURITY_TOOLS = {'rapidscan': ('mkrapidscan', 'mkkali'),
+                            }
+
+STAGE_ONE_TESTING_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
+                           'fuxploider': ('mkfuxploider', 'python:3.6-alpine'),
+                           'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
+                           'joxit_ui': ('mkjoxitui', 'node:10-alpine'),
+                           'logspout': ('mklogspout', 'alpine:3.9'),
+                           'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
+                           'pghero': ('mkpghero', 'ruby:2.6.3-alpine3.9'),
+                           'pgbouncerhero': ('mkpgbouncerhero', 'ruby:2.3.7'),
+                           'nikto': ('mknikto', 'alpine:3.10'),
+                           'raccoon': ('mkraccoon', 'python:3.5-alpine'),
+                           'registry': ('mkregistry', 'alpine:3.8'),
+                           'testcode': ('mktestcode', 'mkbase310_1py3'),
+                           'testwebapp': ('mktestwebapp', 'mkbase310_1py3'),
+                           'vuls': ('mkvuls', 'golang:alpine'),
+                           'wireshark': ('mkwireshark', 'debian:stretch-slim'),
+                           }
+
+STAGE_TWO_TESTING_TOOLS = {
+}
+
+STAGE_ONE_FS = {
+    'ComposeMediaKrakenMooseFSChunkServer': ('mkmoosechunkserver', 'debian:strech', 'debian'),
+    'ComposeMediaKrakenMooseFSChunkServerClient': (
+        'mkmoosechunkserverclient', 'debian:strech', 'debian'),
+    'ComposeMediaKrakenMooseFSClient': ('mkmooseclient', 'debian:strech', 'debian'),
+    'ComposeMediaKrakenMooseFSMaster': ('mkmoosemaster', 'debian:strech', 'debian'),
 }

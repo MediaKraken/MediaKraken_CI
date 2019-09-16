@@ -18,10 +18,7 @@
 
 import os
 import shlex
-import shutil
 import subprocess
-
-from common import common_docker_images
 
 # Dockerfile linter
 pid_proc = subprocess.Popen(shlex.split('docker pull hadolint/hadolint'),
@@ -34,4 +31,8 @@ pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
 
-
+# Download all the images for Mailcow
+os.chdir('../docker/mailcow')
+pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
