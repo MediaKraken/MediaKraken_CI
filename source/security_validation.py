@@ -66,7 +66,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
 
 # Start up the app so bench can see running images
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
-pid_proc = subprocess.Popen(shlex.split('python3 mediakraken_start.sh'),
+pid_proc = subprocess.Popen(shlex.split('./mediakraken_start.sh'),
                             stdout=subprocess.PIPE, shell=False)
 while True:
     line = pid_proc.stdout.readline()
@@ -135,5 +135,5 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 
 # stop the services
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
-pid_proc = subprocess.Popen(shlex.split('python3 mediakraken_stop.sh'),
+pid_proc = subprocess.Popen(shlex.split('./mediakraken_stop.sh'),
                             stdout=subprocess.PIPE, shell=False)
