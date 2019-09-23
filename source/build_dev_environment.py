@@ -20,6 +20,11 @@ import os
 import shlex
 import subprocess
 
+# install pypi packages
+pid_proc = subprocess.Popen(shlex.split('pip3 install -r requirements.txt'),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
+
 # Dockerfile linter
 pid_proc = subprocess.Popen(shlex.split('docker pull hadolint/hadolint'),
                             stdout=subprocess.PIPE, shell=False)
