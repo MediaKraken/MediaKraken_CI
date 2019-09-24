@@ -16,11 +16,13 @@
   MA 02110-1301, USA.
 '''
 
-import os
 import time
-import subprocess
+
+import os
 import shlex
+import subprocess
 from dotenv import load_dotenv
+
 from common import common_docker_images
 from common import common_network_email
 
@@ -66,6 +68,182 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
+
+# run vulture to find dead code
+try:
+    pid_proc = subprocess.Popen(
+        shlex.split('vulture', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        stdout=subprocess.PIPE, shell=False)
+except subprocess.CalledProcessError as e:
+    print(e.output)
+email_body = ''
+try:
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip())
+    pid_proc.wait()
+except:
+    pass
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Vulture (dead code)',
+                                        email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
+
+# run Graudit to find unsecure code
+try:
+    pid_proc = subprocess.Popen(
+        shlex.split('graudit', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        stdout=subprocess.PIPE, shell=False)
+except subprocess.CalledProcessError as e:
+    print(e.output)
+email_body = ''
+try:
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip())
+    pid_proc.wait()
+except:
+    pass
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Graudit (Unsecure Code)',
+                                        email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
+
+# run python taint to find unsecure code
+try:
+    pid_proc = subprocess.Popen(
+        shlex.split('python3 -m pyt -r',
+                    os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        stdout=subprocess.PIPE, shell=False)
+except subprocess.CalledProcessError as e:
+    print(e.output)
+email_body = ''
+try:
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip())
+    pid_proc.wait()
+except:
+    pass
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Python Taint (Unsecure Code Injection)',
+                                        email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
+
+# run Bandit to find unsecure code
+try:
+    pid_proc = subprocess.Popen(
+        shlex.split('bandit -r', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        stdout=subprocess.PIPE, shell=False)
+except subprocess.CalledProcessError as e:
+    print(e.output)
+email_body = ''
+try:
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip())
+    pid_proc.wait()
+except:
+    pass
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Bandit (Unsecure Code)',
+                                        email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
+
+# run radon to determine code complexity
+try:
+    pid_proc = subprocess.Popen(
+        shlex.split('radon cc', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        stdout=subprocess.PIPE, shell=False)
+except subprocess.CalledProcessError as e:
+    print(e.output)
+email_body = ''
+try:
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip())
+    pid_proc.wait()
+except:
+    pass
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Radon (Code Complexity)',
+                                        email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
+
+# run pytype to run type checking
+try:
+    pid_proc = subprocess.Popen(
+        shlex.split('pytype', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        stdout=subprocess.PIPE, shell=False)
+except subprocess.CalledProcessError as e:
+    print(e.output)
+email_body = ''
+try:
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip())
+    pid_proc.wait()
+except:
+    pass
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Pytype (Type Checking)',
+                                        email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
+
+# run pylama to code quality
+try:
+    pid_proc = subprocess.Popen(
+        shlex.split('pylama', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        stdout=subprocess.PIPE, shell=False)
+except subprocess.CalledProcessError as e:
+    print(e.output)
+email_body = ''
+try:
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip())
+    pid_proc.wait()
+except:
+    pass
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Pylama (Code Quality)',
+                                        email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
 
 #####################################
 # start up the application so can see running images for several tools
