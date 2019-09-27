@@ -2,6 +2,5 @@ vulture
 pytype
 radon
 python-taint
-py-find-injection
 bandit
 pylama
