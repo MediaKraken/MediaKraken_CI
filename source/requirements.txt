@@ -5,3 +5,4 @@ python-taint
 bandit
 pylama
 python-dotenv
+2to3==1.0
