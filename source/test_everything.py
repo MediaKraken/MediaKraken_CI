@@ -16,15 +16,14 @@
   MA 02110-1301, USA.
 '''
 
-import time
-
 import os
 import shlex
 import subprocess
-from dotenv import load_dotenv
+import time
 
 from common import common_docker_images
 from common import common_network_email
+from dotenv import load_dotenv
 
 # load .env stats
 load_dotenv()
@@ -97,7 +96,8 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # run Graudit to find unsecure code
 try:
     pid_proc = subprocess.Popen(
-        shlex.split('graudit', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        shlex.split('graudit -d python',
+                    os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output)
