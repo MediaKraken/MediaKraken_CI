@@ -1,8 +1,8 @@
-vulture
-pytype
-radon
-python-taint
-bandit
-pylama
-python-dotenv
+vulture==1.1
+pytype==2019.9.17
+radon==4.0.0
+python-taint==0.42
+bandit==1.6.2
+pylama==7.7.1
+python-dotenv==0.10.3
 2to3==1.0
