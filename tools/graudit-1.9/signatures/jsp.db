@@ -1,0 +1,10 @@
+request.getQueryString
+Runtime.exec
+getRequest
+Request.GetParameter
+request.getParameter
+jsp:getProperty
+java.security.acl.acl
+response.sendRedirect\s*\(.*(Request|request).*\)
+printStacktrace
+out\.print(ln)?.*[Rr]equest\.
