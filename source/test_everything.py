@@ -282,6 +282,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # TODO that won't work.....as it's a docker db
 pytest_pid = subprocess.Popen(shlex.split(
     'python3 -m pytest --capture=no testing/test_common/test_common_network_youtube.py'))
+pytest_pid.wait()
 
 #####################################
 # run application web test/etc
