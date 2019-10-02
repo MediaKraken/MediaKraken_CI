@@ -55,7 +55,7 @@ RUN mkdir /app
 COPY . /app
 RUN chown -R node:node /app
 USER node
-CMD [“node”, “index.js”]
+CMD ["node", "index.js"]
 '''
 
 # the data is directory, name of container, base image used to build container
