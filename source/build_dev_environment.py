@@ -20,6 +20,13 @@ import os
 import shlex
 import subprocess
 
+centos_packages = {'python3-devel'}
+debian_packages = {}
+# install base packages per OS (centos, debian)
+pid_proc = subprocess.Popen(shlex.split('yum install -y', centos_packages),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
+
 # install pypi packages
 pid_proc = subprocess.Popen(shlex.split('pip3 install -r requirements.txt'),
                             stdout=subprocess.PIPE, shell=False)

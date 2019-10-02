@@ -4,3 +4,4 @@ radon
 python-taint
 bandit
 pylama
+dotenv
