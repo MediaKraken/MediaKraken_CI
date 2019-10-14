@@ -123,6 +123,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                             'mkrokuthumb', 'mkbasenodeffmpeg', 'alpine'),
                         'ComposeMediaKrakenServer': ('mkserver', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.9', 'alpine'),
+                        'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
                         'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase38py3', 'alpine'),
                         }
 
