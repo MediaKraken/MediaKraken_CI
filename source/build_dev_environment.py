@@ -37,6 +37,11 @@ pid_proc = subprocess.Popen(shlex.split('docker pull hadolint/hadolint'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
 
+# Image security scanner
+pid_proc = subprocess.Popen(shlex.split('docker pull anchore/anchore-engine'),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
+
 # Download all the images for Clair
 os.chdir('../docker/clair')
 pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
