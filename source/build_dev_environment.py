@@ -54,3 +54,9 @@ os.chdir('../docker/mailcow')
 pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
+
+# setup killshot
+os.chdir('../tools/killshot')
+pid_proc = subprocess.Popen(shlex.split('ruby setup.rb'),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
