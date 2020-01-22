@@ -105,7 +105,9 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         #     'mkdatabase', 'debian:9.8-slim', 'debian'),
                         # 'ComposeMediaKrakenDatabase11_4': (
                         #    'mkdatabase', 'debian:9.9-slim', 'debian'),
-                        'ComposeMediaKrakenDatabase11_5': (
+                        # 'ComposeMediaKrakenDatabase11_5': (
+                        #     'mkdatabase', 'debian:9.9-slim', 'debian'),
+                        'ComposeMediaKrakenDatabase11_6': (
                             'mkdatabase', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
