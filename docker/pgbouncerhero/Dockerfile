@@ -1,4 +1,4 @@
-FROM ruby:2.6.1
+FROM ruby:2.3.7
 
 MAINTAINER Quentin Rousseau <contact@quent.in>
 
@@ -21,7 +21,7 @@ RUN bundle install --binstubs
 
 COPY . .
 
-RUN SECRET_KEY_BASE=1 RAILS_ENV=production bundle exec rake assets:precompile
+RUN bundle exec rake assets:precompile
 
 ENV PORT 8080
 
