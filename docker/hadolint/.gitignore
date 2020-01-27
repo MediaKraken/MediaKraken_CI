@@ -8,3 +8,4 @@ hadolint.cabal
 
 # travis wait is generating log in PWD
 travis_wait_*.log
+*.Dockerfile.un~

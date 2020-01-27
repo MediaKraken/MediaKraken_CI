@@ -55,7 +55,7 @@ RUN mkdir /app
 COPY . /app
 RUN chown -R node:node /app
 USER node
-CMD [“node”, “index.js”]
+CMD ["node", "index.js"]
 '''
 
 # the data is directory, name of container, base image used to build container
@@ -66,6 +66,7 @@ STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8',
                     'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10', 'alpine'),
                     'ComposeMediaKrakenBase310_1Py3': ('mkbase310_1py3', 'alpine:3.10.1', 'alpine'),
                     'ComposeMediaKrakenBase310_2Py3': ('mkbase310_2py3', 'alpine:3.10.2', 'alpine'),
+                    'ComposeMediaKrakenBase311_3Py3': ('mkbase311_3py3', 'alpine:3.11.3', 'alpine'),
                     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.10', 'alpine'),
                     # 'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu',
                     # 'ubuntu:18.10', 'ubuntu'),
@@ -104,7 +105,9 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         #     'mkdatabase', 'debian:9.8-slim', 'debian'),
                         # 'ComposeMediaKrakenDatabase11_4': (
                         #    'mkdatabase', 'debian:9.9-slim', 'debian'),
-                        'ComposeMediaKrakenDatabase11_5': (
+                        # 'ComposeMediaKrakenDatabase11_5': (
+                        #     'mkdatabase', 'debian:9.9-slim', 'debian'),
+                        'ComposeMediaKrakenDatabase11_6': (
                             'mkdatabase', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
@@ -123,6 +126,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                             'mkrokuthumb', 'mkbasenodeffmpeg', 'alpine'),
                         'ComposeMediaKrakenServer': ('mkserver', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.9', 'alpine'),
+                        'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
                         'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase38py3', 'alpine'),
                         }
 

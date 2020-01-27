@@ -20,8 +20,25 @@ import os
 import shlex
 import subprocess
 
+centos_packages = {'python3-devel'}
+debian_packages = {}
+# install base packages per OS (centos, debian)
+pid_proc = subprocess.Popen(shlex.split('yum install -y', centos_packages),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
+
+# install pypi packages
+pid_proc = subprocess.Popen(shlex.split('pip3 install -r requirements.txt'),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
+
 # Dockerfile linter
 pid_proc = subprocess.Popen(shlex.split('docker pull hadolint/hadolint'),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
+
+# Image security scanner
+pid_proc = subprocess.Popen(shlex.split('docker pull anchore/anchore-engine'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
 
@@ -31,8 +48,15 @@ pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
 
+# TODO I don't have mailcow dir in CI
 # Download all the images for Mailcow
 os.chdir('../docker/mailcow')
 pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
+                            stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
+
+# setup killshot
+os.chdir('../tools/killshot')
+pid_proc = subprocess.Popen(shlex.split('ruby setup.rb'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
