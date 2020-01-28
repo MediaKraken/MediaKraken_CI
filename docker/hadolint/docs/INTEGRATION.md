@@ -20,7 +20,7 @@ env:
   HADOLINT: "${HOME}/hadolint"
 install:
   # Download hadolint binary and set it as executable
-  - curl -sL -o ${HADOLINT} "https://github.com/hadolint/hadolint/releases/download/v1.16.0/hadolint-$(uname -s)-$(uname -m)"
+  - curl -sL -o ${HADOLINT} "https://github.com/hadolint/hadolint/releases/download/v1.17.4f/hadolint-$(uname -s)-$(uname -m)"
     && chmod 700 ${HADOLINT}
 script:
   # List files which name starts with 'Dockerfile'
@@ -30,22 +30,25 @@ script:
 
 ## GitHub Actions
 
-For GitHub you can build on the existing docker image with debian to 
-run through all the Dockerfiles in your repository and print out a list of issues.
-You can find an example implementation 
-[here](https://github.com/cds-snc/github-actions/tree/master/docker-lint). 
-Your workflow might look something like this (feel free to use the provided Docker 
-image `cdssnc/docker-lint` or create your own):
+For GitHub Actions you can use the [Hadolint Action in the GitHub Marketplace](https://github.com/marketplace/actions/hadolint-action).
 
-```hcl
-workflow "Lint Dockerfiles" {
-  on = "push"
-  resolves = ["Lint all the files"]
-}
+```yaml
+name: Lint Dockerfile
 
-action "Lint all the files" {
-  uses = "docker://cdssnc/docker-lint"
-}
+on: push
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Lint Dockerfile
+        uses: brpaz/hadolint-action@master
+        with:
+          dockerfile: "Dockerfile"
+
 ```
 
 ## Gitlab CI
@@ -57,7 +60,6 @@ Add the following job to your project's `.gitlab-ci.yml`:
 
 ```yaml
 lint_dockerfile:
-  stage: lint
   image: hadolint/hadolint:latest-debian
   script:
     - hadolint Dockerfile
@@ -88,6 +90,25 @@ Add the following job to your project's `.drone.yml` pipeline (drone version 1.0
       - hadolint  Dockerfile
 ```
 
+## CircleCI
+
+For CircleCI integration use the [docker orb](https://circleci.com/orbs/registry/orb/circleci/docker).
+Update your project's `.circleci/config.yml` pipeline (workflows version 2.1),
+adding the docker orb and you can call the job docker/hadolint:
+
+```yaml
+orbs:
+  docker: circleci/docker@x.y.z
+version: 2.1
+workflows:
+  lint:
+    jobs:
+      - docker/hadolint:
+          dockerfile: path/to/Dockerfile
+          ignore-rules: 'DL4005,DL3008'
+          trusted-registries: 'docker.io,my-company.com:5000'
+```
+
 ## Jenkins declarative pipeline
 
 You can add a step during your CI process to lint and archive the output of hadolint
@@ -110,9 +131,39 @@ stage ("lint dockerfile") {
 }
 ```
 
+## Jenkins K8S plugin
+
+You can add an hadolint container to pod definition:
+
+```yaml
+- name: hadolint
+  image: hadolint/hadolint:latest-debian
+  imagePullPolicy: Always
+  command:
+    - cat
+  tty: true
+```
+
+Then go with the linter stage:
+
+```groovy
+stage('lint dockerfile') {
+    steps {
+        container('hadolint') {
+            sh 'hadolint dockerfiles/* | tee -a hadolint_lint.txt'
+        }
+    }
+    post {
+        always {
+            archiveArtifacts 'hadolint_lint.txt'
+        }
+    }
+}
+```
+
 ## Codeship Pro
 
-Add the hadolint docker container on codeship-services.yml with a docker volume 
+Add the hadolint docker container on codeship-services.yml with a docker volume
 with the repository attached to it:
 
 ```yaml
@@ -186,6 +237,24 @@ Hadolint is used in two plugins:
 There is an integration [vscode-hadolint][] with [VS Code][], built by [ExiaSR][].
 
 ![vscode-hadolint-gif][]
+
+### Geany
+
+> Geany is a powerful, stable and lightweight programmer's text editor
+> that provides tons of useful features without bogging down your workflow.
+> It runs on Linux, Windows and MacOS is translated into over 40 languages,
+> and has built-in support for more than 50 programming languages.
+
+The following can be used as a
+[build action](https://www.geany.org/manual/current/index.html#build-menu-commands-dialog)
+to
+[lint](https://www.geany.org/manual/current/index.html#lint) Dockerfiles.
+
+```sh
+if docker run --rm -i hadolint/hadolint < "%d/%f"
+| sed -re 's|^/dev/stdin:([0-9]*)|%d/%f:\1:WARNING:|'
+| grep -EC100 ':WARNING:' ; then exit 1 ; else exit 0 ; fi
+```
 
 [linter-hadolint]: https://atom.io/packages/linter-hadolint
 [linter-hadolint-img]: https://user-images.githubusercontent.com/18702153/33764234-7abc1f24-dc0b-11e7-96b6-4f08207b6950.png

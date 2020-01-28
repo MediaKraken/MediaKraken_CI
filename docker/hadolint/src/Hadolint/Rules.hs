@@ -332,7 +332,7 @@ wgetOrCurl = instructionRuleState code severity message check Set.empty
     detectDoubleUsage state args =
         let newArgs = extractCommands args
             newState = Set.union state newArgs
-         in withState newState (Set.size newState < 2)
+         in withState newState (Set.null newArgs || Set.size newState < 2)
     extractCommands args =
         Set.fromList [w | w <- Shell.findCommandNames args, w == "curl" || w == "wget"]
 
@@ -445,7 +445,7 @@ aptGetVersionPinned = instructionRule code severity message check
         \install <package>=<version>`"
     check (Run args) = argumentsRule (all versionFixed . aptGetPackages) args
     check _ = True
-    versionFixed package = "=" `Text.isInfixOf` package
+    versionFixed package = "=" `Text.isInfixOf` package || ("/" `Text.isInfixOf` package || ".deb" `Text.isSuffixOf` package)
 
 aptGetPackages :: Shell.ParsedShell -> [Text.Text]
 aptGetPackages args =
@@ -596,10 +596,28 @@ pipVersionPinned = instructionRule code severity message check
     relevantInstall cmd =
         ["install"] `isInfixOf` Shell.getArgs cmd &&
         not (["--requirement"] `isInfixOf` Shell.getArgs cmd || ["-r"] `isInfixOf` Shell.getArgs cmd || ["."] `isInfixOf` Shell.getArgs cmd)
-    hasBuildConstraint = Shell.hasFlag "constraint"
+    hasBuildConstraint cmd = Shell.hasFlag "constraint" cmd || Shell.hasFlag "c" cmd
     packages cmd =
         stripInstallPrefix $
-        Shell.getArgsNoFlags $ Shell.dropFlagArg ["i", "index-url", "extra-index-url"] cmd
+        Shell.getArgsNoFlags $ Shell.dropFlagArg
+            [ "abi"
+            , "b", "build"
+            , "e", "editable"
+            , "extra-index-url"
+            , "f", "find-links"
+            , "i", "index-url"
+            , "implementation"
+            , "no-binary"
+            , "only-binary"
+            , "platform"
+            , "prefix"
+            , "progress-bar"
+            , "python-version"
+            , "root"
+            , "src"
+            , "t", "target"
+            , "upgrade-strategy"
+            ] cmd
     versionFixed package = hasVersionSymbol package || isVersionedGit package
     isVersionedGit package = "git+http" `Text.isInfixOf` package && "@" `Text.isInfixOf` package
     versionSymbols = ["==", ">=", "<=", ">", "<", "!=", "~=", "==="]
@@ -787,7 +805,9 @@ usePipefail = instructionRuleState code severity message check False
   where
     code = "DL4006"
     severity = WarningC
-    message = "Set the SHELL option -o pipefail before RUN with a pipe in it"
+    message = "Set the SHELL option -o pipefail before RUN with a pipe in it. If you are using \
+              \/bin/sh in an alpine image or if your shell is symlinked to busybox then consider \
+              \explicitly setting your SHELL to /bin/ash, or disable this check"
     check _ _ From {} = (False, True) -- Reset the state each time we find a new FROM
     check _ _ (Shell args)
         | argumentsRule isPowerShell args = (True, True)
@@ -844,6 +864,8 @@ gems shell =
     | cmd <- Shell.presentCommands shell
     , Shell.cmdHasArgs "gem" ["install", "i"] cmd
     , not (Shell.cmdHasArgs "gem" ["-v"] cmd)
+    , not (Shell.cmdHasArgs "gem" ["--version"] cmd)
+    , not (Shell.cmdHasPrefixArg "gem" "--version=" cmd)
     , arg <- Shell.getArgsNoFlags cmd
     , arg /= "install"
     , arg /= "i"
