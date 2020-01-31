@@ -415,3 +415,4 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
 pid_proc = subprocess.Popen(shlex.split('mediakraken_stop.sh'),
                             stdout=subprocess.PIPE, shell=False)
+pid_proc.wait()
