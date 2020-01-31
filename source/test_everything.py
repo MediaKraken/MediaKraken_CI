@@ -16,15 +16,15 @@
   MA 02110-1301, USA.
 '''
 
-import time
-
 import os
 import shlex
 import subprocess
-from dotenv import load_dotenv
+import sys
+import time
 
 from common import common_docker_images
 from common import common_network_email
+from dotenv import load_dotenv
 
 # load .env stats
 load_dotenv()
@@ -50,6 +50,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 stdout=subprocess.PIPE, shell=False)
         except subprocess.CalledProcessError as e:
             print(e.output)
+            sys.exit()
         email_body = ''
         try:
             while True:
@@ -85,6 +86,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 stdout=subprocess.PIPE, shell=False)
         except subprocess.CalledProcessError as e:
             print(e.output)
+            sys.exit()
         email_body = ''
         try:
             while True:
@@ -111,6 +113,7 @@ try:
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output)
+    sys.exit()
 email_body = ''
 try:
     while True:
@@ -137,6 +140,7 @@ try:
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output)
+    sys.exit()
 email_body = ''
 try:
     while True:
@@ -163,6 +167,7 @@ try:
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output)
+    sys.exit()
 email_body = ''
 try:
     while True:
@@ -188,6 +193,7 @@ try:
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output)
+    sys.exit()
 email_body = ''
 try:
     while True:
@@ -213,6 +219,7 @@ try:
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output)
+    sys.exit()
 email_body = ''
 try:
     while True:
@@ -238,6 +245,7 @@ try:
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output)
+    sys.exit()
 email_body = ''
 try:
     while True:
@@ -263,6 +271,7 @@ try:
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output)
+    sys.exit()
 email_body = ''
 try:
     while True:
@@ -285,7 +294,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # start up the application so can see running images for several tools
 #####################################
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
-pid_proc = subprocess.Popen(shlex.split('python3 mediakraken_start.sh'),
+pid_proc = subprocess.Popen(shlex.split('mediakraken_start.sh'),
                             stdout=subprocess.PIPE, shell=False)
 while True:
     line = pid_proc.stdout.readline()
@@ -404,5 +413,5 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # stop the application
 #####################################
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
-pid_proc = subprocess.Popen(shlex.split('python3 mediakraken_stop.sh'),
+pid_proc = subprocess.Popen(shlex.split('mediakraken_stop.sh'),
                             stdout=subprocess.PIPE, shell=False)
