@@ -127,7 +127,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         'ComposeMediaKrakenServer': ('mkserver', 'mkbase38py3', 'alpine'),
                         'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.9', 'alpine'),
                         'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
-                        'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase38py3', 'alpine'),
+                        'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase311_3py3', 'alpine'),
                         }
 
 # these are for security and linting all code
