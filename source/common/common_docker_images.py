@@ -142,6 +142,7 @@ STAGE_TWO_SECURITY_TOOLS = {'rapidscan': ('mkrapidscan', 'mkkali'),
                             }
 
 STAGE_ONE_TESTING_TOOLS = {'elk': ('mkelk', 'phusion/baseimage:0.11'),
+                           'filebeat': ('mkfilebeat', 'docker.elastic.co/beats/filebeat:7.5.2'),
                            'fuxploider': ('mkfuxploider', 'python:3.6-alpine'),
                            'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
                            'joxit_ui': ('mkjoxitui', 'node:10-alpine'),
