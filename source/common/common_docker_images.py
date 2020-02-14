@@ -136,6 +136,7 @@ STAGE_ONE_SECURITY_TOOLS = {'hadolint': ('mkhadolint', 'debian:stretch-slim '),
                             'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
                             'sitadel': ('mksitadel', 'python:3'),
                             'testssl': ('mktestssl', 'alpine:3.9'),
+                            'trivy': ('mktrivy', 'alpine:3.11'),
                             }
 
 STAGE_TWO_SECURITY_TOOLS = {'rapidscan': ('mkrapidscan', 'mkkali'),
