@@ -113,6 +113,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
                         'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.10', 'alpine'),
                         'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase311_3py3', 'alpine'),
+                        'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
                         'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase311_3py3', 'alpine'),
                         'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
                         'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'),
