@@ -16,7 +16,7 @@
   MA 02110-1301, USA.
 '''
 
-# ALPINE_MIRROR = '10.0.0.122'
+# ALPINE_MIRROR = 'th-alpinemirror-1.beaverbay.local'
 ALPINE_MIRROR = 'dl-2.alpinelinux.org'
 
 # PYPI_MIRROR = 'th-bandersnatch-1'  # pypi.python.org
@@ -131,7 +131,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
                         'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
                         'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase311_3py3', 'alpine'),
-                        'ComposeMediaKrakenWebServer': ('mkwebappdeb', 'mkbasedeb9_9py3', 'debian'),
+                        'ComposeMediaKrakenWebServer': ('mkwebappdeb', 'mkbasedeb10_2py3', 'debian'),
                         }
 
 # these are for security and linting all code
