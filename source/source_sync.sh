@@ -103,7 +103,7 @@ cp -R ../../source/web_app_async ../../docker/alpine/ComposeMediaKrakenWebAsync/
 
 # webserver - alpine sanic
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
+cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/web_app_sanic ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 
