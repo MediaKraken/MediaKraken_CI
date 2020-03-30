@@ -37,9 +37,6 @@ try:
 except IndexError:
     build_only = None
 
-# Arguments passed
-print("Name of Python script:", sys.argv[1])
-
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 
 if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')):
