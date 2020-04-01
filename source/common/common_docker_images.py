@@ -39,7 +39,6 @@ PROXY_USER_PASS = None
 # ComposeMediaKrakenPrefetchTVMaze
 
 # TODO user fix for security
-# Redis
 # RabbitMQ
 # Ripper
 # NGINX
@@ -67,6 +66,7 @@ STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8',
                     'ComposeMediaKrakenBase310_1Py3': ('mkbase310_1py3', 'alpine:3.10.1', 'alpine'),
                     'ComposeMediaKrakenBase310_2Py3': ('mkbase310_2py3', 'alpine:3.10.2', 'alpine'),
                     'ComposeMediaKrakenBase311_3Py3': ('mkbase311_3py3', 'alpine:3.11.3', 'alpine'),
+                    'ComposeMediaKrakenBase311_5Py3': ('mkbase311_5py3', 'alpine:3.11.5', 'alpine'),
                     'ComposeMediaKrakenBase9_9Py3': ('mkbasedeb9_9py3', 'debian:9.9-slim', 'debian'),
                     'ComposeMediaKrakenBase10_2Py3': ('mkbasedeb10_2py3', 'debian:10.2-slim', 'debian'),
                     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.11.3', 'alpine'),
@@ -131,7 +131,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
                         'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
                         'ComposeMediaKrakenWebAsync': ('mkwebappasync', 'mkbase311_3py3', 'alpine'),
-                        'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase311_3py3', 'alpine'),
+                        'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase311_5py3', 'alpine'),
                         # 'ComposeMediaKrakenWebAsync': ('mkwebappasyncdeb', 'mkbasedeb10_2py3', 'debian'),
                         # 'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase311_3py3', 'alpine'),
                         'ComposeMediaKrakenWebServer': ('mkwebappdeb', 'mkbasedeb10_2py3', 'debian'),
