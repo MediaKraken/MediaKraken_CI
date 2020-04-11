@@ -1,0 +1,3 @@
+docker run --rm -it metasploitframework/metasploit-framework ./msfconsole
+
+-v $HOME/.msf4:/root/.msf4 -v /tmp/msf:/tmp/data

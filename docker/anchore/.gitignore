@@ -104,3 +104,5 @@ ENV/
 .idea/
 *.iml
 .vscode/
+/.requirements.txt.un~
+/requirements.txt~

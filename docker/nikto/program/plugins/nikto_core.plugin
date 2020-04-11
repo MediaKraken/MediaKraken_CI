@@ -128,7 +128,7 @@ sub nprint {
     # don't print debug & verbose to output file...
     if ($mode ne '') {
         if ($mode eq "d" && $OUTPUT{'debug'}) {
-            print "D:" . localtime() . " $line\n";
+            print STDERR "D:" . localtime() . " $line\n";
         }
         if ($mode eq "v" && $OUTPUT{'verbose'}) {
             print "V:" . localtime() . " $line\n";
@@ -269,7 +269,7 @@ sub map_codes {
         $FoF{'okay'}{'match'} = LW2::md4($cooked);
     }
 
-    # these are some used in mutate that may not be in the db_tests
+    # these are some used that may not be in the db_tests
     if (defined $CLI{'mutate'}) {
         $db_extensions{'bak'}  = 1;
         $db_extensions{'data'} = 1;
@@ -277,6 +277,14 @@ sub map_codes {
         $db_extensions{'dbf'}  = 1;
         $db_extensions{'lst'}  = 1;
         $db_extensions{'htx'}  = 1;
+        $db_extensions{'htm'}  = 1;
+        $db_extensions{'html'}  = 1;
+        $db_extensions{'ini'}  = 1;
+        $db_extensions{'lst'}  = 1;
+        $db_extensions{'txt'}  = 1;
+        $db_extensions{'xml'}  = 1;
+        $db_extensions{'php'}  = 1;
+        $db_extensions{'php3'}  = 1;
     }
 
     foreach my $ext (keys %db_extensions) {
@@ -466,7 +474,7 @@ sub dump_target_info {
 
 	if (defined $mark->{'messages'}) {
 		my @msgs = @{ $mark->{'messages'} };
-		foreach my $m (@msgs) { 
+		foreach my $m (@msgs) {
         		nprint("+ Message:            $m");
 		}
 	}
@@ -563,7 +571,7 @@ sub general_config {
                ) or usage();
 
     # both -host and -url
-    if (($CLI{'host'} ne '') && ($CLI{'url'} ne '')) { 
+    if (($CLI{'host'} ne '') && ($CLI{'url'} ne '')) {
         nprint("+ ERROR: Cannot use -url and -host at the same time");
         exit;
 	}
@@ -1055,7 +1063,7 @@ sub resolve {
     }
 
     $ip = $addresses[0];
-    if ($addresses[1] != "") { 
+    if ($addresses[1] != "") {
 	$ipcache = "Multiple IP addresses found: $ip, ";
 	for (my $i=1; $i<=$#addresses; $i++) {
 		$ipcache .= "$addresses[$i], ";
@@ -1142,7 +1150,7 @@ sub set_targets {
         # is it a URL?
         if ($host =~ /^https?:\/\//) {
 
-            if ($CLI{'ports'} ne '') { 
+            if ($CLI{'ports'} ne '') {
 		nprint("- ERROR: The -port option cannot be used with a full URI");
 		exit;
 		}
@@ -1403,7 +1411,7 @@ sub check_dbs {
                 $line =~ s/^\s+//;
                 if ($line =~ /^\#|^$/) { next; }
                 my @L = parse_csv($line);
-                if (   ($L[4] !~ /(GET|POST|TRACE|TRACK|OPTIONS|SEARCH|INDEX)/i)
+                if (($L[4] !~ /(GET|POST|TRACE|TRACK|OPTIONS|SEARCH|INDEX)/i)
                     && ($L[0] ne '006433')) {
                     nprint("\t+ ERROR: Possibly invalid method: $L[4] on ($line)");
                 }
@@ -1434,7 +1442,7 @@ sub check_dbs {
                 else {
                     $ALL_IDS{$L[0]}=1;
                 }
-                if ($L[2] =~ /[^a-f0-9]/) {
+                if ($L[2] eq "" || $L[2] =~ /[^a-f0-9]/) {
                     nprint("\t+ ERROR: Invalid Tuning Type: $line");
                 }
                 if ($L[3] =~ '^(/@|//)' && $L[0] !~ /(000396|000447|000543|000544|000545|000928|000929|001208|001373|001497|002761|002762|003029|007152)/i) {
@@ -2502,9 +2510,7 @@ sub nfetch {
                 && ($mark->{'banner'} ne $result{'server'})
 		&& ($result{'server'} ne 'Microsoft-HTTPAPI/2.0')
 		) {
-                nprint(
-                    "+ Server banner has changed from '$mark->{banner}' to '$result{server}' which may suggest a WAF, load balancer or proxy is in place"
-                    );
+		add_vulnerability($mark, "Server banner changed from '$mark->{banner}' to '$result{server}'", 999962, 0, $method, $uri, $request, $response);
                 $mark->{'bannerchanged'} = 1;
             }
         }
@@ -2649,7 +2655,7 @@ sub max_test_id {
 sub get_ips {
     my $string = $_[0] || return;
     my @ips;
-    while ($string =~ /(?:\b|[^0-9])([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(?:\b|[^0-9])/g) {
+    while ($string =~ /(?:\b|[^0-9v])([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})(?:\b|[^0-9])/g) {
         push(@ips, $1);
     }
     return @ips;

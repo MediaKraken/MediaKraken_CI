@@ -51,13 +51,7 @@ sub nikto_headers_postfetch {
     my ($mark, $parameters, $request, $result) = @_;
 
     # Check for known headers
-    my @interesting_headers =
-      qw /commerce-server-software daap-server dasl datacenter dav generator hosted-by hosted-with microsoftofficewebserver microsoftsharepointteamservices ms-author-via powered-by server-name serverid servlet-engine via x-aspnet-version x-blackboard-product x-cocoon-version x-compressed-by x-dmuser x-gallery-version x-hosted-at x-hostname x-isp x-powered-by x-responding-server x-served-by x-server x-server-name x-webserver x-owa-version access-control-allow-origin x-application-context cneonction nncoection/;
-
-    foreach my $header (@interesting_headers) {
-        nikto_headers_check($mark, $result, $header, 'Retrieved ' . $header . ' header:',
-                            999986, $request);
-    }
+    nikto_headers_check($mark, $result, $header, 999986, $request);
 
     # look for internal IPs
     foreach my $header (keys %$result) {
@@ -164,6 +158,20 @@ sub nikto_headers_postfetch {
         }
     }
 
+    # Incapsula WAF
+    if (defined $result->{'x-cdn'} && ($result->{'x-cdn'} == "Incapsula")) {
+            add_vulnerability( $mark, "Incapsula WAF is in use.",
+                    999976, 0, $request->{'whisker'}->{'method'}, $request->{'whisker'}->{'uri'}, $request, $result);
+            $HFOUND{$header} = 1;
+            }
+
+    # NetIQ
+    if (defined $result->{'x-mag'}) {
+            add_vulnerability( $mark, "NetIQ debug information is enabled. See https://www.netiq.com/documentation/netiqaccessmanager32/accessgatewayhelp/data/agsglobaladv.html.",
+                    999946, 0, $request->{'whisker'}->{'method'}, $request->{'whisker'}->{'uri'}, $request, $result);
+            $HFOUND{$header} = 1;
+            }
+    
     # And for if it's not defined
     if (!$HEADERS_XXP{ $mark->{hostname} }{ $mark->{port} } && defined $result->{'whisker'}->{'code'}) {
         if (!defined $result->{'x-xss-protection'}) {
@@ -246,29 +254,46 @@ sub nikto_headers_postfetch {
         }
     }
 
+    # CSP Report URLs
+      if (!$HEADERS_XCO{ $mark->{hostname} }{ $mark->{port} } && defined $result->{'whisker'}->{'code'}) {
+        if (defined $result->{'x-clacks-overhead'}) {
+            add_vulnerability( $mark, "There appears to be clacks overhead on the server, the message is: $result->{'x-clacks-overhead'}", 999104, 0,
+                $request->{'whisker'}->{'method'}, $request->{'whisker'}->{'uri'}, $request, $result);
+            $HEADERS_XCO{ $mark->{hostname} }{ $mark->{port} } = 1;
+        }
+    }
+ 
     return $request, $result;
 }
 
 sub nikto_headers_check {
     return if $mark->{'terminate'};
-    my ($mark, $result, $header, $message, $tid, $request) = @_;
+    my ($mark, $result, $header, $tid, $request) = @_;
+    my @interesting_headers = 
+    qw /commerce-server-software daap-server dasl datacenter dav generator hosted-by hosted-with microsoftofficewebserver microsoftsharepointteamservices ms-author-via powered-by server-name serverid servlet-engine via x-aspnet-version x-blackboard-product x-cocoon-version x-compressed-by x-dmuser x-gallery-version x-hosted-at x-hostname x-isp x-powered-by x-responding-server x-served-by x-server x-server-name x-webserver x-owa-version access-control-allow-origin x-application-context cneonction nncoection xxx-real-ip bae-env-addr-sql-ip bae-env-addr-sql-port cf-connecting-ip fastly-client-ip incap-client-ip real-ip rlnclientipaddr true-client-ip x-clientip x-client-ip x-cluster-client-ip  x-ip x-nokia-ipaddress x-real-ip x-wap-network-client-ip/;
 
-    if (exists $result->{$header}) {
-        my $key =
-          LW2::md5(  $mark->{'ip'}
+    foreach my $header (@interesting_headers) {
+    	if (exists $result->{$header}) {
+        my $key = LW2::md5(  $mark->{'ip'}
                    . $mark->{'hostname'}
                    . $mark->{'port'}
                    . $mark->{'ssl'}
                    . $result->{'whisker'}->{'method'}
                    . $header);
 
-        if (!exists $HFOUND{$key}) {
-            my $value = $result->{$header};
+       	if (!exists $HFOUND{$key}) {
+            my $value = "";
+            if (ref($result->{$header}) eq ARRAY) {
+            	$value = join(', ', @{ $result->{$header} });
+              	}
+            else {
+              	$value = $result->{$header};
+              	}
             $HFOUND{$key} = $value;
-
-            add_vulnerability($mark, $message . " " . $value, $tid, "0", $request->{'whisker'}->{'method'}, $request->{'whisker'}->{'uri'}, $request, $result);
-        }
+            add_vulnerability($mark, "Retrieved $header header: $value", $tid, "0", $request->{'whisker'}->{'method'}, $request->{'whisker'}->{'uri'}, $request, $result);
+       	}
     }
+  }
 }
 
 sub nikto_headers {

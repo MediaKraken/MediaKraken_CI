@@ -19,6 +19,7 @@
 import os
 import shlex
 import subprocess
+import sys
 
 from common import common_docker_images
 from common import common_network_email
@@ -29,6 +30,12 @@ from dotenv import load_dotenv
 
 # load .env stats
 load_dotenv()
+
+# set build_only variable if entered
+try:
+    build_only = sys.argv[1]
+except IndexError:
+    build_only = None
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 
@@ -56,51 +63,18 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
                      common_docker_images.STAGE_ONE_FS):
     for docker_images in build_stages:
-        # do the actual build process for docker image
-        try:
-            # catch images that are in a testing branch that might not exist
-            os.chdir(os.path.join(CWD_HOME_DIRECTORY,
-                                  'MediaKraken_Deployment/docker',
-                                  build_stages[docker_images][2], docker_images))
-        except FileNotFoundError:
-            continue
-        # parse dockerfile for best practices
-        pid_proc = subprocess.Popen(
-            shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
-            stdout=subprocess.PIPE, shell=False)
-        while True:
-            line = pid_proc.stdout.readline()
-            if not line:
-                break
-            print(line.rstrip())
-        pid_proc.wait()
-        # TODO check for errors/warnings and stop if found
-        # Successfully tagged
-        # TODO don't pass alpine mirror to non alpine images?
-        pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
-                                                ' --build-arg ALPMIRROR=%s'
-                                                ' --build-arg PIPMIRROR=%s .' %
-                                                (build_stages[docker_images][0],
-                                                 common_docker_images.ALPINE_MIRROR,
-                                                 common_docker_images.PYPI_MIRROR)),
-                                    stdout=subprocess.PIPE, shell=False)
-        email_body = ''
-        while True:
-            line = pid_proc.stdout.readline()
-            if not line:
-                break
-            email_body += line.decode("utf-8")
-            print(line.rstrip())
-        pid_proc.wait()
-        subject_text = ' FAILED'
-        if email_body.find('Successfully tagged mediakraken') != -1:
-            subject_text = ' SUCCESS'
-            # tag for local repo
+        if build_only is None or (build_only is not None and docker_images == build_only):
+            # do the actual build process for docker image
+            try:
+                # catch images that are in a testing branch that might not exist
+                os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+                                      'MediaKraken_Deployment/docker',
+                                      build_stages[docker_images][2], docker_images))
+            except FileNotFoundError:
+                continue
+            # parse dockerfile for best practices
             pid_proc = subprocess.Popen(
-                shlex.split('docker tag mediakraken/%s:dev %s/mediakraken/%s:dev'
-                            % (build_stages[docker_images][0],
-                               common_docker_images.DOCKER_REPOSITORY,
-                               build_stages[docker_images][0])),
+                shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
                 stdout=subprocess.PIPE, shell=False)
             while True:
                 line = pid_proc.stdout.readline()
@@ -108,24 +82,58 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                     break
                 print(line.rstrip())
             pid_proc.wait()
-            # push to local repo
-            pid_proc = subprocess.Popen(
-                shlex.split('docker push %s/mediakraken/%s:dev'
-                            % (common_docker_images.DOCKER_REPOSITORY,
-                               build_stages[docker_images][0])),
-                stdout=subprocess.PIPE, shell=False)
+            # TODO check for errors/warnings and stop if found
+            # Successfully tagged
+            # TODO don't pass alpine mirror to non alpine images?
+            pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
+                                                    ' --build-arg ALPMIRROR=%s'
+                                                    ' --build-arg PIPMIRROR=%s .' %
+                                                    (build_stages[docker_images][0],
+                                                     common_docker_images.ALPINE_MIRROR,
+                                                     common_docker_images.PYPI_MIRROR)),
+                                        stdout=subprocess.PIPE, shell=False)
+            email_body = ''
             while True:
                 line = pid_proc.stdout.readline()
                 if not line:
                     break
+                email_body += line.decode("utf-8")
                 print(line.rstrip())
             pid_proc.wait()
-        # send success/fail email
-        common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
-                                                os.environ['MAILUSER'],
-                                                'Build dev image: '
-                                                + build_stages[docker_images][0]
-                                                + subject_text,
-                                                email_body,
-                                                smtp_server=os.environ['MAILSERVER'],
-                                                smtp_port=os.environ['MAILPORT'])
+            subject_text = ' FAILED'
+            if email_body.find('Successfully tagged mediakraken') != -1:
+                subject_text = ' SUCCESS'
+                # tag for local repo
+                pid_proc = subprocess.Popen(
+                    shlex.split('docker tag mediakraken/%s:dev %s/mediakraken/%s:dev'
+                                % (build_stages[docker_images][0],
+                                   common_docker_images.DOCKER_REPOSITORY,
+                                   build_stages[docker_images][0])),
+                    stdout=subprocess.PIPE, shell=False)
+                while True:
+                    line = pid_proc.stdout.readline()
+                    if not line:
+                        break
+                    print(line.rstrip())
+                pid_proc.wait()
+                # push to local repo
+                pid_proc = subprocess.Popen(
+                    shlex.split('docker push %s/mediakraken/%s:dev'
+                                % (common_docker_images.DOCKER_REPOSITORY,
+                                   build_stages[docker_images][0])),
+                    stdout=subprocess.PIPE, shell=False)
+                while True:
+                    line = pid_proc.stdout.readline()
+                    if not line:
+                        break
+                    print(line.rstrip())
+                pid_proc.wait()
+            # send success/fail email
+            common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                                    os.environ['MAILUSER'],
+                                                    'Build dev image: '
+                                                    + build_stages[docker_images][0]
+                                                    + subject_text,
+                                                    email_body,
+                                                    smtp_server=os.environ['MAILSERVER'],
+                                                    smtp_port=os.environ['MAILPORT'])

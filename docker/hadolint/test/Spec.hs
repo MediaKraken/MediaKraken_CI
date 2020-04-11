@@ -178,6 +178,12 @@ main =
               it "does not warn on -v" $ do
                 ruleCatchesNot gemVersionPinned "RUN gem install bundler -v '2.0.1'"
                 onBuildRuleCatchesNot gemVersionPinned "RUN gem install bundler -v '2.0.1'"
+              it "does not warn on --version without =" $ do
+                ruleCatchesNot gemVersionPinned "RUN gem install bundler --version '2.0.1'"
+                onBuildRuleCatchesNot gemVersionPinned "RUN gem install bundler --version '2.0.1'"
+              it "does not warn on --version with =" $ do
+                ruleCatchesNot gemVersionPinned "RUN gem install bundler --version='2.0.1'"
+                onBuildRuleCatchesNot gemVersionPinned "RUN gem install bundler --version='2.0.1'"
               it "does not warn on extra flags" $ do
                 ruleCatchesNot gemVersionPinned "RUN gem install bundler:2.0.1 -- --use-system-libraries=true"
                 onBuildRuleCatchesNot gemVersionPinned "RUN gem install bundler:2.0.1 -- --use-system-libraries=true"
@@ -401,9 +407,21 @@ main =
             it "pip version pinned with === operator" $ do
                 ruleCatchesNot pipVersionPinned "RUN pip install MySQL_python===1.2.2"
                 onBuildRuleCatchesNot pipVersionPinned "RUN pip install MySQL_python===1.2.2"
-            it "pip version pinned with flag" $ do
+            it "pip version pinned with flag --ignore-installed" $ do
                 ruleCatchesNot pipVersionPinned "RUN pip install --ignore-installed MySQL_python==1.2.2"
                 onBuildRuleCatchesNot pipVersionPinned "RUN pip install --ignore-installed MySQL_python==1.2.2"
+            it "pip version pinned with flag --build" $ do
+                ruleCatchesNot pipVersionPinned "RUN pip3 install --build /opt/yamllint yamllint==1.20.0"
+                onBuildRuleCatchesNot pipVersionPinned "RUN pip3 install --build /opt/yamllint yamllint==1.20.0"
+            it "pip version pinned with flag --prefix" $ do
+                ruleCatchesNot pipVersionPinned "RUN pip3 install --prefix /opt/yamllint yamllint==1.20.0"
+                onBuildRuleCatchesNot pipVersionPinned "RUN pip3 install --prefix /opt/yamllint yamllint==1.20.0"
+            it "pip version pinned with flag --root" $ do
+                ruleCatchesNot pipVersionPinned "RUN pip3 install --root /opt/yamllint yamllint==1.20.0"
+                onBuildRuleCatchesNot pipVersionPinned "RUN pip3 install --root /opt/yamllint yamllint==1.20.0"
+            it "pip version pinned with flag --target" $ do
+                ruleCatchesNot pipVersionPinned "RUN pip3 install --target /opt/yamllint yamllint==1.20.0"
+                onBuildRuleCatchesNot pipVersionPinned "RUN pip3 install --target /opt/yamllint yamllint==1.20.0"
             it "pip version pinned with python -m" $ do
                 ruleCatchesNot pipVersionPinned "RUN python -m pip install example==1.2.2"
                 onBuildRuleCatchesNot pipVersionPinned "RUN python -m pip install example==1.2.2"
@@ -464,9 +482,12 @@ main =
             it "pip install no cache dir" $ do
                 ruleCatchesNot pipVersionPinned "RUN pip install MySQL_python==1.2.2 --no-cache-dir"
                 onBuildRuleCatchesNot pipVersionPinned "RUN pip install MySQL_python==1.2.2 --no-cache-dir"
-            it "pip install constraints file" $ do
+            it "pip install constraints file - long version argument" $ do
                 ruleCatchesNot pipVersionPinned "RUN pip install pykafka --constraint http://foo.bar.baz"
                 onBuildRuleCatchesNot pipVersionPinned "RUN pip install pykafka --constraint http://foo.bar.baz"
+            it "pip install constraints file - short version argument" $ do
+                ruleCatchesNot pipVersionPinned "RUN pip install pykafka -c http://foo.bar.baz"
+                onBuildRuleCatchesNot pipVersionPinned "RUN pip install pykafka -c http://foo.bar.baz"
         --
         describe "npm pinning" $ do
             it "version pinned in package.json" $ do
@@ -719,6 +740,9 @@ main =
             it "apt-get version" $ do
                 ruleCatchesNot aptGetVersionPinned "RUN apt-get install -y python=1.2.2"
                 onBuildRuleCatchesNot aptGetVersionPinned "RUN apt-get install -y python=1.2.2"
+            it "apt-get version" $ do
+                ruleCatchesNot aptGetVersionPinned "RUN apt-get install ./wkhtmltox_0.12.5-1.bionic_amd64.deb"
+                onBuildRuleCatchesNot aptGetVersionPinned "RUN apt-get install ./wkhtmltox_0.12.5-1.bionic_amd64.deb"
             it "apt-get pinned" $ do
                 ruleCatchesNot
                     aptGetVersionPinned
@@ -1112,6 +1136,33 @@ main =
                         , "RUN curl localhost"
                         ]
                 in ruleCatches wgetOrCurl $ Text.unlines dockerFile
+            it "only warns on the relevant RUN instruction" $
+                let dockerFile =
+                        [ "FROM node as foo"
+                        , "RUN wget my.xyz"
+                        , "RUN curl my.xyz"
+                        , "RUN echo hello"
+                        ]
+                in assertChecks wgetOrCurl
+                                (Text.unlines dockerFile)
+                                (\checks -> assertBool
+                                                    "Expecting warnings only in 1 RUN instruction"
+                                                    (length checks == 1)
+                                )
+            it "only warns on many relevant RUN instructions" $
+                let dockerFile =
+                        [ "FROM node as foo"
+                        , "RUN wget my.xyz"
+                        , "RUN curl my.xyz"
+                        , "RUN echo hello"
+                        , "RUN wget foo.com"
+                        ]
+                in assertChecks wgetOrCurl
+                                (Text.unlines dockerFile)
+                                (\checks -> assertBool
+                                                    "Expecting warnings only in 2 RUN instructions"
+                                                    (length checks == 2)
+                                )
         --
         describe "Regression Tests" $
             it "Comments with backslashes at the end are just comments" $
@@ -1135,7 +1186,6 @@ assertChecks rule s makeAssertions =
         Left err -> assertFailure $ show err
         Right dockerFile -> makeAssertions $ analyze [rule] dockerFile
 
-
 assertOnBuildChecks :: HasCallStack => Rule -> Text.Text -> ([RuleCheck] -> IO a) -> IO a
 assertOnBuildChecks rule s makeAssertions =
     case parseText (s <> "\n") of
@@ -1146,6 +1196,9 @@ assertOnBuildChecks rule s makeAssertions =
     wrapInOnBuild (InstructionPos (Run args) so li) = InstructionPos (OnBuild (Run args)) so li
     wrapInOnBuild i = i
 
+selectChecksWithLines :: [RuleCheck] -> [RuleCheck]
+selectChecksWithLines checks = [c | c <- checks, linenumber c <= 0]
+
 -- Assert a failed check exists for rule
 ruleCatches :: HasCallStack => Rule -> Text.Text -> Assertion
 ruleCatches rule s = assertChecks rule s f
@@ -1153,7 +1206,7 @@ ruleCatches rule s = assertChecks rule s f
     f checks = do
       when (null checks) $
         assertFailure "I was expecting to catch at least one error"
-      assertBool "Incorrect line number for result" $ null [c | c <- checks, linenumber c <= 0]
+      assertBool "Incorrect line number for result" $ null $ selectChecksWithLines checks
 
 onBuildRuleCatches :: HasCallStack => Rule -> Text.Text -> Assertion
 onBuildRuleCatches rule s = assertOnBuildChecks rule s f
@@ -1161,7 +1214,7 @@ onBuildRuleCatches rule s = assertOnBuildChecks rule s f
     f checks = do
       when (length checks /= 1) $
         assertFailure (Text.unpack . Text.unlines . formatChecks $ checks)
-      assertBool "Incorrect line number for result" $ null [c | c <- checks, linenumber c <= 0]
+      assertBool "Incorrect line number for result" $ null $ selectChecksWithLines checks
 
 ruleCatchesNot :: HasCallStack => Rule -> Text.Text -> Assertion
 ruleCatchesNot rule s = assertChecks rule s f

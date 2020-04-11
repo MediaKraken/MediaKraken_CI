@@ -92,12 +92,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     registryUI.errorSnackbar = function(message) {
       return registryUI.snackbar(message, true);
     };
+    registryUI.showErrorCanNotReadContentDigest = function() {
+      registryUI.errorSnackbar(
+        'Access on registry response was blocked. Try adding the header ' +
+        '`Access-Control-Expose-Headers: Docker-Content-Digest`' +
+        ' to your proxy or registry: ' +
+        'https://docs.docker.com/registry/configuration/#http'
+      );
+    };
     registryUI.cleanName = function() {
       const url = registryUI.pullUrl || (registryUI.url() && registryUI.url().length > 0 && registryUI.url()) || window.location.host;
-      if (url) {
-        return url.startsWith('http') ? url.replace(/https?:\/\//, '') : url;
-      }
-      return '';
+      return registryUI.stripHttps(url);
     };
     route.parser(null, function(path, filter) {
       const f = filter
@@ -116,6 +121,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     registryUI.DockerImage = function(name, tag) {
       this.name = name;
       this.tag = tag;
+      this.chars = 0;
       riot.observable(this);
       this.on('get-size', function() {
         if (this.size !== undefined) {
@@ -132,6 +138,18 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
       this.on('get-date', function() {
         if (this.creationDate !== undefined) {
           return this.trigger('creation-date', this.creationDate);
+        }
+        return this.fillInfo();
+      });
+      this.on('content-digest-chars', function (chars) {
+        this.chars = chars;
+      });
+      this.on('get-content-digest-chars', function() {
+        return this.trigger('content-digest-chars', this.chars);
+      });
+      this.on('get-content-digest', function() {
+        if (this.digest !== undefined) {
+          return this.trigger('content-digest', this.digest);
         }
         return this.fillInfo();
       });
@@ -181,6 +199,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
           self.layers = response.layers;
           self.trigger('size', self.size);
           self.trigger('sha256', self.sha256);
+          oReq.getContentDigest(function (digest) {
+            self.digest = digest;
+            self.trigger('content-digest', digest);
+            if (!digest) {
+              registryUI.showErrorCanNotReadContentDigest();
+            }
+          });
           self.getBlobs(response.config.digest)
         } else if (this.status == 404) {
           registryUI.errorSnackbar('Manifest for ' + self.name + ':' + self.tag + ' not found');
@@ -189,7 +214,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         }
       });
       oReq.open('GET', registryUI.url() + '/v2/' + self.name + '/manifests/' + self.tag);
-      oReq.setRequestHeader('Accept', 'application/vnd.docker.distribution.manifest.v2+json');
+      oReq.setRequestHeader('Accept', 'application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json');
       oReq.send();
     };
 
@@ -217,7 +242,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         }
       });
       oReq.open('GET', registryUI.url() + '/v2/' + self.name + '/blobs/' + blob);
-      oReq.setRequestHeader('Accept', 'application/vnd.docker.distribution.manifest.v2+json');
+      oReq.setRequestHeader('Accept', 'application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json');
       oReq.send();
     };
 

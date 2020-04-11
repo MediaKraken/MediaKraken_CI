@@ -1,0 +1,81 @@
+version: 2.1
+
+defaults: &defaults
+  docker :
+    - image: aquasec/trivy-ci:latest
+  environment:
+    CGO_ENABLED: "0"
+
+jobs:
+  unit-test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Check if there's anything to fix with gofmt
+          command: |
+            if test -z "$(gofmt -l .)"; then
+              echo "Congrats! There is nothing to fix."
+            else
+              echo "The following lines should be fixed."
+              gofmt -s -d .
+              exit 1
+            fi
+      - run:
+          name: Test
+          command: make test
+  integration-test:
+    <<: *defaults
+    parameters:
+      docker_version:
+        type: string
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: << parameters.docker_version >>
+      - run:
+          name: Integration Test
+          command: make test-integration
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.0-ce
+      - run:
+          name: setup docker
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run:
+          name: Release
+          command: goreleaser --rm-dist
+      - run:
+          name: Clone trivy repository
+          command: git clone git@github.com:aquasecurity/trivy-repo.git
+      - run:
+          name: Setup git settings
+          command: |
+            git config --global user.email "knqyf263@gmail.com"
+            git config --global user.name "Teppei Fukuda"
+      - run:
+          name: Create rpm repository
+          command: ci/deploy-rpm.sh
+      - run:
+          name: Import GPG key
+          command: echo -e "$GPG_KEY" | gpg --import
+      - run:
+          name: Create deb repository
+          command: ci/deploy-deb.sh
+
+workflows:
+  version: 2
+  release:
+    jobs:
+      - unit-test
+      - integration-test:
+            docker_version: 18.09.3
+      - release:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
