@@ -41,7 +41,7 @@ try:
         shlex.split('vulture', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
-    print(e.output)
+    print(e.output, flush=True)
     sys.exit()
 email_body = ''
 try:
@@ -50,7 +50,7 @@ try:
         if not line:
             break
         email_body += line.decode("utf-8")
-        print(line.rstrip())
+        print(line.rstrip(), flush=True)
     pid_proc.wait()
 except:
     pass
@@ -68,7 +68,7 @@ try:
                     os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
-    print(e.output)
+    print(e.output, flush=True)
     sys.exit()
 email_body = ''
 try:
@@ -77,7 +77,7 @@ try:
         if not line:
             break
         email_body += line.decode("utf-8")
-        print(line.rstrip())
+        print(line.rstrip(), flush=True)
     pid_proc.wait()
 except:
     pass
@@ -95,7 +95,7 @@ try:
                     os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
-    print(e.output)
+    print(e.output, flush=True)
     sys.exit()
 email_body = ''
 try:
@@ -104,7 +104,7 @@ try:
         if not line:
             break
         email_body += line.decode("utf-8")
-        print(line.rstrip())
+        print(line.rstrip(), flush=True)
     pid_proc.wait()
 except:
     pass
@@ -121,7 +121,7 @@ try:
         shlex.split('bandit -r', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
-    print(e.output)
+    print(e.output, flush=True)
     sys.exit()
 email_body = ''
 try:
@@ -130,7 +130,7 @@ try:
         if not line:
             break
         email_body += line.decode("utf-8")
-        print(line.rstrip())
+        print(line.rstrip(), flush=True)
     pid_proc.wait()
 except:
     pass
@@ -147,7 +147,7 @@ try:
         shlex.split('radon cc', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
-    print(e.output)
+    print(e.output, flush=True)
     sys.exit()
 email_body = ''
 try:
@@ -156,7 +156,7 @@ try:
         if not line:
             break
         email_body += line.decode("utf-8")
-        print(line.rstrip())
+        print(line.rstrip(), flush=True)
     pid_proc.wait()
 except:
     pass
@@ -173,7 +173,7 @@ try:
         shlex.split('pytype', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
-    print(e.output)
+    print(e.output, flush=True)
     sys.exit()
 email_body = ''
 try:
@@ -182,7 +182,7 @@ try:
         if not line:
             break
         email_body += line.decode("utf-8")
-        print(line.rstrip())
+        print(line.rstrip(), flush=True)
     pid_proc.wait()
 except:
     pass
@@ -199,7 +199,7 @@ try:
         shlex.split('pylama', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
-    print(e.output)
+    print(e.output, flush=True)
     sys.exit()
 email_body = ''
 try:
@@ -208,7 +208,7 @@ try:
         if not line:
             break
         email_body += line.decode("utf-8")
-        print(line.rstrip())
+        print(line.rstrip(), flush=True)
     pid_proc.wait()
 except:
     pass
@@ -235,7 +235,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                              build_stages[docker_images][0])),
                 stdout=subprocess.PIPE, shell=False)
         except subprocess.CalledProcessError as e:
-            print(e.output)
+            print(e.output, flush=True)
             sys.exit()
         email_body = ''
         try:
@@ -244,7 +244,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 if not line:
                     break
                 email_body += line.decode("utf-8")
-                print(line.rstrip())
+                print(line.rstrip(), flush=True)
             pid_proc.wait()
         except:
             pass
@@ -270,7 +270,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                              build_stages[docker_images][0])),
                 stdout=subprocess.PIPE, shell=False)
         except subprocess.CalledProcessError as e:
-            print(e.output)
+            print(e.output, flush=True)
             sys.exit()
         email_body = ''
         try:
@@ -279,7 +279,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 if not line:
                     break
                 email_body += line.decode("utf-8")
-                print(line.rstrip())
+                print(line.rstrip(), flush=True)
             pid_proc.wait()
         except:
             pass
@@ -306,7 +306,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                              build_stages[docker_images][0])),
                 stdout=subprocess.PIPE, shell=False)
         except subprocess.CalledProcessError as e:
-            print(e.output)
+            print(e.output, flush=True)
             sys.exit()
         email_body = ''
         try:
@@ -315,7 +315,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 if not line:
                     break
                 email_body += line.decode("utf-8")
-                print(line.rstrip())
+                print(line.rstrip(), flush=True)
             pid_proc.wait()
         except:
             pass
@@ -337,7 +337,7 @@ while True:
     line = pid_proc.stdout.readline()
     if not line:
         break
-    print(line.rstrip())
+    print(line.rstrip(), flush=True)
 pid_proc.wait()
 # this sleep is here so that everything has time to fully start like pika
 time.sleep(60)
@@ -352,7 +352,7 @@ while True:
     if not line:
         break
     email_body += line.decode("utf-8")
-    print(line.rstrip())
+    print(line.rstrip(), flush=True)
 pid_proc.wait()
 common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                         os.environ['MAILUSER'],
@@ -382,7 +382,7 @@ while True:
     if not line:
         break
     email_body += line.decode("utf-8")
-    print(line.rstrip())
+    print(line.rstrip(), flush=True)
 pid_proc.wait()
 common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                         os.environ['MAILUSER'],
@@ -400,7 +400,7 @@ while True:
     if not line:
         break
     email_body += line.decode("utf-8")
-    print(line.rstrip())
+    print(line.rstrip(), flush=True)
 pid_proc.wait()
 common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                         os.environ['MAILUSER'],
@@ -419,7 +419,7 @@ while True:
     if not line:
         break
     email_body += line.decode("utf-8")
-    print(line.rstrip())
+    print(line.rstrip(), flush=True)
 pid_proc.wait()
 common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                         os.environ['MAILUSER'],
@@ -438,7 +438,7 @@ while True:
     if not line:
         break
     email_body += line.decode("utf-8")
-    print(line.rstrip())
+    print(line.rstrip(), flush=True)
 pid_proc.wait()
 common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                         os.environ['MAILUSER'],

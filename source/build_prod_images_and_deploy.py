@@ -39,7 +39,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             line = pid_proc.stdout.readline()
             if not line:
                 break
-            print(line.rstrip())
+            print(line.rstrip(), flush=True)
         pid_proc.wait()
         # push the actual image to docker hub
         pid_proc = subprocess.Popen(
@@ -49,5 +49,5 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             line = pid_proc.stdout.readline()
             if not line:
                 break
-            print(line.rstrip())
+            print(line.rstrip(), flush=True)
         pid_proc.wait()

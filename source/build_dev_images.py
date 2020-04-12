@@ -80,7 +80,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 line = pid_proc.stdout.readline()
                 if not line:
                     break
-                print(line.rstrip())
+                print(line.rstrip(), flush=True)
             pid_proc.wait()
             # TODO check for errors/warnings and stop if found
             # Successfully tagged
@@ -98,7 +98,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 if not line:
                     break
                 email_body += line.decode("utf-8")
-                print(line.rstrip())
+                print(line.rstrip(), flush=True)
             pid_proc.wait()
             subject_text = ' FAILED'
             if email_body.find('Successfully tagged mediakraken') != -1:
@@ -114,7 +114,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                     line = pid_proc.stdout.readline()
                     if not line:
                         break
-                    print(line.rstrip())
+                    print(line.rstrip(), flush=True)
                 pid_proc.wait()
                 # push to local repo
                 pid_proc = subprocess.Popen(
@@ -126,7 +126,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                     line = pid_proc.stdout.readline()
                     if not line:
                         break
-                    print(line.rstrip())
+                    print(line.rstrip(), flush=True)
                 pid_proc.wait()
             # send success/fail email
             common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
