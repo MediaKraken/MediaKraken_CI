@@ -330,7 +330,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
 #####################################
 # start up the application so can see running images for several tools
 #####################################
-os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'run_configs/compose_dev/'))
 pid_proc = subprocess.Popen(shlex.split('mediakraken_start.sh'),
                             stdout=subprocess.PIPE, shell=False)
 while True:
@@ -449,7 +449,9 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 #####################################
 # stop the application
 #####################################
-os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'docker/swarm/'))
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'run_configs/compose_dev/'))
 pid_proc = subprocess.Popen(shlex.split('mediakraken_stop.sh'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
+# this sleep is here so that everything has time to fully stop like pika
+time.sleep(60)
