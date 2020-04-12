@@ -62,32 +62,33 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_server=os.environ['MAILSERVER'],
                                         smtp_port=os.environ['MAILPORT'])
 
-# run Graudit to find unsecure code
-try:
-    pid_proc = subprocess.Popen(
-        shlex.split('graudit -d python %s' %
-                    os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
-        stdout=subprocess.PIPE, shell=False)
-except subprocess.CalledProcessError as e:
-    print(e.output, flush=True)
-    sys.exit()
-email_body = ''
-try:
-    while True:
-        line = pid_proc.stdout.readline()
-        if not line:
-            break
-        email_body += line.decode("utf-8")
-        print(line.rstrip(), flush=True)
-    pid_proc.wait()
-except:
-    pass
-common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
-                                        os.environ['MAILUSER'],
-                                        'Graudit (Unsecure Code)',
-                                        email_body,
-                                        smtp_server=os.environ['MAILSERVER'],
-                                        smtp_port=os.environ['MAILPORT'])
+# TODO this hangs up after scanning for a long time
+# # run Graudit to find unsecure code
+# try:
+#     pid_proc = subprocess.Popen(
+#         shlex.split('graudit -d python %s' %
+#                     os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+#         stdout=subprocess.PIPE, shell=False)
+# except subprocess.CalledProcessError as e:
+#     print(e.output, flush=True)
+#     sys.exit()
+# email_body = ''
+# try:
+#     while True:
+#         line = pid_proc.stdout.readline()
+#         if not line:
+#             break
+#         email_body += line.decode("utf-8")
+#         print(line.rstrip(), flush=True)
+#     pid_proc.wait()
+# except:
+#     pass
+# common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+#                                         os.environ['MAILUSER'],
+#                                         'Graudit (Unsecure Code)',
+#                                         email_body,
+#                                         smtp_server=os.environ['MAILSERVER'],
+#                                         smtp_port=os.environ['MAILPORT'])
 
 # run python taint to find unsecure code
 try:
