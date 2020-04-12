@@ -39,7 +39,7 @@ print(CWD_HOME_DIRECTORY, flush=True)
 # run vulture to find dead code
 try:
     pid_proc = subprocess.Popen(
-        shlex.split('vulture', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        shlex.split('vulture %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output, flush=True)
@@ -65,7 +65,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # run Graudit to find unsecure code
 try:
     pid_proc = subprocess.Popen(
-        shlex.split('graudit -d python',
+        shlex.split('graudit -d python %s' %
                     os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
@@ -92,7 +92,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # run python taint to find unsecure code
 try:
     pid_proc = subprocess.Popen(
-        shlex.split('python3 -m pyt -r',
+        shlex.split('python3 -m pyt -r %s' %
                     os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
@@ -119,7 +119,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # run Bandit to find unsecure code
 try:
     pid_proc = subprocess.Popen(
-        shlex.split('bandit -r', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        shlex.split('bandit -r %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output, flush=True)
@@ -145,7 +145,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # run radon to determine code complexity
 try:
     pid_proc = subprocess.Popen(
-        shlex.split('radon cc', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        shlex.split('radon cc %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output, flush=True)
@@ -171,7 +171,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # run pytype to run type checking
 try:
     pid_proc = subprocess.Popen(
-        shlex.split('pytype', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        shlex.split('pytype %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output, flush=True)
@@ -197,7 +197,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # run pylama to code quality
 try:
     pid_proc = subprocess.Popen(
-        shlex.split('pylama', os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        shlex.split('pylama %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
     print(e.output, flush=True)
