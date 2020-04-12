@@ -111,7 +111,6 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         'ComposeMediaKrakenPika': ('mkpika', 'mkbase311_5py3', 'alpine'),
                         'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
                         'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase311_5py3', 'alpine'),
-                        'ComposeMediaKrakenRedis': ('mkredis', 'alpine:3.11', 'alpine'),
                         'ComposeMediaKrakenRokuThumb': (
                             'mkrokuthumb', 'mkbasenodeffmpeg', 'alpine'),
                         'ComposeMediaKrakenServer': ('mkserver', 'mkbase311_5py3', 'alpine'),
