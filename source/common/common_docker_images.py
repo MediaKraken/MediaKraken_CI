@@ -71,8 +71,6 @@ STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8',
                     'ComposeMediaKrakenBase10_2Py3': ('mkbasedeb10_2py3', 'debian:10.2-slim', 'debian'),
                     'ComposeMediaKrakenBase10_3Py3': ('mkbasedeb10_3py3', 'debian:10.3-slim', 'debian'),
                     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.11.3', 'alpine'),
-                    # 'ComposeMediaKrakenBaseFFMPEGUbuntu': ('mkbaseffmpegubuntu',
-                    # 'ubuntu:18.10', 'ubuntu'),
                     'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.9', 'alpine'),
                     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.3-slim', 'debian'),
                     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'ubuntu'),
@@ -86,14 +84,11 @@ STAGE_ONE_IMAGES = {'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8',
 # build on top of base os images from above
 STAGE_TWO_IMAGES = {
     'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg', 'alpine'),
-    # 'ComposeMediaKrakenBaseNodeFFMPEGUbuntu': (
-    #    'mkbasenodeffmpegubuntu', 'mkbaseffmpegubuntu', 'ubuntu'),
     'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase311_5py3', 'alpine'),
     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase311_5py3', 'alpine'),
     'ComposeMediaKrakenGrapesJS': ('mkgrapesjs', 'mkbasenode', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg', 'alpine'),
-    # 'ComposeMediaKrakenSlaveUbuntu': ('mkslaveubuntu', 'mkbasenodeffmpegubuntu', 'ubuntu'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase311_5py3', 'alpine')}
 
 # these are the final "compose" images
@@ -101,16 +96,6 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase311_5py3', 'alpine'),
                         'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
                         'ComposeMediaKrakenCron': ('mkcron', 'mkbase311_5py3', 'alpine'),
-                        # 'ComposeMediaKrakenDatabase11_3': ('mkdatabase', 'alpine:3.10', 'alpine'),
-                        # 'ComposeMediaKrakenDatabase11_4': ('mkdatabase', 'alpine:3.10', 'alpine'),
-                        # 'ComposeMediaKrakenDatabase11_3': (
-                        #     'mkdatabase', 'debian:9.8-slim', 'debian'),
-                        # 'ComposeMediaKrakenDatabase11_4': (
-                        #    'mkdatabase', 'debian:9.9-slim', 'debian'),
-                        # 'ComposeMediaKrakenDatabase11_5': (
-                        #     'mkdatabase', 'debian:9.9-slim', 'debian'),
-                        # 'ComposeMediaKrakenDatabase11_6': (
-                        #     'mkdatabase', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenDatabase11_7': (
                             'mkdatabase', 'debian:9.9-slim', 'debian'),
                         'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase311_5py3', 'alpine'),
@@ -132,10 +117,7 @@ STAGE_COMPOSE_IMAGES = {'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie'
                         'ComposeMediaKrakenServer': ('mkserver', 'mkbase311_5py3', 'alpine'),
                         'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
                         'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
-                        'ComposeMediaKrakenWebAsync': ('mkwebappasync', 'mkbase311_5py3', 'alpine'),
                         'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase311_5py3', 'alpine'),
-                        # 'ComposeMediaKrakenWebAsync': ('mkwebappasyncdeb', 'mkbasedeb10_2py3', 'debian'),
-                        # 'ComposeMediaKrakenWebServer': ('mkwebapp', 'mkbase311_5py3', 'alpine'),
                         'ComposeMediaKrakenWebServer': ('mkwebappdeb', 'mkbasedeb10_2py3', 'debian'),
                         }
 
