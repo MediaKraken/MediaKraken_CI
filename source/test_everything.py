@@ -30,6 +30,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
+print(CWD_HOME_DIRECTORY, flush=True)
 
 #####################################
 # lint and validate code
