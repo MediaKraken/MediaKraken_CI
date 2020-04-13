@@ -86,7 +86,6 @@ STAGE_TWO_IMAGES = {
     'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase311_5py3', 'alpine'),
     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase311_5py3', 'alpine'),
-    'ComposeMediaKrakenGrapesJS': ('mkgrapesjs', 'mkbasenode', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg', 'alpine'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase311_5py3', 'alpine')}
