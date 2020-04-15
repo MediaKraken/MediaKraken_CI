@@ -61,7 +61,9 @@ pid_proc.wait()
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
-                     common_docker_images.STAGE_ONE_FS):
+                     common_docker_images.STAGE_ONE_FS,
+                     common_docker_images.STAGE_ONE_GAME_SERVERS,
+                     common_docker_images.STAGE_TWO_GAME_SERVERS):
     for docker_images in build_stages:
         if build_only is None or (build_only is not None and docker_images == build_only):
             # do the actual build process for docker image

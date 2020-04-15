@@ -90,7 +90,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 #                                         smtp_server=os.environ['MAILSERVER'],
 #                                         smtp_port=os.environ['MAILPORT'])
 
-# run python taint to find unsecure code
+# run python taint to find unsecured code
 try:
     pid_proc = subprocess.Popen(
         shlex.split('python3 -m pyt -r %s' %
@@ -117,7 +117,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_server=os.environ['MAILSERVER'],
                                         smtp_port=os.environ['MAILPORT'])
 
-# run Bandit to find unsecure code
+# run Bandit to find unsecured code
 try:
     pid_proc = subprocess.Popen(
         shlex.split('bandit -r %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
@@ -222,14 +222,17 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_port=os.environ['MAILPORT'])
 
 #####################################
-# docker container scaning
+# docker container scanning
 #####################################
 # trivy - security scan docker images
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_COMPOSE_IMAGES):
+                     common_docker_images.STAGE_COMPOSE_IMAGES,
+                     common_docker_images.STAGE_ONE_FS,
+                     common_docker_images.STAGE_ONE_GAME_SERVERS,
+                     common_docker_images.STAGE_TWO_GAME_SERVERS):
     for docker_images in build_stages:
-        # Run Clair on each image
+        # Run trivy on each image
         try:
             pid_proc = subprocess.Popen(
                 shlex.split('trivy %s/mediakraken/%s:dev' %
@@ -262,7 +265,10 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'docker/clair/'))
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_COMPOSE_IMAGES):
+                     common_docker_images.STAGE_COMPOSE_IMAGES,
+                     common_docker_images.STAGE_ONE_FS,
+                     common_docker_images.STAGE_ONE_GAME_SERVERS,
+                     common_docker_images.STAGE_TWO_GAME_SERVERS):
     for docker_images in build_stages:
         # Run Clair on each image
         try:
@@ -298,9 +304,12 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
 # os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'docker/anchore/'))
 # for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
 #                      common_docker_images.STAGE_TWO_IMAGES,
-#                      common_docker_images.STAGE_COMPOSE_IMAGES):
+#                      common_docker_images.STAGE_COMPOSE_IMAGES,
+#                      common_docker_images.STAGE_ONE_FS,
+#                      common_docker_images.STAGE_ONE_GAME_SERVERS,
+#                      common_docker_images.STAGE_TWO_GAME_SERVERS):
 #     for docker_images in build_stages:
-#         # Run Clair on each image
+#         # Run anchore on each image
 #         try:
 #             pid_proc = subprocess.Popen(
 #                 shlex.split('docker-compose exec engine-api anchore-cli image vuln'
