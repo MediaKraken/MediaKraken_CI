@@ -101,7 +101,6 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'),
     'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
     'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'),
-    'ComposeMediaKrakenOdyssey': ('mkodyssey', 'debian:9.9-slim', 'debian'),
     'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.11.5', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase311_5py3', 'alpine'),
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
