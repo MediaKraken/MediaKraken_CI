@@ -72,7 +72,7 @@ STAGE_ONE_IMAGES = {
     'ComposeMediaKrakenBase9_9Py3': ('mkbasedeb9_9py3', 'debian:9.9-slim', 'debian'),
     'ComposeMediaKrakenBase10_2Py3': ('mkbasedeb10_2py3', 'debian:10.2-slim', 'debian'),
     'ComposeMediaKrakenBase10_3Py3': ('mkbasedeb10_3py3', 'debian:10.3-slim', 'debian'),
-    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.11.3', 'alpine'),
+    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.11.5', 'alpine'),
     'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.9', 'alpine'),
 }
 
@@ -112,14 +112,13 @@ STAGE_COMPOSE_IMAGES = {
     #'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
     'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase311_5py3', 'alpine'),
-    #'ComposeMediaKrakenWebServer': ('mkwebappdeb', 'mkbasedeb10_2py3', 'debian'),
 }
 
 # these are the game servers
 STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.3-slim', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
-    'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:stretch', 'game_server'),
+    'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
 }
 
 STAGE_TWO_GAME_SERVERS = {}
