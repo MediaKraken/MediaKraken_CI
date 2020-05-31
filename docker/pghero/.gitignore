@@ -2,3 +2,5 @@ log
 .vagrant
 tmp
 *.log
+/.Gemfile.lock.un~
+/Gemfile.lock~
