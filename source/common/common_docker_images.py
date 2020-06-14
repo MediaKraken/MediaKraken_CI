@@ -70,6 +70,7 @@ STAGE_ONE_IMAGES = {
     'ComposeMediaKrakenBase311_3Py3': ('mkbase311_3py3', 'alpine:3.11.3', 'alpine'),
     'ComposeMediaKrakenBase311_5Py3': ('mkbase311_5py3', 'alpine:3.11.5', 'alpine'),
     'ComposeMediaKrakenBase311_6Py3': ('mkbase311_6py3', 'alpine:3.11.6', 'alpine'),
+    'ComposeMediaKrakenBase312Py3': ('mkbase312py3', 'alpine:3.12', 'alpine'),
     'ComposeMediaKrakenBase9_9Py3': ('mkbasedeb9_9py3', 'debian:9.9-slim', 'debian'),
     'ComposeMediaKrakenBase10_2Py3': ('mkbasedeb10_2py3', 'debian:10.2-slim', 'debian'),
     'ComposeMediaKrakenBase10_3Py3': ('mkbasedeb10_3py3', 'debian:10.3-slim', 'debian'),
