@@ -69,10 +69,12 @@ STAGE_ONE_IMAGES = {
     'ComposeMediaKrakenBase310_2Py3': ('mkbase310_2py3', 'alpine:3.10.2', 'alpine'),
     'ComposeMediaKrakenBase311_3Py3': ('mkbase311_3py3', 'alpine:3.11.3', 'alpine'),
     'ComposeMediaKrakenBase311_5Py3': ('mkbase311_5py3', 'alpine:3.11.5', 'alpine'),
+    'ComposeMediaKrakenBase311_6Py3': ('mkbase311_6py3', 'alpine:3.11.6', 'alpine'),
     'ComposeMediaKrakenBase9_9Py3': ('mkbasedeb9_9py3', 'debian:9.9-slim', 'debian'),
     'ComposeMediaKrakenBase10_2Py3': ('mkbasedeb10_2py3', 'debian:10.2-slim', 'debian'),
     'ComposeMediaKrakenBase10_3Py3': ('mkbasedeb10_3py3', 'debian:10.3-slim', 'debian'),
-    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.11.5', 'alpine'),
+    'ComposeMediaKrakenBase10_4Py3': ('mkbasedeb10_4py3', 'debian:10.4-slim', 'debian'),
+    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.11.6', 'alpine'),
     'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.9', 'alpine'),
 }
 
@@ -91,7 +93,8 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase311_5py3', 'alpine'),
     #'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
     'ComposeMediaKrakenCron': ('mkcron', 'mkbase311_5py3', 'alpine'),
-    'ComposeMediaKrakenDatabase11_7': ('mkdatabase', 'debian:9.9-slim', 'debian'),
+    #'ComposeMediaKrakenDatabase11_7': ('mkdatabase', 'debian:9.9-slim', 'debian'),
+    'ComposeMediaKrakenDatabase11_8': ('mkdatabase', 'debian:9.9-slim', 'debian'),
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase311_5py3', 'alpine'),
     'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
     #'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.10', 'alpine'),
@@ -111,7 +114,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.8', 'alpine'),
     #'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
-    'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase311_6py3', 'alpine'),
 }
 
 # these are the game servers
