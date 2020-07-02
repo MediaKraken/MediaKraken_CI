@@ -61,7 +61,6 @@ pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
 
-# TODO I don't have mailcow dir in CI
 # Download all the images for Mailcow
 os.chdir('../docker/mailcow')
 pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
