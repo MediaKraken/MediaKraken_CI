@@ -86,7 +86,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             pid_proc.wait()
             # TODO check for errors/warnings and stop if found
             # Successfully tagged
-            # TODO don't pass alpine mirror to non alpine images?
+            # Let the mirror's be passed, if not used it will just throw a warning
             pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                                     ' --build-arg ALPMIRROR=%s'
                                                     ' --build-arg PIPMIRROR=%s .' %
