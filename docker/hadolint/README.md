@@ -143,6 +143,10 @@ To get most of `hadolint` it is useful to integrate it as a check to your CI
 or to your editor to lint your `Dockerfile` as you write it. See our
 [Integration][] docs.
 
+- [Code Review Platform Integrations][]
+- [Continuous Integrations][]
+- [Editor Integrations][]
+
 ## Rules
 
 An incomplete list of implemented rules. Click on the error code to get more
@@ -187,6 +191,7 @@ Please [create an issue][] if you have an idea for a good rule.
 | [DL3026](https://github.com/hadolint/hadolint/wiki/DL3026)   | Use only an allowed registry in the FROM image                                                                                                      |
 | [DL3027](https://github.com/hadolint/hadolint/wiki/DL3027)   | Do not use `apt` as it is meant to be a end-user tool, use `apt-get` or `apt-cache` instead                                                         |
 | [DL3028](https://github.com/hadolint/hadolint/wiki/DL3028)   | Pin versions in gem install. Instead of `gem install <gem>` use `gem install <gem>:<version>`                                                       |
+| [DL3029](https://github.com/hadolint/hadolint/wiki/DL3029)   | Do not use --platform flag with FROM.                                                                                                               |
 | [DL4000](https://github.com/hadolint/hadolint/wiki/DL4000)   | MAINTAINER is deprecated.                                                                                                                           |
 | [DL4001](https://github.com/hadolint/hadolint/wiki/DL4001)   | Either use Wget or Curl but not both.                                                                                                               |
 | [DL4003](https://github.com/hadolint/hadolint/wiki/DL4003)   | Multiple `CMD` instructions found.                                                                                                                  |
@@ -211,7 +216,7 @@ Please [create an issue][] if you have an idea for a good rule.
 | [SC1086](https://github.com/koalaman/shellcheck/wiki/SC1086) | Don't use `$` on the iterator name in for loops.                                                                                                    |
 | [SC1087](https://github.com/koalaman/shellcheck/wiki/SC1087) | Braces are required when expanding arrays, as in `${array[idx]}`.                                                                                   |
 | [SC1095](https://github.com/koalaman/shellcheck/wiki/SC1095) | You need a space or linefeed between the function name and body.                                                                                    |
-| [SC1097](https://github.com/koalaman/shellcheck/wiki/SC1097) | Unexpected `==`. For assignment, use `=`. For comparison, use `[/[[`.                                                                               |
+| [SC1097](https://github.com/koalaman/shellcheck/wiki/SC1097) | Unexpected `==`. For assignment, use `=`. For comparison, use `[ .. ]` or `[[ .. ]]`.                                                               |
 | [SC1098](https://github.com/koalaman/shellcheck/wiki/SC1098) | Quote/escape special characters when using `eval`, e.g. `eval "a=(b)"`.                                                                             |
 | [SC1099](https://github.com/koalaman/shellcheck/wiki/SC1099) | You need a space before the `#`.                                                                                                                    |
 | [SC2002](https://github.com/koalaman/shellcheck/wiki/SC2002) | Useless cat. Consider <code>cmd < file &#124; ..</code> or <code>cmd file &#124; ..</code> instead.                                                 |
@@ -253,8 +258,12 @@ The easiest way to try out the parser is using the REPL.
 ```bash
 # start the repl
 stack repl
+# overload strings to be able to use Text
+:set -XOverloadedStrings
+# import parser library
+import Language.Docker
 # parse instruction and look at AST representation
-parseString "FROM debian:jessie"
+parseText "FROM debian:jessie"
 ```
 
 ### Tests
@@ -297,6 +306,9 @@ a look at [Syntax.hs][] in the `language-docker` project to see the AST definiti
 [haskell]: https://www.haskell.org/platform/
 [stack]: http://docs.haskellstack.org/en/stable/install_and_upgrade.html
 [integration]: docs/INTEGRATION.md
+[code review platform integrations]: docs/INTEGRATION.md#code-review
+[continuous integrations]: docs/INTEGRATION.md#continuous-integration
+[editor integrations]: docs/INTEGRATION.md#editors
 [create an issue]: https://github.com/hadolint/hadolint/issues/new
 [dockerfile reference]: http://docs.docker.com/engine/reference/builder/
 [syntax.hs]: https://www.stackage.org/haddock/nightly-2018-01-07/language-docker-2.0.1/Language-Docker-Syntax.html
