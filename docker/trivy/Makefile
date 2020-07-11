@@ -12,7 +12,11 @@ $(GOBIN)/wire:
 
 .PHONY: wire
 wire: $(GOBIN)/wire
-	wire gen ./...
+	wire gen ./pkg/... ./internal/...
+
+.PHONY: mock
+mock: $(GOBIN)/mockery
+	mockery -all -inpkg -case=snake -dir $(DIR)
 
 .PHONY: deps
 deps:
@@ -47,7 +51,7 @@ build:
 
 .PHONY: protoc
 protoc:
-	protoc --proto_path=$(GOSRC):. --twirp_out=. --go_out=. ./rpc/detector/service.proto
+	find ./rpc/ -name "*.proto" -type f -exec protoc --proto_path=$(GOSRC):. --twirp_out=. --go_out=. {} \;
 
 .PHONY: install
 install:
@@ -56,3 +60,10 @@ install:
 .PHONY: clean
 clean:
 	rm -rf integration/testdata/fixtures/
+
+$(GOBIN)/labeler:
+	GO111MODULE=off go get github.com/knqyf263/labeler
+
+.PHONY: label
+label: $(GOBIN)/labeler
+	labeler apply misc/triage/labels.yaml -r aquasecurity/trivy -l 5

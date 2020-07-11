@@ -2,6 +2,7 @@ package library
 
 import (
 	"context"
+	"time"
 
 	"github.com/google/wire"
 	"golang.org/x/xerrors"
@@ -19,6 +20,7 @@ var SuperSet = wire.NewSet(
 	NewServer,
 )
 
+// Server is for backward compatibility
 type Server struct {
 	detector   detector.Operation
 	vulnClient vulnerability.Operation
@@ -28,15 +30,16 @@ func NewServer(detector detector.Operation, vulnClient vulnerability.Operation) 
 	return &Server{detector: detector, vulnClient: vulnClient}
 }
 
-func (s *Server) Detect(ctx context.Context, req *proto.LibDetectRequest) (res *proto.DetectResponse, err error) {
-	vulns, err := s.detector.Detect(req.FilePath, rpc.ConvertFromRpcLibraries(req.Libraries))
+// Detect is for backward compatibility
+func (s *Server) Detect(_ context.Context, req *proto.LibDetectRequest) (res *proto.DetectResponse, err error) {
+	vulns, err := s.detector.Detect("", req.FilePath, time.Time{}, rpc.ConvertFromRpcLibraries(req.Libraries))
 	if err != nil {
 		err = xerrors.Errorf("failed to detect library vulnerabilities: %w", err)
 		log.Logger.Error(err)
 		return nil, err
 	}
 
-	s.vulnClient.FillInfo(vulns, false)
+	s.vulnClient.FillInfo(vulns, "")
 
 	return &proto.DetectResponse{Vulnerabilities: rpc.ConvertToRpcVulns(vulns)}, nil
 }

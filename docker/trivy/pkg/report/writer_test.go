@@ -230,13 +230,59 @@ func TestReportWriter_Template(t *testing.T) {
 			template: "{{ range . }}{{ range .Vulnerabilities}}{{ println .VulnerabilityID .Severity }}{{ end }}{{ end }}",
 			expected: "CVE-2019-0000 HIGH\nCVE-2019-0000 HIGH\nCVE-2019-0001 CRITICAL\n",
 		},
+		{
+			name: "happy path",
+			detectedVulns: []types.DetectedVulnerability{
+				{
+					VulnerabilityID:  "123",
+					PkgName:          "foo",
+					InstalledVersion: "1.2.3",
+					FixedVersion:     "3.4.5",
+					Vulnerability: dbTypes.Vulnerability{
+						Title:       `gcc: POWER9 "DARN" RNG intrinsic produces repeated output`,
+						Description: `curl version curl 7.20.0 to and including curl 7.59.0 contains a CWE-126: Buffer Over-read vulnerability in denial of service that can result in curl can be tricked into reading data beyond the end of a heap based buffer used to store downloaded RTSP content.. This vulnerability appears to have been fixed in curl < 7.20.0 and curl >= 7.60.0.`,
+						Severity:    "HIGH",
+					},
+				},
+			},
+
+			template: `<testsuites>
+{{- range . -}}
+{{- $failures := len .Vulnerabilities }}
+    <testsuite tests="1" failures="{{ $failures }}" time="" name="{{  .Target }}">
+	{{- if not (eq .Type "") }}
+        <properties>
+            <property name="type" value="{{ .Type }}"></property>
+        </properties>
+        {{- end -}}
+        {{ range .Vulnerabilities }}
+        <testcase classname="{{ .PkgName }}-{{ .InstalledVersion }}" name="[{{ .Vulnerability.Severity }}] {{ .VulnerabilityID }}" time="">
+            <failure message={{escapeXML .Title | printf "%q" }} type="description">{{escapeXML .Description | printf "%q" }}</failure>
+        </testcase>
+    {{- end }}
+	</testsuite>
+{{- end }}
+</testsuites>`,
+
+			expected: `<testsuites>
+    <testsuite tests="1" failures="1" time="" name="foojunit">
+        <properties>
+            <property name="type" value="test"></property>
+        </properties>
+        <testcase classname="foo-1.2.3" name="[HIGH] 123" time="">
+            <failure message="gcc: POWER9 &#34;DARN&#34; RNG intrinsic produces repeated output" type="description">"curl version curl 7.20.0 to and including curl 7.59.0 contains a CWE-126: Buffer Over-read vulnerability in denial of service that can result in curl can be tricked into reading data beyond the end of a heap based buffer used to store downloaded RTSP content.. This vulnerability appears to have been fixed in curl &lt; 7.20.0 and curl &gt;= 7.60.0."</failure>
+        </testcase>
+	</testsuite>
+</testsuites>`,
+		},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			tmplWritten := bytes.Buffer{}
 			inputResults := report.Results{
 				{
-					Target:          "foojson",
+					Target:          "foojunit",
+					Type:            "test",
 					Vulnerabilities: tc.detectedVulns,
 				},
 			}
