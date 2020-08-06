@@ -153,8 +153,6 @@ STAGE_ONE_TESTING_TOOLS = {
     'metricbeat': ('mkmetricbeat', 'docker.elastic.co/beats/metricbeat:7.6.0'),
     'nikto': ('mknikto', 'alpine:3.10'),
     'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
-    'pgbouncerhero': ('mkpgbouncerhero', 'ruby:2.6.3'),
-    'pghero': ('mkpghero', 'ruby:2.6.3-alpine3.9'),
     'raccoon': ('mkraccoon', 'python:3.5-alpine'),
     'registry': ('mkregistry', 'alpine:3.8'),
     'testcode': ('mktestcode', 'mkbase311_5py3'),
