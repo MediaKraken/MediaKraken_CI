@@ -440,7 +440,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_port=os.environ['MAILPORT'])
 
 # run sitadel web security scanner
-pid_proc = subprocess.Popen(shlex.split('docker run -ti %s/mediakraken/mksitadel:dev -h '
+pid_proc = subprocess.Popen(shlex.split('docker run -ti %s/mediakraken/mksitadel:dev '
                                         'localhost:8900'
                                         % (common_docker_images.DOCKER_REPOSITORY,)),
                             stdout=subprocess.PIPE, shell=False)
