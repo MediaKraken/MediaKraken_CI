@@ -12,24 +12,26 @@ import (
 	"testing"
 	"time"
 
-	"github.com/aquasecurity/trivy/internal"
 	"github.com/stretchr/testify/assert"
-
 	"github.com/stretchr/testify/require"
+	"github.com/urfave/cli/v2"
+
+	"github.com/aquasecurity/trivy/internal"
 )
 
+type args struct {
+	Format            string
+	TemplatePath      string
+	Version           string
+	IgnoreUnfixed     bool
+	Severity          []string
+	IgnoreIDs         []string
+	Input             string
+	ClientToken       string
+	ClientTokenHeader string
+}
+
 func TestClientServer(t *testing.T) {
-	type args struct {
-		Version           string
-		IgnoreUnfixed     bool
-		Severity          []string
-		IgnoreIDs         []string
-		Input             string
-		ClientToken       string
-		ClientTokenHeader string
-		ServerToken       string
-		ServerTokenHeader string
-	}
 	cases := []struct {
 		name     string
 		testArgs args
@@ -41,18 +43,6 @@ func TestClientServer(t *testing.T) {
 			testArgs: args{
 				Version: "dev",
 				Input:   "testdata/fixtures/alpine-310.tar.gz",
-			},
-			golden: "testdata/alpine-310.json.golden",
-		},
-		{
-			name: "alpine 3.10 integration with token",
-			testArgs: args{
-				Version:           "dev",
-				Input:             "testdata/fixtures/alpine-310.tar.gz",
-				ClientToken:       "token",
-				ClientTokenHeader: "Trivy-Token",
-				ServerToken:       "token",
-				ServerTokenHeader: "Trivy-Token",
 			},
 			golden: "testdata/alpine-310.json.golden",
 		},
@@ -84,6 +74,16 @@ func TestClientServer(t *testing.T) {
 				Input:         "testdata/fixtures/alpine-310.tar.gz",
 			},
 			golden: "testdata/alpine-310-ignore-cveids.json.golden",
+		},
+		{
+			name: "alpine 3.10 integration with gitlab template",
+			testArgs: args{
+				Format:       "template",
+				TemplatePath: "@../contrib/gitlab.tpl",
+				Version:      "dev",
+				Input:        "testdata/fixtures/alpine-310.tar.gz",
+			},
+			golden: "testdata/alpine-310.gitlab.golden",
 		},
 		{
 			name: "alpine 3.9 integration",
@@ -159,16 +159,6 @@ func TestClientServer(t *testing.T) {
 				Input:         "testdata/fixtures/centos-7.tar.gz",
 			},
 			golden: "testdata/centos-7-ignore-unfixed.json.golden",
-		},
-		{
-			name: "centos 7 integration with critical severity",
-			testArgs: args{
-				Version:       "dev",
-				IgnoreUnfixed: true,
-				Severity:      []string{"CRITICAL"},
-				Input:         "testdata/fixtures/centos-7.tar.gz",
-			},
-			golden: "testdata/centos-7-critical.json.golden",
 		},
 		{
 			name: "centos 7 integration with low and high severity",
@@ -302,14 +292,55 @@ func TestClientServer(t *testing.T) {
 			golden: "testdata/photon-30.json.golden",
 		},
 		{
+			name: "buxybox with Cargo.lock integration",
+			testArgs: args{
+				Version: "dev",
+				Input:   "testdata/fixtures/busybox-with-lockfile.tar.gz",
+			},
+			golden: "testdata/busybox-with-lockfile.json.golden",
+		},
+	}
+
+	app, addr, cacheDir := setup(t, "", "")
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			osArgs, outputFile, cleanup := setupClient(t, c.testArgs, addr, cacheDir, c.golden)
+			defer cleanup()
+
+			// Run Trivy client
+			err := app.Run(osArgs)
+			require.NoError(t, err)
+
+			compare(t, c.golden, outputFile)
+		})
+	}
+}
+
+func TestClientServerWithToken(t *testing.T) {
+	cases := []struct {
+		name     string
+		testArgs args
+		golden   string
+		wantErr  string
+	}{
+		{
+			name: "alpine 3.10 integration with token",
+			testArgs: args{
+				Version:           "dev",
+				Input:             "testdata/fixtures/alpine-310.tar.gz",
+				ClientToken:       "token",
+				ClientTokenHeader: "Trivy-Token",
+			},
+			golden: "testdata/alpine-310.json.golden",
+		},
+		{
 			name: "invalid token",
 			testArgs: args{
 				Version:           "dev",
 				Input:             "testdata/fixtures/distroless-base.tar.gz",
 				ClientToken:       "invalidtoken",
 				ClientTokenHeader: "Trivy-Token",
-				ServerToken:       "token",
-				ServerTokenHeader: "Trivy-Token",
 			},
 			wantErr: "twirp error unauthenticated: invalid token",
 		},
@@ -320,46 +351,23 @@ func TestClientServer(t *testing.T) {
 				Input:             "testdata/fixtures/distroless-base.tar.gz",
 				ClientToken:       "valid-token",
 				ClientTokenHeader: "Trivy-Token",
-				ServerToken:       "valid-token",
-				ServerTokenHeader: "Invalid",
 			},
 			wantErr: "twirp error unauthenticated: invalid token",
 		},
 	}
 
+	serverToken := "token"
+	serverTokenHeader := "Trivy-Token"
+	app, addr, cacheDir := setup(t, serverToken, serverTokenHeader)
+	defer os.RemoveAll(cacheDir)
+
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			// Copy DB file
-			cacheDir := gunzipDB()
-			defer os.RemoveAll(cacheDir)
-
-			port, err := getFreePort()
-			require.NoError(t, err, c.name)
-			addr := fmt.Sprintf("localhost:%d", port)
-
-			go func() {
-				// Setup CLI App
-				app := internal.NewApp(c.testArgs.Version)
-				app.Writer = ioutil.Discard
-				osArgs := setupServer(addr, c.testArgs.ServerToken, c.testArgs.ServerTokenHeader, cacheDir)
-
-				// Run Trivy server
-				require.NoError(t, app.Run(osArgs), c.name)
-			}()
-
-			ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
-			require.NoError(t, waitPort(ctx, addr), c.name)
-
-			// Setup CLI App
-			app := internal.NewApp(c.testArgs.Version)
-			app.Writer = ioutil.Discard
-
-			osArgs, outputFile, cleanup := setupClient(t, c.testArgs.IgnoreUnfixed, c.testArgs.Severity,
-				c.testArgs.IgnoreIDs, addr, c.testArgs.ClientToken, c.testArgs.ClientTokenHeader, c.testArgs.Input, cacheDir, c.golden)
+			osArgs, outputFile, cleanup := setupClient(t, c.testArgs, addr, cacheDir, c.golden)
 			defer cleanup()
 
 			// Run Trivy client
-			err = app.Run(osArgs)
+			err := app.Run(osArgs)
 
 			if c.wantErr != "" {
 				require.NotNil(t, err, c.name)
@@ -369,15 +377,42 @@ func TestClientServer(t *testing.T) {
 				assert.NoError(t, err, c.name)
 			}
 
-			// Compare want and got
-			want, err := ioutil.ReadFile(c.golden)
-			assert.NoError(t, err)
-			got, err := ioutil.ReadFile(outputFile)
-			assert.NoError(t, err)
-
-			assert.JSONEq(t, string(want), string(got))
+			compare(t, c.golden, outputFile)
 		})
 	}
+}
+
+func setup(t *testing.T, token, tokenHeader string) (*cli.App, string, string) {
+	t.Helper()
+	version := "dev"
+
+	// Copy DB file
+	cacheDir, err := gunzipDB()
+	assert.NoError(t, err)
+
+	port, err := getFreePort()
+	assert.NoError(t, err)
+	addr := fmt.Sprintf("localhost:%d", port)
+
+	go func() {
+		// Setup CLI App
+		app := internal.NewApp(version)
+		app.Writer = ioutil.Discard
+		osArgs := setupServer(addr, token, tokenHeader, cacheDir)
+
+		// Run Trivy server
+		app.Run(osArgs)
+	}()
+
+	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	err = waitPort(ctx, addr)
+	assert.NoError(t, err)
+
+	// Setup CLI App
+	app := internal.NewApp(version)
+	app.Writer = ioutil.Discard
+
+	return app, addr, cacheDir
 }
 
 func setupServer(addr, token, tokenHeader, cacheDir string) []string {
@@ -388,35 +423,43 @@ func setupServer(addr, token, tokenHeader, cacheDir string) []string {
 	return osArgs
 }
 
-func setupClient(t *testing.T, ignoreUnfixed bool, severity, ignoreIDs []string,
-	addr, token, tokenHeader, input, cacheDir, golden string) ([]string, string, func()) {
+func setupClient(t *testing.T, c args, addr string, cacheDir string, golden string) ([]string, string, func()) {
 	t.Helper()
-	osArgs := []string{"trivy", "client", "--cache-dir", cacheDir,
-		"--format", "json", "--remote", "http://" + addr}
-	if ignoreUnfixed {
+	osArgs := []string{"trivy", "client", "--cache-dir", cacheDir, "--remote", "http://" + addr}
+
+	if c.Format != "" {
+		osArgs = append(osArgs, "--format", c.Format)
+		if c.TemplatePath != "" {
+			osArgs = append(osArgs, "--template", c.TemplatePath)
+		}
+	} else {
+		osArgs = append(osArgs, "--format", "json")
+	}
+
+	if c.IgnoreUnfixed {
 		osArgs = append(osArgs, "--ignore-unfixed")
 	}
-	if len(severity) != 0 {
+	if len(c.Severity) != 0 {
 		osArgs = append(osArgs,
-			[]string{"--severity", strings.Join(severity, ",")}...,
+			[]string{"--severity", strings.Join(c.Severity, ",")}...,
 		)
 	}
 
 	var err error
 	var ignoreTmpDir string
-	if len(ignoreIDs) != 0 {
+	if len(c.IgnoreIDs) != 0 {
 		ignoreTmpDir, err = ioutil.TempDir("", "ignore")
 		require.NoError(t, err, "failed to create a temp dir")
 		trivyIgnore := filepath.Join(ignoreTmpDir, ".trivyignore")
-		err = ioutil.WriteFile(trivyIgnore, []byte(strings.Join(ignoreIDs, "\n")), 0444)
+		err = ioutil.WriteFile(trivyIgnore, []byte(strings.Join(c.IgnoreIDs, "\n")), 0444)
 		require.NoError(t, err, "failed to write .trivyignore")
 		osArgs = append(osArgs, []string{"--ignorefile", trivyIgnore}...)
 	}
-	if token != "" {
-		osArgs = append(osArgs, []string{"--token", token, "--token-header", tokenHeader}...)
+	if c.ClientToken != "" {
+		osArgs = append(osArgs, []string{"--token", c.ClientToken, "--token-header", c.ClientTokenHeader}...)
 	}
-	if input != "" {
-		osArgs = append(osArgs, []string{"--input", input}...)
+	if c.Input != "" {
+		osArgs = append(osArgs, []string{"--input", c.Input}...)
 	}
 
 	// Setup the output file
@@ -431,9 +474,22 @@ func setupClient(t *testing.T, ignoreUnfixed bool, severity, ignoreIDs []string,
 
 	cleanup := func() {
 		_ = os.Remove(ignoreTmpDir)
-		_ = os.Remove(outputFile)
+		if !*update {
+			_ = os.Remove(outputFile)
+		}
 	}
 
 	osArgs = append(osArgs, []string{"--output", outputFile}...)
 	return osArgs, outputFile, cleanup
+}
+
+func compare(t *testing.T, wantFile, gotFile string) {
+	t.Helper()
+	// Compare want and got
+	want, err := ioutil.ReadFile(wantFile)
+	assert.NoError(t, err)
+	got, err := ioutil.ReadFile(gotFile)
+	assert.NoError(t, err)
+
+	assert.JSONEq(t, string(want), string(got))
 }

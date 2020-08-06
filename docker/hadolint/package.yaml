@@ -1,5 +1,5 @@
 name: hadolint
-version: '1.17.4'
+version: "1.18.0"
 synopsis: Dockerfile Linter JavaScript API
 description: A smarter Dockerfile linter that helps you build best practice Docker images.
 category: Development
@@ -10,6 +10,11 @@ license: GPL-3
 homepage: https://github.com/hadolint/hadolint
 git: git@github.com:hadolint/hadolint.git
 extra-source-files: README.md
+flags:
+  static:
+    description: Use static linking for the hadolint executable
+    default: false
+    manual: true
 ghc-options:
   - -Wall
   - -Wcompat
@@ -20,13 +25,13 @@ ghc-options:
 dependencies:
   - base >=4.8 && <5
   - megaparsec >=7.0
-  - language-docker >=8.0.2 && < 9
+  - language-docker >=9.1.0 && < 10
 library:
   source-dirs: src
   dependencies:
     - &bytestring bytestring >=0.10
     - &split split >=0.2
-    - &ShellCheck ShellCheck >=0.7.0
+    - &ShellCheck ShellCheck >=0.7.1
     - aeson
     - text
     - bytestring
@@ -47,11 +52,11 @@ executables:
       - text
       - containers
     when:
-    # OS X does not support static build https://developer.apple.com/library/content/qa/qa1118
-    - condition: '!(os(osx))'
-      ld-options:
-        - -static
-        - -pthread
+      # OS X does not support static build https://developer.apple.com/library/content/qa/qa1118
+      - condition: "flag(static) && !(os(osx))"
+        ld-options:
+          - -static
+          - -pthread
 tests:
   hadolint-unit-tests:
     main: Spec.hs

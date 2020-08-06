@@ -95,26 +95,8 @@ cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenSlave/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenSlave/src/.
 cp ../../source/main_server_slave.py ../../docker/alpine/ComposeMediaKrakenSlave/src/.
 
-# webserver - alpine async
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebAsync/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenWebAsync/src/.
-cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenWebAsync/src/.
-cp -R ../../source/web_app_async ../../docker/alpine/ComposeMediaKrakenWebAsync/src/.
-
 # webserver - alpine sanic
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/web_app_sanic ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
-
-# webserver - alpine
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebServer/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenWebServer/src/.
-cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenWebServer/src/.
-cp -R ../../source/web_app ../../docker/alpine/ComposeMediaKrakenWebServer/src/.
-
-# webserver - debian
-cp -R ../../source/common ../../docker/debian/ComposeMediaKrakenWebServer/src/.
-cp -R ../../source/database ../../docker/debian/ComposeMediaKrakenWebServer/src/.
-cp -R ../../source/network ../../docker/debian/ComposeMediaKrakenWebServer/src/.
-cp -R ../../source/web_app ../../docker/debian/ComposeMediaKrakenWebServer/src/.

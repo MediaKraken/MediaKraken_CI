@@ -42,13 +42,25 @@ pid_proc = subprocess.Popen(shlex.split('docker pull anchore/anchore-engine'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
 
+# install graudit
+os.chdir('/home')
+pid_proc = subprocess.Popen(shlex.split('git clone https://github.com/wireghoul/graudit'))
+pid_proc.wait()
+os.chdir('/home/graudit')
+pid_proc = subprocess.Popen(shlex.split('make install'))
+pid_proc.wait()
+
+# install trivy (rhel, centos)
+pid_proc = subprocess.Popen(
+    shlex.split('rpm -ivh https://github.com/aquasecurity/trivy/releases/download/v0.1.6/trivy_0.1.6_Linux-64bit.rpm'))
+pid_proc.wait()
+
 # Download all the images for Clair
 os.chdir('../docker/clair')
 pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),
                             stdout=subprocess.PIPE, shell=False)
 pid_proc.wait()
 
-# TODO I don't have mailcow dir in CI
 # Download all the images for Mailcow
 os.chdir('../docker/mailcow')
 pid_proc = subprocess.Popen(shlex.split('docker-compose pull'),

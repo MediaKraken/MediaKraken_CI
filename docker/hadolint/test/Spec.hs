@@ -23,6 +23,8 @@ main =
             it "explicit latest" $ ruleCatches noLatestTag "FROM debian:latest"
             it "explicit latest with name" $ ruleCatches noLatestTag "FROM debian:latest AS builder"
             it "explicit tagged" $ ruleCatchesNot noLatestTag "FROM debian:jessie"
+            it "explicit platform flag" $ ruleCatches noPlatformFlag "FROM --platform=linux debian:jessie"
+            it "no platform flag" $ ruleCatchesNot noPlatformFlag "FROM debian:jessie"
             it "explicit SHA" $
                 ruleCatchesNot noLatestTag
                     "FROM hub.docker.io/debian@sha256:\
@@ -371,6 +373,15 @@ main =
                 in do
                 ruleCatchesNot apkAddVersionPinned $ Text.unlines dockerFile
                 onBuildRuleCatchesNot apkAddVersionPinned $ Text.unlines dockerFile
+            it "apk add with repository (-X) without equal sign" $
+                let dockerFile =
+                        [ "RUN apk add --no-cache \\"
+                        , "-X https://nl.alpinelinux.org/alpine/edge/testing \\"
+                        , "flow=0.78.0-r0"
+                        ]
+                in do
+                ruleCatchesNot apkAddVersionPinned $ Text.unlines dockerFile
+                onBuildRuleCatchesNot apkAddVersionPinned $ Text.unlines dockerFile
         --
         describe "EXPOSE rules" $ do
             it "invalid port" $ ruleCatches invalidPort "EXPOSE 80000"
@@ -511,6 +522,27 @@ main =
             it "version pinned with -g" $ do
                 ruleCatchesNot npmVersionPinned "RUN npm install -g express@\"4.1.1\""
                 onBuildRuleCatchesNot npmVersionPinned "RUN npm install -g express@\"4.1.1\""
+            it "version does not have to be pinned for tarball suffix .tar" $ do
+                ruleCatchesNot npmVersionPinned "RUN npm install package-v1.2.3.tar"
+                onBuildRuleCatchesNot npmVersionPinned "RUN npm install package-v1.2.3.tar"
+            it "version does not have to be pinned for tarball suffix .tar.gz" $ do
+                ruleCatchesNot npmVersionPinned "RUN npm install package-v1.2.3.tar.gz"
+                onBuildRuleCatchesNot npmVersionPinned "RUN npm install package-v1.2.3.tar.gz"
+            it "version does not have to be pinned for tarball suffix .tgz" $ do
+                ruleCatchesNot npmVersionPinned "RUN npm install package-v1.2.3.tgz"
+                onBuildRuleCatchesNot npmVersionPinned "RUN npm install package-v1.2.3.tgz"
+            it "version does not have to be pinned for folder - absolute path" $ do
+                ruleCatchesNot npmVersionPinned "RUN npm install /folder"
+                onBuildRuleCatchesNot npmVersionPinned "RUN npm install /folder"
+            it "version does not have to be pinned for folder - relative path from current folder" $ do
+                ruleCatchesNot npmVersionPinned "RUN npm install ./folder"
+                onBuildRuleCatchesNot npmVersionPinned "RUN npm install ./folder"
+            it "version does not have to be pinned for folder - relative path to parent folder" $ do
+                ruleCatchesNot npmVersionPinned "RUN npm install ../folder"
+                onBuildRuleCatchesNot npmVersionPinned "RUN npm install ../folder"
+            it "version does not have to be pinned for folder - relative path from home" $ do
+                ruleCatchesNot npmVersionPinned "RUN npm install ~/folder"
+                onBuildRuleCatchesNot npmVersionPinned "RUN npm install ~/folder"
             it "commit pinned for git+ssh" $ do
                 ruleCatchesNot
                     npmVersionPinned

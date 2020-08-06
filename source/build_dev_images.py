@@ -61,7 +61,9 @@ pid_proc.wait()
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
-                     common_docker_images.STAGE_ONE_FS):
+                     common_docker_images.STAGE_ONE_FS,
+                     common_docker_images.STAGE_ONE_GAME_SERVERS,
+                     common_docker_images.STAGE_TWO_GAME_SERVERS):
     for docker_images in build_stages:
         if build_only is None or (build_only is not None and docker_images == build_only):
             # do the actual build process for docker image
@@ -80,11 +82,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 line = pid_proc.stdout.readline()
                 if not line:
                     break
-                print(line.rstrip())
+                print(line.rstrip(), flush=True)
             pid_proc.wait()
             # TODO check for errors/warnings and stop if found
             # Successfully tagged
-            # TODO don't pass alpine mirror to non alpine images?
+            # Let the mirror's be passed, if not used it will just throw a warning
             pid_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:dev'
                                                     ' --build-arg ALPMIRROR=%s'
                                                     ' --build-arg PIPMIRROR=%s .' %
@@ -98,7 +100,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 if not line:
                     break
                 email_body += line.decode("utf-8")
-                print(line.rstrip())
+                print(line.rstrip(), flush=True)
             pid_proc.wait()
             subject_text = ' FAILED'
             if email_body.find('Successfully tagged mediakraken') != -1:
@@ -114,7 +116,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                     line = pid_proc.stdout.readline()
                     if not line:
                         break
-                    print(line.rstrip())
+                    print(line.rstrip(), flush=True)
                 pid_proc.wait()
                 # push to local repo
                 pid_proc = subprocess.Popen(
@@ -126,7 +128,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                     line = pid_proc.stdout.readline()
                     if not line:
                         break
-                    print(line.rstrip())
+                    print(line.rstrip(), flush=True)
                 pid_proc.wait()
             # send success/fail email
             common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],

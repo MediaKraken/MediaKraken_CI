@@ -6,43 +6,61 @@
 package server
 
 import (
+	"github.com/aquasecurity/fanal/applier"
+	"github.com/aquasecurity/fanal/cache"
 	"github.com/aquasecurity/trivy-db/pkg/db"
 	db2 "github.com/aquasecurity/trivy/pkg/db"
-	library2 "github.com/aquasecurity/trivy/pkg/detector/library"
-	ospkg2 "github.com/aquasecurity/trivy/pkg/detector/ospkg"
+	"github.com/aquasecurity/trivy/pkg/detector/library"
+	"github.com/aquasecurity/trivy/pkg/detector/ospkg"
 	"github.com/aquasecurity/trivy/pkg/github"
 	"github.com/aquasecurity/trivy/pkg/indicator"
-	"github.com/aquasecurity/trivy/pkg/rpc/server/library"
-	"github.com/aquasecurity/trivy/pkg/rpc/server/ospkg"
+	library2 "github.com/aquasecurity/trivy/pkg/rpc/server/library"
+	ospkg2 "github.com/aquasecurity/trivy/pkg/rpc/server/ospkg"
+	"github.com/aquasecurity/trivy/pkg/scanner/local"
 	"github.com/aquasecurity/trivy/pkg/vulnerability"
+	"github.com/spf13/afero"
 	"k8s.io/utils/clock"
 )
 
 // Injectors from inject.go:
 
-func initializeOspkgServer() *ospkg.Server {
-	detector := ospkg2.Detector{}
+func initializeScanServer(localArtifactCache cache.LocalArtifactCache) *ScanServer {
+	applierApplier := applier.NewApplier(localArtifactCache)
+	detector := ospkg.Detector{}
+	driverFactory := library.DriverFactory{}
+	libraryDetector := library.NewDetector(driverFactory)
+	scanner := local.NewScanner(applierApplier, detector, libraryDetector)
 	config := db.Config{}
 	client := vulnerability.NewClient(config)
-	server := ospkg.NewServer(detector, client)
+	scanServer := NewScanServer(scanner, client)
+	return scanServer
+}
+
+func initializeOspkgServer() *ospkg2.Server {
+	detector := ospkg.Detector{}
+	config := db.Config{}
+	client := vulnerability.NewClient(config)
+	server := ospkg2.NewServer(detector, client)
 	return server
 }
 
-func initializeLibServer() *library.Server {
-	driverFactory := library2.DriverFactory{}
-	detector := library2.NewDetector(driverFactory)
+func initializeLibServer() *library2.Server {
+	driverFactory := library.DriverFactory{}
+	detector := library.NewDetector(driverFactory)
 	config := db.Config{}
 	client := vulnerability.NewClient(config)
-	server := library.NewServer(detector, client)
+	server := library2.NewServer(detector, client)
 	return server
 }
 
-func initializeDBWorker(quiet bool) dbWorker {
+func initializeDBWorker(cacheDir string, quiet bool) dbWorker {
 	config := db.Config{}
 	client := github.NewClient()
 	progressBar := indicator.NewProgressBar(quiet)
 	realClock := clock.RealClock{}
-	dbClient := db2.NewClient(config, client, progressBar, realClock)
+	fs := afero.NewOsFs()
+	metadata := db2.NewMetadata(fs, cacheDir)
+	dbClient := db2.NewClient(config, client, progressBar, realClock, metadata)
 	serverDbWorker := newDBWorker(dbClient)
 	return serverDbWorker
 }

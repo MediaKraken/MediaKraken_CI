@@ -24,6 +24,8 @@ from common import common_docker_images
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
+                     common_docker_images.STAGE_ONE_GAME_SERVERS,
+                     common_docker_images.STAGE_TWO_GAME_SERVERS,
                      common_docker_images.STAGE_ONE_SECURITY_TOOLS,
                      common_docker_images.STAGE_TWO_SECURITY_TOOLS,
                      common_docker_images.STAGE_ONE_TESTING_TOOLS,
@@ -39,7 +41,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             line = pid_proc.stdout.readline()
             if not line:
                 break
-            print(line.rstrip())
+            print(line.rstrip(), flush=True)
         pid_proc.wait()
         # push the actual image to docker hub
         pid_proc = subprocess.Popen(
@@ -49,5 +51,5 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             line = pid_proc.stdout.readline()
             if not line:
                 break
-            print(line.rstrip())
+            print(line.rstrip(), flush=True)
         pid_proc.wait()

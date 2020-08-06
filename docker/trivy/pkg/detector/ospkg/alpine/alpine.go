@@ -4,10 +4,10 @@ import (
 	"strings"
 	"time"
 
-	version "github.com/knqyf263/go-deb-version"
+	version "github.com/knqyf263/go-apk-version"
 	"golang.org/x/xerrors"
 
-	"github.com/aquasecurity/fanal/analyzer"
+	ftypes "github.com/aquasecurity/fanal/types"
 	dbTypes "github.com/aquasecurity/trivy-db/pkg/types"
 	"github.com/aquasecurity/trivy-db/pkg/vulnsrc/alpine"
 	"github.com/aquasecurity/trivy/pkg/log"
@@ -37,6 +37,7 @@ var (
 		"3.9":  time.Date(2020, 11, 1, 23, 59, 59, 0, time.UTC),
 		"3.10": time.Date(2021, 5, 1, 23, 59, 59, 0, time.UTC),
 		"3.11": time.Date(2021, 11, 1, 23, 59, 59, 0, time.UTC),
+		"3.12": time.Date(2022, 5, 1, 23, 59, 59, 0, time.UTC),
 	}
 )
 
@@ -50,7 +51,7 @@ func NewScanner() *Scanner {
 	}
 }
 
-func (s *Scanner) Detect(osVer string, pkgs []analyzer.Package) ([]types.DetectedVulnerability, error) {
+func (s *Scanner) Detect(osVer string, pkgs []ftypes.Package) ([]types.DetectedVulnerability, error) {
 	log.Logger.Info("Detecting Alpine vulnerabilities...")
 	if strings.Count(osVer, ".") > 1 {
 		osVer = osVer[:strings.LastIndex(osVer, ".")]
@@ -85,6 +86,7 @@ func (s *Scanner) Detect(osVer string, pkgs []analyzer.Package) ([]types.Detecte
 					PkgName:          pkg.Name,
 					InstalledVersion: installed,
 					FixedVersion:     adv.FixedVersion,
+					Layer:            pkg.Layer,
 				}
 				vulns = append(vulns, vuln)
 			}

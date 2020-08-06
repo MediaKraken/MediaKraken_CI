@@ -2,19 +2,21 @@
 {
   "version": "2.3",
   "vulnerabilities": [
-  {{- $first := true }}
+  {{- $t_first := true }}
   {{- range . }}
   {{- $target := .Target }}
     {{- range .Vulnerabilities -}}
-    {{- if $first -}}
-      {{- $first = false -}}
+    {{- if $t_first -}}
+      {{- $t_first = false -}}
     {{ else -}}
       ,
     {{- end }}
     {
+      "id": "{{ .VulnerabilityID }}",
       "category": "container_scanning",
       "message": {{ .Title | printf "%q" }},
       "description": {{ .Description | printf "%q" }},
+      {{- /* cve is a deprecated key, use id instead */}}
       "cve": "{{ .VulnerabilityID }}",
       "severity": {{ if eq .Severity "UNKNOWN" -}}
                     "Unknown"
@@ -29,6 +31,7 @@
                   {{-  else -}}
                     "{{ .Severity }}"
                   {{- end }},
+      {{- /* TODO: Define confidence */}}
       "confidence": "Unknown",
       "solution": {{ if .FixedVersion -}}
                     "Upgrade {{ .PkgName }} to {{ .FixedVersion }}"
@@ -60,10 +63,10 @@
         }
       ],
       "links": [
-        {{- $first := true -}}
+        {{- $l_first := true -}}
         {{- range .References -}}
-        {{- if $first -}}
-          {{- $first = false }}
+        {{- if $l_first -}}
+          {{- $l_first = false }}
         {{- else -}}
           ,
         {{- end -}}

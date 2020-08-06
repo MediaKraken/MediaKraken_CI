@@ -10,7 +10,7 @@ import (
 	version "github.com/knqyf263/go-deb-version"
 	"golang.org/x/xerrors"
 
-	"github.com/aquasecurity/fanal/analyzer"
+	ftypes "github.com/aquasecurity/fanal/types"
 	dbTypes "github.com/aquasecurity/trivy-db/pkg/types"
 	"github.com/aquasecurity/trivy/pkg/log"
 	"github.com/aquasecurity/trivy/pkg/scanner/utils"
@@ -52,7 +52,7 @@ func NewScanner() *Scanner {
 	}
 }
 
-func (s *Scanner) Detect(osVer string, pkgs []analyzer.Package) ([]types.DetectedVulnerability, error) {
+func (s *Scanner) Detect(osVer string, pkgs []ftypes.Package) ([]types.DetectedVulnerability, error) {
 	log.Logger.Info("Detecting Debian vulnerabilities...")
 
 	if strings.Count(osVer, ".") > 0 {
@@ -63,6 +63,8 @@ func (s *Scanner) Detect(osVer string, pkgs []analyzer.Package) ([]types.Detecte
 
 	var vulns []types.DetectedVulnerability
 	for _, pkg := range pkgs {
+		// This bucket has only fixed vulnerabilities.
+		// To detect vulnerabilities, it is necessary to compare versions between the installed version and the patched version.
 		advisories, err := s.ovalVs.Get(osVer, pkg.SrcName)
 		if err != nil {
 			return nil, xerrors.Errorf("failed to get debian OVAL: %w", err)
@@ -88,10 +90,14 @@ func (s *Scanner) Detect(osVer string, pkgs []analyzer.Package) ([]types.Detecte
 					PkgName:          pkg.Name,
 					InstalledVersion: installed,
 					FixedVersion:     adv.FixedVersion,
+					Layer:            pkg.Layer,
 				}
 				vulns = append(vulns, vuln)
 			}
 		}
+
+		// This bucket has only unfixed vulnerabilities which don't have a patched version.
+		// It is unnecessary to compare versions since it should be always vulnerable to an unfixed vulnerability.
 		advisories, err = s.vs.Get(osVer, pkg.SrcName)
 		if err != nil {
 			return nil, xerrors.Errorf("failed to get debian advisory: %w", err)
@@ -101,6 +107,7 @@ func (s *Scanner) Detect(osVer string, pkgs []analyzer.Package) ([]types.Detecte
 				VulnerabilityID:  adv.VulnerabilityID,
 				PkgName:          pkg.Name,
 				InstalledVersion: installed,
+				Layer:            pkg.Layer,
 			}
 			vulns = append(vulns, vuln)
 		}
