@@ -11,6 +11,10 @@ filebeat.autodiscover:
 processors:
 - add_cloud_metadata: ~
 
+filebeat.modules:
+- module: nginx
+- module: postgresql
+
 output.elasticsearch:
   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
   username: '${ELASTICSEARCH_USERNAME:}'
