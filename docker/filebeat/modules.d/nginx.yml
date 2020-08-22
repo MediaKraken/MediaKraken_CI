@@ -1,0 +1,7 @@
+- module: nginx
+  access:
+    enabled: true
+    var.paths: ["/var/log/mediakraken/nginx/mediakraken.net_access.log"]
+  error:
+    enabled: true
+    var.paths: ["/var/log/mediakraken/nginx/mediakraken.net_error.log"]
