@@ -15,6 +15,9 @@ filebeat.modules:
 - module: nginx
 - module: postgresql
 
+setup.kibana:
+  host: '${KIBANA_HOSTS:kibana:5601}'
+
 output.elasticsearch:
   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
   username: '${ELASTICSEARCH_USERNAME:}'
