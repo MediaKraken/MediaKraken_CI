@@ -11,9 +11,9 @@ filebeat.autodiscover:
 processors:
 - add_cloud_metadata: ~
 
-filebeat.modules:
-- module: nginx
-- module: postgresql
+#filebeat.modules:
+#- module: nginx
+#- module: postgresql
 
 setup.kibana:
   host: '${KIBANA_HOSTS:kibana:5601}'
