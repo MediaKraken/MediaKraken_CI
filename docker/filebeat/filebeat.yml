@@ -11,6 +11,7 @@ filebeat.autodiscover:
 processors:
 - add_cloud_metadata: ~
 
+# these get loaded from the modules.d directory
 #filebeat.modules:
 #- module: nginx
 #- module: postgresql
