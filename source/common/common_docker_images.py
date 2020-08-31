@@ -103,7 +103,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase311_5py3', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase311_5py3', 'alpine'),
-    'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'),
+    #'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'),
     'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
     #'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'),
     'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.11.5', 'alpine'),
