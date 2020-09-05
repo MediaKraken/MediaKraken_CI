@@ -48,6 +48,7 @@ cp ../../source/main_server_metadata_api_worker.py ../../docker/alpine/ComposeMe
 cp ../../source/build_image_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/build_trailer_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/subprogram*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
+cp ../../source/db_metadata_fix.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 
 # prefetch tmdb
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPrefetchTMDB/src/.
