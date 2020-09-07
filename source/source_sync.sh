@@ -48,16 +48,8 @@ cp ../../source/main_server_metadata_api_worker.py ../../docker/alpine/ComposeMe
 cp ../../source/build_image_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/build_trailer_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/subprogram*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-
-# prefetch tmdb
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPrefetchTMDB/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenPrefetchTMDB/src/.
-cp ../../source/bulk_themoviedb_netfetch.py ../../docker/alpine/ComposeMediaKrakenPrefetchTMDB/src/.
-
-# prefetch tvmaze
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPrefetchTVMaze/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenPrefetchTVMaze/src/.
-cp ../../source/bulk_tvmaze_netfetch.py ../../docker/alpine/ComposeMediaKrakenPrefetchTVMaze/src/.
+cp ../../source/db_metadata_fix.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
+cp ../../source/bulk_themoviedb_netfetch.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 
 # pika
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPika/src/.

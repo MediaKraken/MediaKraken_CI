@@ -2,7 +2,7 @@ FROM python:alpine3.9
 
 LABEL maintainer="Kacper Czarczyński <kacper.czarczynski@gmail.com>"
 
-ENV PGADMIN_VERSION 4.7
+ENV PGADMIN_VERSION 4.24
 ENV UID             1000
 ENV GID             50
 
@@ -27,7 +27,7 @@ LABEL   org.label-schema.name="pgAdmin4" \
 
 RUN apk add --no-cache --virtual .run-deps postgresql postgresql-libs libffi-dev openssl shadow sudo su-exec bash linux-headers
 RUN apk add --no-cache --virtual .build-deps make gcc musl-dev openssl postgresql-dev \
- && pip3 --no-cache-dir install https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${PGADMIN_VERSION}/pip/pgadmin4-${PGADMIN_VERSION}-py2.py3-none-any.whl \
+ && pip3 --no-cache-dir install https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${PGADMIN_VERSION}/pip/pgadmin4-${PGADMIN_VERSION}-py3-none-any.whl \
  && apk del .build-deps \
  && rm -rf /root/.cache
 

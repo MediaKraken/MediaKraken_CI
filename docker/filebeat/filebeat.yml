@@ -1,3 +1,5 @@
+setup.ilm.enabled: false
+
 filebeat.config:
   modules:
     path: ${path.config}/modules.d/*.yml
@@ -10,6 +12,14 @@ filebeat.autodiscover:
 
 processors:
 - add_cloud_metadata: ~
+
+# these get loaded from the modules.d directory
+#filebeat.modules:
+#- module: nginx
+#- module: postgresql
+
+setup.kibana:
+  host: '${KIBANA_HOSTS:kibana:5601}'
 
 output.elasticsearch:
   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'

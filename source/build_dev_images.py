@@ -31,7 +31,7 @@ from dotenv import load_dotenv
 # load .env stats
 load_dotenv()
 
-# set build_only variable if entered
+# set build_only variable if entered - ComposeMediaKrakenWebSanic
 try:
     build_only = sys.argv[1]
 except IndexError:
