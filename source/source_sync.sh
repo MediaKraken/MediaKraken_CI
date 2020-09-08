@@ -41,7 +41,7 @@ cp ../../source/main_hardware.py ../../docker/alpine/ComposeMediaKrakenHardware/
 
 # metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
+cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp -R ../../source/metadata ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/main_server_metadata_api.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/main_server_metadata_api_worker.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
