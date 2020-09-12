@@ -62,14 +62,14 @@ CMD ["node", "index.js"]
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
 # or simply stand alone images
 STAGE_ONE_IMAGES = {
-    'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8', 'alpine'),
-    'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9', 'alpine'),
-    'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10', 'alpine'),
-    'ComposeMediaKrakenBase310_1Py3': ('mkbase310_1py3', 'alpine:3.10.1', 'alpine'),
-    'ComposeMediaKrakenBase310_2Py3': ('mkbase310_2py3', 'alpine:3.10.2', 'alpine'),
-    'ComposeMediaKrakenBase311_3Py3': ('mkbase311_3py3', 'alpine:3.11.3', 'alpine'),
-    'ComposeMediaKrakenBase311_5Py3': ('mkbase311_5py3', 'alpine:3.11.5', 'alpine'),
-    'ComposeMediaKrakenBase311_6Py3': ('mkbase311_6py3', 'alpine:3.11.6', 'alpine'),
+    # 'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8', 'alpine'),
+    # 'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9', 'alpine'),
+    # 'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10', 'alpine'),
+    # 'ComposeMediaKrakenBase310_1Py3': ('mkbase310_1py3', 'alpine:3.10.1', 'alpine'),
+    # 'ComposeMediaKrakenBase310_2Py3': ('mkbase310_2py3', 'alpine:3.10.2', 'alpine'),
+    # 'ComposeMediaKrakenBase311_3Py3': ('mkbase311_3py3', 'alpine:3.11.3', 'alpine'),
+    # 'ComposeMediaKrakenBase311_5Py3': ('mkbase311_5py3', 'alpine:3.11.5', 'alpine'),
+    # 'ComposeMediaKrakenBase311_6Py3': ('mkbase311_6py3', 'alpine:3.11.6', 'alpine'),
     'ComposeMediaKrakenBase312Py3': ('mkbase312py3', 'alpine:3.12', 'alpine'),
     'ComposeMediaKrakenBase9_9Py3': ('mkbasedeb9_9py3', 'debian:9.9-slim', 'debian'),
     'ComposeMediaKrakenBase10_2Py3': ('mkbasedeb10_2py3', 'debian:10.2-slim', 'debian'),
@@ -82,41 +82,41 @@ STAGE_ONE_IMAGES = {
 # build on top of base os images from above
 STAGE_TWO_IMAGES = {
     'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg', 'alpine'),
-    'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase311_5py3', 'alpine'),
-    'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase312py3', 'alpine'),
+    'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase312py3', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg', 'alpine'),
-    'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase311_5py3', 'alpine')}
+    'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase312py3', 'alpine')}
 
 # these are the final "compose" images
 STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
-    'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase312py3', 'alpine'),
     #'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
-    'ComposeMediaKrakenCron': ('mkcron', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenCron': ('mkcron', 'mkbase312py3', 'alpine'),
     #'ComposeMediaKrakenDatabase11_7': ('mkdatabase', 'debian:9.9-slim', 'debian'),
     #'ComposeMediaKrakenDatabase11_8': ('mkdatabase', 'debian:9.9-slim', 'debian'),
     'ComposeMediaKrakenDatabase12_4': ('mkdatabase', 'debian:buster-slim', 'debian'),
-    'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase312py3', 'alpine'),
     'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
     #'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.10', 'alpine'),
-    'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase312py3', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
-    'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase312py3', 'alpine'),
     #'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'),
     'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
     #'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'),
     'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.11.5', 'alpine'),
-    'ComposeMediaKrakenPika': ('mkpika', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenPika': ('mkpika', 'mkbase312py3', 'alpine'),
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
-    'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase312py3', 'alpine'),
     'ComposeMediaKrakenRokuThumb': ('mkrokuthumb', 'mkbasenodeffmpeg', 'alpine'),
-    'ComposeMediaKrakenServer': ('mkserver', 'mkbase311_5py3', 'alpine'),
+    'ComposeMediaKrakenServer': ('mkserver', 'mkbase312py3', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.8', 'alpine'),
     #'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.10', 'alpine'),
-    'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase311_6py3', 'alpine'),
+    'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase312py3', 'alpine'),
 }
 
 # these are the game servers
@@ -156,8 +156,8 @@ STAGE_ONE_TESTING_TOOLS = {
     'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
     'raccoon': ('mkraccoon', 'python:3.5-alpine'),
     'registry': ('mkregistry', 'alpine:3.8'),
-    'testcode': ('mktestcode', 'mkbase311_5py3'),
-    'testwebapp': ('mktestwebapp', 'mkbase311_3py3'),
+    'testcode': ('mktestcode', 'mkbase312py3'),
+    'testwebapp': ('mktestwebapp', 'mkbase312py3'),
     'vuls': ('mkvuls', 'golang:alpine'),
     'wireshark': ('mkwireshark', 'debian:stretch-slim'),
 }
