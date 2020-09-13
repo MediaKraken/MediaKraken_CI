@@ -144,7 +144,7 @@ STAGE_TWO_SECURITY_TOOLS = {
 }
 
 STAGE_ONE_TESTING_TOOLS = {
-    'elk': ('mkelk', 'phusion/baseimage:0.11'),
+    'elk': ('mkelk', 'phusion/baseimage:18.04-1.0.0'),
     'filebeat': ('mkfilebeat', 'docker.elastic.co/beats/filebeat:7.5.2'),
     'fuxploider': ('mkfuxploider', 'python:3.6-alpine'),
     'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
