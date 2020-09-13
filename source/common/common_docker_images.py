@@ -110,7 +110,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase312py3', 'alpine'),
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase312py3', 'alpine'),
-    'ComposeMediaKrakenRokuThumb': ('mkrokuthumb', 'mkbasenodeffmpeg', 'alpine'),
+    'ComposeMediaKrakenRokuThumb': ('mkrokuthumb', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenServer': ('mkserver', 'mkbase312py3', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.8', 'alpine'),
