@@ -89,6 +89,6 @@ cp ../../source/main_server_slave.py ../../docker/alpine/ComposeMediaKrakenSlave
 
 # webserver - alpine sanic
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
-cp -R ../../source/database_async_pool ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
+cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/web_app_sanic ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
