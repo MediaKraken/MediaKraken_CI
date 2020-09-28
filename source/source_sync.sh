@@ -68,10 +68,6 @@ cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenReactor/sr
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 cp ../../source/main_ripper.py ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 
-# roku thumb
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenRokuThumb/src/.
-cp ../../source/subprogram_roku_thumbnail_generate.py ../../docker/alpine/ComposeMediaKrakenRokuThumb/src/.
-
 # server
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenServer/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenServer/src/.
@@ -86,6 +82,11 @@ cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenServer/src
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenSlave/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenSlave/src/.
 cp ../../source/main_server_slave.py ../../docker/alpine/ComposeMediaKrakenSlave/src/.
+
+# transcode
+cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
+cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
+cp ../../source/async_transcode.py ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 
 # webserver - alpine sanic
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
