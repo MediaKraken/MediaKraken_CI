@@ -48,8 +48,8 @@ cp ../../source/main_server_metadata_api_worker.py ../../docker/alpine/ComposeMe
 cp ../../source/build_image_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/build_trailer_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/subprogram*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
+cp ../../source/async*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/db_metadata_fix.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp ../../source/bulk_themoviedb_netfetch.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 
 # pika
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPika/src/.
