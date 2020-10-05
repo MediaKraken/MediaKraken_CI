@@ -23,11 +23,6 @@ cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenDownload/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenDownload/src/.
 cp ../../source/main_download.py ../../docker/alpine/ComposeMediaKrakenDownload/src/.
 
-# ffprobe
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenFFProbe/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenFFProbe/src/.
-cp ../../source/subprogram_ffprobe_metadata.py ../../docker/alpine/ComposeMediaKrakenFFProbe/src/.
-
 # load game/metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenGameData/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenGameData/src/.
