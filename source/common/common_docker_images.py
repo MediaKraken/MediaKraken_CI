@@ -19,7 +19,7 @@
 ALPINE_MIRROR = 'th-alpinemirror-1.beaverbay.local'
 # ALPINE_MIRROR = 'dl-2.alpinelinux.org'
 
-# PYPI_MIRROR = 'th-bandersnatch-1'  # pypi.python.org
+# PYPI_MIRROR = 'th-bandersnatch-1'
 PYPI_MIRROR = 'pypi.python.org'
 
 DOCKER_REPOSITORY = 'th-registry-1.beaverbay.local:5000'  # https://index.docker.io:443
