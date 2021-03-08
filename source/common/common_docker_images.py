@@ -73,14 +73,15 @@ STAGE_ONE_IMAGES = {
     # 'ComposeMediaKrakenBase312Py3': ('mkbase312py3', 'alpine:3.12', 'alpine'),
     # 'ComposeMediaKrakenBase312Py3': ('mkbase3121py3', 'alpine:3.12.1', 'alpine'),
     # 'ComposeMediaKrakenBase312Py3': ('mkbase3122py3', 'alpine:3.12.2', 'alpine'),
-    'ComposeMediaKrakenBase3131Py3': ('mkbase_alpinepy3', 'alpine:3.13.1', 'alpine'),
+    #'ComposeMediaKrakenBase3131Py3': ('mkbase_alpinepy3', 'alpine:3.13.1', 'alpine'),
+    'ComposeMediaKrakenBase3132Py3': ('mkbase_alpinepy3', 'alpine:3.13.2', 'alpine'),
     # 'ComposeMediaKrakenBase9_9Py3': ('mkbasedeb9_9py3', 'debian:9.9-slim', 'debian'),
     # 'ComposeMediaKrakenBase10_2Py3': ('mkbasedeb10_2py3', 'debian:10.2-slim', 'debian'),
     # 'ComposeMediaKrakenBase10_3Py3': ('mkbasedeb10_3py3', 'debian:10.3-slim', 'debian'),
     # 'ComposeMediaKrakenBase10_4Py3': ('mkbasedeb10_4py3', 'debian:10.4-slim', 'debian'),
     # 'ComposeMediaKrakenBase10_7Py3': ('mkbasedeb10_7py3', 'debian:10.7-slim', 'debian'),
-    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.11.6', 'alpine'),
-    'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.9', 'alpine'),
+    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.13.2', 'alpine'),
+    'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.13.2', 'alpine'),
 }
 
 # build on top of base os images from above
