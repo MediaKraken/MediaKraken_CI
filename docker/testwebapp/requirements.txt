@@ -1,4 +1,4 @@
-﻿pytest
-pytest-xdist
-pytest-selenium
-selenium
+﻿pytest==6.2.2
+pytest-xdist==2.2.1
+pytest-selenium==2.0.1
+selenium==3.141.0

@@ -160,8 +160,8 @@ STAGE_ONE_TESTING_TOOLS = {
     'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
     'raccoon': ('mkraccoon', 'python:3.5-alpine'),
     'registry': ('mkregistry', 'alpine:3.8'),
-    'testcode': ('mktestcode', 'mkbase3121py3'),
-    'testwebapp': ('mktestwebapp', 'mkbase3121py3'),
+    'testcode': ('mktestcode', 'mkbase_alpinepy3'),
+    'testwebapp': ('mktestwebapp', 'mkbase_alpinepy3'),
     'vuls': ('mkvuls', 'golang:alpine'),
     'wireshark': ('mkwireshark', 'debian:stretch-slim'),
 }
