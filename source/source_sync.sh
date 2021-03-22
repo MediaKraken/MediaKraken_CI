@@ -40,8 +40,6 @@ cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenMetadata
 cp -R ../../source/metadata ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/main_server_metadata_api.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/main_server_metadata_api_worker.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp ../../source/build_image_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp ../../source/build_trailer_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/subprogram*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/async*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/db_metadata_fix.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
