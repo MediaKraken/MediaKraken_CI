@@ -1,9 +1,0 @@
-tests
-.stack-work
-./docker
-./docs
-*.md
-*.png
-
-# travis wait is generating log that ruins docker cache
-travis_wait_*.log
