@@ -89,7 +89,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 try:
     print('Taint & %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'), flush=True)
     pid_proc = subprocess.Popen(
-        shlex.split('python3 -m pyt -r %s' %
+        shlex.split('python3 -m pyt -r -a Flask %s' %
                     os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
 except subprocess.CalledProcessError as e:
