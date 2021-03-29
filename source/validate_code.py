@@ -33,6 +33,7 @@ print(CWD_HOME_DIRECTORY, flush=True)
 
 # run Bandit to find unsecured code
 try:
+    print('Bandit & %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'), flush=True)
     pid_proc = subprocess.Popen(
         shlex.split('bandit -r %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
@@ -59,6 +60,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 
 # run vulture to find dead code
 try:
+    print('Vulture & %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'), flush=True)
     pid_proc = subprocess.Popen(
         shlex.split('vulture %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
         stdout=subprocess.PIPE, shell=False)
@@ -85,6 +87,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 
 # run python taint to find unsecured code
 try:
+    print('Taint & %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'), flush=True)
     pid_proc = subprocess.Popen(
         shlex.split('python3 -m pyt -r %s' %
                     os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
