@@ -22,9 +22,10 @@ import subprocess
 import sys
 import time
 
+from dotenv import load_dotenv
+
 from common import common_docker_images
 from common import common_network_email
-from dotenv import load_dotenv
 
 # load .env stats
 load_dotenv()
@@ -36,31 +37,6 @@ print(CWD_HOME_DIRECTORY, flush=True)
 # lint and validate code
 #####################################
 
-# run vulture to find dead code
-try:
-    pid_proc = subprocess.Popen(
-        shlex.split('vulture %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
-        stdout=subprocess.PIPE, shell=False)
-except subprocess.CalledProcessError as e:
-    print(e.output, flush=True)
-    sys.exit()
-email_body = ''
-try:
-    while True:
-        line = pid_proc.stdout.readline()
-        if not line:
-            break
-        email_body += line.decode("utf-8")
-        print(line.rstrip(), flush=True)
-    pid_proc.wait()
-except:
-    pass
-common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
-                                        os.environ['MAILUSER'],
-                                        'Vulture (dead code)',
-                                        email_body,
-                                        smtp_server=os.environ['MAILSERVER'],
-                                        smtp_port=os.environ['MAILPORT'])
 
 # TODO this hangs up after scanning for a long time
 # # run Graudit to find unsecure code
@@ -90,58 +66,6 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 #                                         smtp_server=os.environ['MAILSERVER'],
 #                                         smtp_port=os.environ['MAILPORT'])
 
-# run python taint to find unsecured code
-try:
-    pid_proc = subprocess.Popen(
-        shlex.split('python3 -m pyt -r %s' %
-                    os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
-        stdout=subprocess.PIPE, shell=False)
-except subprocess.CalledProcessError as e:
-    print(e.output, flush=True)
-    sys.exit()
-email_body = ''
-try:
-    while True:
-        line = pid_proc.stdout.readline()
-        if not line:
-            break
-        email_body += line.decode("utf-8")
-        print(line.rstrip(), flush=True)
-    pid_proc.wait()
-except:
-    pass
-common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
-                                        os.environ['MAILUSER'],
-                                        'Python Taint (Unsecure Code Injection)',
-                                        email_body,
-                                        smtp_server=os.environ['MAILSERVER'],
-                                        smtp_port=os.environ['MAILPORT'])
-
-# run Bandit to find unsecured code
-try:
-    pid_proc = subprocess.Popen(
-        shlex.split('bandit -r %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
-        stdout=subprocess.PIPE, shell=False)
-except subprocess.CalledProcessError as e:
-    print(e.output, flush=True)
-    sys.exit()
-email_body = ''
-try:
-    while True:
-        line = pid_proc.stdout.readline()
-        if not line:
-            break
-        email_body += line.decode("utf-8")
-        print(line.rstrip(), flush=True)
-    pid_proc.wait()
-except:
-    pass
-common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
-                                        os.environ['MAILUSER'],
-                                        'Bandit (Unsecure Code)',
-                                        email_body,
-                                        smtp_server=os.environ['MAILSERVER'],
-                                        smtp_port=os.environ['MAILPORT'])
 
 # run radon to determine code complexity
 try:
