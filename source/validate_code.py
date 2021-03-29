@@ -58,6 +58,34 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_server=os.environ['MAILSERVER'],
                                         smtp_port=os.environ['MAILPORT'])
 
+# run Graudit to find unsecure code
+try:
+    print('Graudit & %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'), flush=True)
+    pid_proc = subprocess.Popen(
+        shlex.split('graudit -c 3 -d /root/graudit/signatures/python.db %s' %
+                    os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')),
+        stdout=subprocess.PIPE, shell=False)
+except subprocess.CalledProcessError as e:
+    print(e.output, flush=True)
+    sys.exit()
+email_body = ''
+try:
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip(), flush=True)
+    pid_proc.wait()
+except:
+    pass
+common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                        os.environ['MAILUSER'],
+                                        'Graudit (Unsecure Code)',
+                                        email_body,
+                                        smtp_server=os.environ['MAILSERVER'],
+                                        smtp_port=os.environ['MAILPORT'])
+
 # run vulture to find dead code
 try:
     print('Vulture & %s' % os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'), flush=True)
