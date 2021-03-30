@@ -51,8 +51,8 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
         # Run hadolint on each image
         try:
             pid_proc = subprocess.Popen(
-                shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
-                stdout=subprocess.PIPE, shell=True)
+                shlex.split('hadolint Dockerfile'),
+                stdout=subprocess.PIPE, shell=False)
         except subprocess.CalledProcessError as e:
             print(e.output, flush=True)
             sys.exit()
