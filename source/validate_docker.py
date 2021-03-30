@@ -38,11 +38,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
                      common_docker_images.STAGE_ONE_FS,
                      common_docker_images.STAGE_ONE_GAME_SERVERS,
-                     common_docker_images.STAGE_TWO_GAME_SERVERS,
+                     #common_docker_images.STAGE_TWO_GAME_SERVERS,
                      common_docker_images.STAGE_ONE_SECURITY_TOOLS,
                      common_docker_images.STAGE_TWO_SECURITY_TOOLS,
-                     common_docker_images.STAGE_ONE_TESTING_TOOLS,
-                     common_docker_images.STAGE_TWO_TESTING_TOOLS):
+                     common_docker_images.STAGE_ONE_TESTING_TOOLS,):
+                     #common_docker_images.STAGE_TWO_TESTING_TOOLS):
     for docker_images in build_stages:
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                               'MediaKraken_Deployment/docker',
