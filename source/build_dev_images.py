@@ -74,16 +74,6 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                       build_stages[docker_images][2], docker_images))
             except FileNotFoundError:
                 continue
-            # parse dockerfile for best practices
-            pid_proc = subprocess.Popen(
-                shlex.split('docker run --rm -i hadolint/hadolint < Dockerfile'),
-                stdout=subprocess.PIPE, shell=False)
-            while True:
-                line = pid_proc.stdout.readline()
-                if not line:
-                    break
-                print(line.rstrip(), flush=True)
-            pid_proc.wait()
             # TODO check for errors/warnings and stop if found
             # Successfully tagged
             # Let the mirror's be passed, if not used it will just throw a warning
