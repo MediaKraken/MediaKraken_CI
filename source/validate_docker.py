@@ -33,16 +33,13 @@ CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 print(CWD_HOME_DIRECTORY, flush=True)
 
 # hadolint - lint your Dockerfile
+# don't do the testing/security images as they aren't MK production code
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
                      common_docker_images.STAGE_ONE_FS,
                      common_docker_images.STAGE_ONE_GAME_SERVERS,
-                     common_docker_images.STAGE_TWO_GAME_SERVERS,
-                     common_docker_images.STAGE_ONE_SECURITY_TOOLS,
-                     common_docker_images.STAGE_TWO_SECURITY_TOOLS,
-                     common_docker_images.STAGE_ONE_TESTING_TOOLS,
-                     common_docker_images.STAGE_TWO_TESTING_TOOLS):
+                     common_docker_images.STAGE_TWO_GAME_SERVERS):
     for docker_images in build_stages:
         print('hado docker:', docker_images)
         os.chdir(os.path.join(CWD_HOME_DIRECTORY,
@@ -76,16 +73,13 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 smtp_port=os.environ['MAILPORT'])
 
 # trivy - security scan docker images
+# don't do the testing/security images as they aren't MK production code
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
                      common_docker_images.STAGE_ONE_FS,
                      common_docker_images.STAGE_ONE_GAME_SERVERS,
-                     common_docker_images.STAGE_TWO_GAME_SERVERS,
-                     common_docker_images.STAGE_ONE_SECURITY_TOOLS,
-                     common_docker_images.STAGE_TWO_SECURITY_TOOLS,
-                     common_docker_images.STAGE_ONE_TESTING_TOOLS,
-                     common_docker_images.STAGE_TWO_TESTING_TOOLS):
+                     common_docker_images.STAGE_TWO_GAME_SERVERS):
     for docker_images in build_stages:
         # Run trivy on each image
         try:

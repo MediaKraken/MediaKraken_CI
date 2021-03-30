@@ -136,7 +136,6 @@ STAGE_TWO_GAME_SERVERS = {}
 # these are for security and linting all code
 # directory, name, base image, build script
 STAGE_ONE_SECURITY_TOOLS = {
-    'hadolint': ('mkhadolint', 'debian:stretch-slim '),
     'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
     'sitadel': ('mksitadel', 'python:3'),
     'testssl': ('mktestssl', 'alpine:3.9'),
