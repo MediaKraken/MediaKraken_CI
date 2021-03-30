@@ -62,22 +62,11 @@ CMD ["node", "index.js"]
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
 # or simply stand alone images
 STAGE_ONE_IMAGES = {
-    # 'ComposeMediaKrakenBase38Py3': ('mkbase38py3', 'alpine:3.8', 'alpine'),
-    # 'ComposeMediaKrakenBase39Py3': ('mkbase39py3', 'alpine:3.9', 'alpine'),
-    # 'ComposeMediaKrakenBase310Py3': ('mkbase310py3', 'alpine:3.10', 'alpine'),
-    # 'ComposeMediaKrakenBase310_1Py3': ('mkbase310_1py3', 'alpine:3.10.1', 'alpine'),
-    # 'ComposeMediaKrakenBase310_2Py3': ('mkbase310_2py3', 'alpine:3.10.2', 'alpine'),
-    # 'ComposeMediaKrakenBase311_3Py3': ('mkbase311_3py3', 'alpine:3.11.3', 'alpine'),
-    # 'ComposeMediaKrakenBase311_5Py3': ('mkbase311_5py3', 'alpine:3.11.5', 'alpine'),
-    # 'ComposeMediaKrakenBase311_6Py3': ('mkbase311_6py3', 'alpine:3.11.6', 'alpine'),
     # 'ComposeMediaKrakenBase312Py3': ('mkbase312py3', 'alpine:3.12', 'alpine'),
     # 'ComposeMediaKrakenBase312Py3': ('mkbase3121py3', 'alpine:3.12.1', 'alpine'),
     # 'ComposeMediaKrakenBase312Py3': ('mkbase3122py3', 'alpine:3.12.2', 'alpine'),
     #'ComposeMediaKrakenBase3131Py3': ('mkbase_alpinepy3', 'alpine:3.13.1', 'alpine'),
     'ComposeMediaKrakenBase3132Py3': ('mkbase_alpinepy3', 'alpine:3.13.2', 'alpine'),
-    # 'ComposeMediaKrakenBase9_9Py3': ('mkbasedeb9_9py3', 'debian:9.9-slim', 'debian'),
-    # 'ComposeMediaKrakenBase10_2Py3': ('mkbasedeb10_2py3', 'debian:10.2-slim', 'debian'),
-    # 'ComposeMediaKrakenBase10_3Py3': ('mkbasedeb10_3py3', 'debian:10.3-slim', 'debian'),
     # 'ComposeMediaKrakenBase10_4Py3': ('mkbasedeb10_4py3', 'debian:10.4-slim', 'debian'),
     # 'ComposeMediaKrakenBase10_7Py3': ('mkbasedeb10_7py3', 'debian:10.7-slim', 'debian'),
     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.13.2', 'alpine'),
