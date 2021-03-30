@@ -16,8 +16,8 @@
   MA 02110-1301, USA.
 '''
 
-# ALPINE_MIRROR = 'th-alpinemirror-1.beaverbay.local'
-ALPINE_MIRROR = 'dl-2.alpinelinux.org'
+ALPINE_MIRROR = 'th-alpinemirror-1.beaverbay.local'
+#ALPINE_MIRROR = 'dl-cdn.alpinelinux.org'
 
 # PYPI_MIRROR = 'th-bandersnatch-1'
 PYPI_MIRROR = 'pypi.python.org'
@@ -32,7 +32,6 @@ PROXY_USER_PASS = None
 # ComposeMediaKrakenBasePYPY
 # ComposeMediaKrakenCertBot
 # ComposeMediaKrakenDMS
-# ComposeMediaKrakenGameData
 # ComposeMediaKrakenInotify
 # ComposeMediaKrakenMythTV
 # ComposeMediaKrakenPrefetchTMDB
