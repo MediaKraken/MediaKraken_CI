@@ -64,10 +64,15 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             pid_proc.wait()
         except:
             pass
+        if email_body == '':
+            error_status = ' SUCCESS'
+        else:
+            error_status = ' FAILED'
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
                                                 'Hadolint image: '
-                                                + build_stages[docker_images][0],
+                                                + build_stages[docker_images][0]
+                                                + error_status,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
