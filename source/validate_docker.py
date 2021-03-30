@@ -44,13 +44,10 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_ONE_TESTING_TOOLS,
                      common_docker_images.STAGE_TWO_TESTING_TOOLS):
     for docker_images in build_stages:
-        try:
-            # catch images that are in a testing branch that might not exist
-            os.chdir(os.path.join(CWD_HOME_DIRECTORY,
-                                  'MediaKraken_Deployment/docker',
-                                  build_stages[docker_images][2], docker_images))
-        except FileNotFoundError:
-            continue
+        os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+                              'MediaKraken_Deployment/docker',
+                              build_stages[docker_images][2], docker_images))
+        print('hado dir:', os.getcwd())
         # Run hadolint on each image
         try:
             pid_proc = subprocess.Popen(
