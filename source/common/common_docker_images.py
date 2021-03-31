@@ -16,8 +16,8 @@
   MA 02110-1301, USA.
 '''
 
-ALPINE_MIRROR = 'th-alpinemirror-1.beaverbay.local'
-#ALPINE_MIRROR = 'dl-cdn.alpinelinux.org'
+#ALPINE_MIRROR = 'th-alpinemirror-1.beaverbay.local'
+ALPINE_MIRROR = 'dl-cdn.alpinelinux.org'
 
 # PYPI_MIRROR = 'th-bandersnatch-1'
 PYPI_MIRROR = 'pypi.python.org'
