@@ -21,6 +21,7 @@ import shlex
 import subprocess
 import sys
 
+import psutil
 from dotenv import load_dotenv
 
 from common import common_docker_images
@@ -28,6 +29,23 @@ from common import common_network_email
 
 # load .env stats
 load_dotenv()
+
+
+def is_running_check(app_name, app_parameter=None):
+    # Iterate over the all the running process
+    for proc in psutil.process_iter():
+        try:
+            # Check if process name contains the given name string.
+            if app_name.lower() in proc.name().lower():
+                if app_parameter is not None:
+                    if proc.cmdline()[1] == app_parameter:
+                        return True
+                else:
+                    return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    return False
+
 
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 print(CWD_HOME_DIRECTORY, flush=True)
@@ -81,6 +99,12 @@ if True:
     print('Hadolint End', flush=True)
 
 if True:
+    # startup local server if it's not running
+    if is_running_check(app_name='trivy', app_parameter='server'):
+        print('Trivy - starting local server instance', flush=True)
+        subprocess.Popen(
+            shlex.split('trivy server --listen 0.0.0.0:9999'),
+            stdout=subprocess.PIPE, shell=False)
     # trivy - security scan docker images
     # don't do the testing/security images as they aren't MK production code
     print('Trivy Start', flush=True)
@@ -94,7 +118,8 @@ if True:
             # Run trivy on each image
             try:
                 pid_proc = subprocess.Popen(
-                    shlex.split('trivy image %s/mediakraken/%s:dev' %
+                    shlex.split('trivy client --remote http://localhost:9999'
+                                ' %s/mediakraken/%s:dev' %
                                 (common_docker_images.DOCKER_REPOSITORY,
                                  build_stages[docker_images][0])),
                     stdout=subprocess.PIPE, shell=False)
