@@ -103,9 +103,10 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                 line = pid_proc.stdout.readline()
                 if not line:
                     break
-                email_body += line.decode("utf-8")
-                print(line.rstrip(), flush=True)
-                if line.decode("utf-8").find('Total: 0 (') != -1:
+                line_decoded = line.decode("utf-8")
+                email_body += line_decoded
+                print(line_decoded.rstrip(), flush=True)
+                if line_decoded.find('Total: 0 (') != -1:
                     error_status = ' SUCCESS'
             pid_proc.wait()
         except:
