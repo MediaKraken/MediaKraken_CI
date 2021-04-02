@@ -97,6 +97,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
             print(e.output, flush=True)
             sys.exit()
         email_body = ''
+        error_status = ' FAILED'
         try:
             while True:
                 line = pid_proc.stdout.readline()
@@ -104,13 +105,16 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                     break
                 email_body += line.decode("utf-8")
                 print(line.rstrip(), flush=True)
+                if line.find('Total: 0 (') != -1:
+                    error_status = ' SUCCESS'
             pid_proc.wait()
         except:
             pass
         common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
                                                 os.environ['MAILUSER'],
                                                 'Trivy image: '
-                                                + build_stages[docker_images][0],
+                                                + build_stages[docker_images][0]
+                                                + error_status,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
