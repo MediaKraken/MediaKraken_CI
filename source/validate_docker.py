@@ -34,6 +34,7 @@ print(CWD_HOME_DIRECTORY, flush=True)
 
 # hadolint - lint your Dockerfile
 # don't do the testing/security images as they aren't MK production code
+print('Hadolint Start', flush=True)
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
@@ -76,9 +77,11 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
+print('Hadolint End', flush=True)
 
 # trivy - security scan docker images
 # don't do the testing/security images as they aren't MK production code
+print('Trivy Start', flush=True)
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                      common_docker_images.STAGE_TWO_IMAGES,
                      common_docker_images.STAGE_COMPOSE_IMAGES,
@@ -119,3 +122,4 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                                                 email_body,
                                                 smtp_server=os.environ['MAILSERVER'],
                                                 smtp_port=os.environ['MAILPORT'])
+print('Trivy End', flush=True)
