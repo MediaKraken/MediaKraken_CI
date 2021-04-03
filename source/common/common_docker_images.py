@@ -88,10 +88,8 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase_alpinepy3', 'alpine'),
     #'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
     'ComposeMediaKrakenCron': ('mkcron', 'mkbase_alpinepy3', 'alpine'),
-    #'ComposeMediaKrakenDatabase12_4': ('mkdatabase', 'debian:buster-slim', 'debian'),
     'ComposeMediaKrakenDatabase13': ('mkdatabase', 'debian:buster-slim', 'debian'),
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
-    #'ComposeMediaKrakenFFProbe': ('mkffprobe', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
     #'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.10', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
@@ -128,7 +126,6 @@ STAGE_ONE_SECURITY_TOOLS = {
     'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
     'sitadel': ('mksitadel', 'python:3'),
     'testssl': ('mktestssl', 'alpine:3.9'),
-    'trivy': ('mktrivy', 'alpine:3.11'),
 }
 
 STAGE_TWO_SECURITY_TOOLS = {
@@ -146,7 +143,6 @@ STAGE_ONE_TESTING_TOOLS = {
     'metricbeat': ('mkmetricbeat', 'docker.elastic.co/beats/metricbeat:7.6.0'),
     'nikto': ('mknikto', 'alpine:3.10'),
     'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
-    'raccoon': ('mkraccoon', 'python:3.5-alpine'),
     'registry': ('mkregistry', 'alpine:3.8'),
     'testcode': ('mktestcode', 'mkbase_alpinepy3'),
     'testwebapp': ('mktestwebapp', 'mkbase_alpinepy3'),
