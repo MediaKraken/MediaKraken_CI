@@ -199,20 +199,7 @@ for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
 #                                                 smtp_server=os.environ['MAILSERVER'],
 #                                                 smtp_port=os.environ['MAILPORT'])
 
-#####################################
-# start up the application so can see running images for several tools
-#####################################
-os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'run_configs/compose_dev'))
-pid_proc = subprocess.Popen(shlex.split('./mediakraken_start.sh'),
-                            stdout=subprocess.PIPE, shell=False)
-while True:
-    line = pid_proc.stdout.readline()
-    if not line:
-        break
-    print(line.rstrip(), flush=True)
-pid_proc.wait()
-# this sleep is here so that everything has time to fully start like pika
-time.sleep(60)
+
 
 # run docker-bench on all images as it checks for common best practices
 os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source'))
@@ -242,27 +229,9 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
 # run application web test/etc
 #####################################
 
-# Web Vulnerability Scanner via rapidscan
-pid_proc = subprocess.Popen(
-    shlex.split(
-        'docker run -ti %s/mediakraken/mkrapidscan:dev localhost:8900' %
-        (common_docker_images.DOCKER_REPOSITORY,)),
-    stdout=subprocess.PIPE, shell=False)
-email_body = ''
-while True:
-    line = pid_proc.stdout.readline()
-    if not line:
-        break
-    email_body += line.decode("utf-8")
-    print(line.rstrip(), flush=True)
-pid_proc.wait()
-common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
-                                        os.environ['MAILUSER'],
-                                        'Rapidscan', email_body,
-                                        smtp_server=os.environ['MAILSERVER'],
-                                        smtp_port=os.environ['MAILPORT'])
 
-# Test the SSL security of the nginx ssl setup via testssl.sh
+
+# Test the SSL security of the ssl setup via testssl.sh
 pid_proc = subprocess.Popen(shlex.split('docker run -ti %s/mediakraken/mktestssl:dev localhost:8900'
                                         % (common_docker_images.DOCKER_REPOSITORY,)),
                             stdout=subprocess.PIPE, shell=False)
@@ -280,24 +249,7 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_server=os.environ['MAILSERVER'],
                                         smtp_port=os.environ['MAILPORT'])
 
-# run nikto web scanner
-pid_proc = subprocess.Popen(shlex.split('docker run -ti %s/mediakraken/mknikto:dev -h '
-                                        'localhost:8900'
-                                        % (common_docker_images.DOCKER_REPOSITORY,)),
-                            stdout=subprocess.PIPE, shell=False)
-email_body = ''
-while True:
-    line = pid_proc.stdout.readline()
-    if not line:
-        break
-    email_body += line.decode("utf-8")
-    print(line.rstrip(), flush=True)
-pid_proc.wait()
-common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
-                                        os.environ['MAILUSER'],
-                                        'Nitko', email_body,
-                                        smtp_server=os.environ['MAILSERVER'],
-                                        smtp_port=os.environ['MAILPORT'])
+
 
 # run sitadel web security scanner
 pid_proc = subprocess.Popen(shlex.split('docker run -ti %s/mediakraken/mksitadel:dev '
@@ -318,12 +270,3 @@ common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAIL
                                         smtp_server=os.environ['MAILSERVER'],
                                         smtp_port=os.environ['MAILPORT'])
 
-#####################################
-# stop the application
-#####################################
-os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment', 'run_configs/compose_dev'))
-pid_proc = subprocess.Popen(shlex.split('./mediakraken_stop.sh'),
-                            stdout=subprocess.PIPE, shell=False)
-pid_proc.wait()
-# this sleep is here so that everything has time to fully stop like pika
-time.sleep(60)

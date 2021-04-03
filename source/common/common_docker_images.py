@@ -123,13 +123,10 @@ STAGE_TWO_GAME_SERVERS = {}
 # these are for security and linting all code
 # directory, name, base image, build script
 STAGE_ONE_SECURITY_TOOLS = {
-    'kali': ('mkkali', 'kalilinux/kali-linux-docker', './build.sh'),
-    'sitadel': ('mksitadel', 'python:3'),
     'testssl': ('mktestssl', 'alpine:3.9'),
 }
 
 STAGE_TWO_SECURITY_TOOLS = {
-    'rapidscan': ('mkrapidscan', 'mkkali'),
 }
 
 STAGE_ONE_TESTING_TOOLS = {
@@ -141,13 +138,11 @@ STAGE_ONE_TESTING_TOOLS = {
     'logspout': ('mklogspout', 'alpine:3.9'),
     'metasploit': ('mkmetasploit', 'metasploitframework/metasploit-framework'),
     'metricbeat': ('mkmetricbeat', 'docker.elastic.co/beats/metricbeat:7.6.0'),
-    'nikto': ('mknikto', 'alpine:3.10'),
     'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
     'registry': ('mkregistry', 'alpine:3.8'),
     'testcode': ('mktestcode', 'mkbase_alpinepy3'),
     'testwebapp': ('mktestwebapp', 'mkbase_alpinepy3'),
     'vuls': ('mkvuls', 'golang:alpine'),
-    'wireshark': ('mkwireshark', 'debian:stretch-slim'),
 }
 
 STAGE_TWO_TESTING_TOOLS = {

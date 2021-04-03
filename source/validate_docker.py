@@ -51,6 +51,25 @@ CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 print(CWD_HOME_DIRECTORY, flush=True)
 
 if True:
+    # Docker best practices
+    pid_proc = subprocess.Popen(
+        shlex.split('./docker_bench_security.sh'),
+        stdout=subprocess.PIPE, shell=False)
+    email_body = ''
+    while True:
+        line = pid_proc.stdout.readline()
+        if not line:
+            break
+        email_body += line.decode("utf-8")
+        print(line.rstrip(), flush=True)
+    pid_proc.wait()
+    common_network_email.com_net_send_email(os.environ['MAILUSER'], os.environ['MAILPASS'],
+                                            os.environ['MAILUSER'],
+                                            'Docker Bench Security', email_body,
+                                            smtp_server=os.environ['MAILSERVER'],
+                                            smtp_port=os.environ['MAILPORT'])
+
+if True:
     # hadolint - lint your Dockerfile
     # don't do the testing/security images as they aren't MK production code
     print('Hadolint Start', flush=True)
