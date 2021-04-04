@@ -94,6 +94,7 @@ STAGE_ONE_GAME_SERVERS = {
 
 STAGE_TWO_GAME_SERVERS = {
     'ComposeMediaKrakenSteamCMDCSGO': ('mksteamcsgo', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMDHoldfastNaW': ('mksteamholdfastnaw', 'mkbasesteamcmdroot', 'game_server'),
     'ComposeMediaKrakenSteamCMDMordhau': ('mksteammordhau', 'mkbasesteamcmdroot', 'game_server'),
     'ComposeMediaKrakenSteamCMDSquad': ('mksteamsquad', 'mkbasesteamcmdroot', 'game_server'),
     'ComposeMediaKrakenSteamCMDTF2': ('mksteamtf2', 'mkbasesteamcmdroot', 'game_server'),
