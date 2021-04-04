@@ -89,6 +89,7 @@ STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenBaseSteamCMDRoot': ('mkbasesteamcmdroot', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
+    'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:latest', 'game_server'),
     'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
 }
 
