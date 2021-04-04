@@ -29,6 +29,7 @@ PROXY_USER_NAME = None
 PROXY_USER_PASS = None
 
 # TODO
+# 'ComposeMediaKrakenDMS': ('mkdms', 'mkbaseffmpeg', 'alpine'), - dlna
 # 'ComposeMediaKrakenBasePYPYAlpine': ('mkbasepypyalpine', '3.13.3', 'alpine'), - most images are alpine
 # 'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'), - use official image
 # 'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'), pagespeed is suppossed to help speed
@@ -64,7 +65,6 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenCron': ('mkcron', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDatabase13': ('mkdatabase', 'debian:buster-slim', 'debian'),
-    'ComposeMediaKrakenDMS': ('mkdms', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
@@ -84,7 +84,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase_alpinepy3', 'alpine'),
 }
 
-# these are the game servers
+# these are the base game servers
 STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.3-slim', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
