@@ -123,7 +123,6 @@ STAGE_TWO_GAME_SERVERS = {}
 # these are for security and linting all code
 # directory, name, base image, build script
 STAGE_ONE_SECURITY_TOOLS = {
-    'testssl': ('mktestssl', 'alpine:3.9'),
 }
 
 STAGE_TWO_SECURITY_TOOLS = {
@@ -132,17 +131,13 @@ STAGE_TWO_SECURITY_TOOLS = {
 STAGE_ONE_TESTING_TOOLS = {
     'elk': ('mkelk', 'phusion/baseimage:18.04-1.0.0'),
     'filebeat': ('mkfilebeat', 'docker.elastic.co/beats/filebeat:7.5.2'),
-    'fuxploider': ('mkfuxploider', 'python:3.6-alpine'),
     'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
     'joxit_ui': ('mkjoxitui', 'node:10-alpine'),
     'logspout': ('mklogspout', 'alpine:3.9'),
-    'metasploit': ('mkmetasploit', 'metasploitframework/metasploit-framework'),
     'metricbeat': ('mkmetricbeat', 'docker.elastic.co/beats/metricbeat:7.6.0'),
     'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
     'registry': ('mkregistry', 'alpine:3.8'),
-    'testcode': ('mktestcode', 'mkbase_alpinepy3'),
     'testwebapp': ('mktestwebapp', 'mkbase_alpinepy3'),
-    'vuls': ('mkvuls', 'golang:alpine'),
 }
 
 STAGE_TWO_TESTING_TOOLS = {

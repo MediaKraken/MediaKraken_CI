@@ -1,1 +1,0 @@
-FROM metasploitframework/metasploit-framework
