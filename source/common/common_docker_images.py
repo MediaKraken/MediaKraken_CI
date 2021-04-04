@@ -86,12 +86,17 @@ STAGE_COMPOSE_IMAGES = {
 
 # these are the base game servers
 STAGE_ONE_GAME_SERVERS = {
-    'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.3-slim', 'game_server'),
+    'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.9-slim', 'game_server'),
+    'ComposeMediaKrakenBaseSteamCMDRoot': ('mkbasesteamcmdroot', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
     'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
 }
 
-STAGE_TWO_GAME_SERVERS = {}
+STAGE_TWO_GAME_SERVERS = {
+    'ComposeMediaKrakenSteamCMDCSGO': ('mksteamcsgo', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMDMordhau': ('mksteammordhau', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMDSquad': ('mksteamsquad', 'mkbasesteamcmdroot', 'game_server'),
+}
 
 # these are for security and linting all code
 # directory, name, base image, build script
