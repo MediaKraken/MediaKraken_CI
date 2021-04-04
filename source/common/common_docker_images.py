@@ -28,6 +28,17 @@ PROXY_IP_PORT = '0.0.0.0:8080'
 PROXY_USER_NAME = None
 PROXY_USER_PASS = None
 
+# TODO
+# 'ComposeMediaKrakenBasePYPYAlpine': ('mkbasepypyalpine', '3.13.3', 'alpine'), - most images are alpine
+# 'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'), - use official image
+# 'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'), pagespeed is suppossed to help speed
+
+# Not needed
+# 'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg', 'alpine'),
+# 'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
+# 'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.12', 'alpine'),
+# 'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
+
 # the data is directory, name of container, base image used to build container
 
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
@@ -36,7 +47,6 @@ STAGE_ONE_IMAGES = {
     'ComposeMediaKrakenBase3133Py3': ('mkbase_alpinepy3', 'alpine:3.13.3', 'alpine'),
     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.13.2', 'alpine'),
     'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.13.2', 'alpine'),
-    #'ComposeMediaKrakenBasePYPYAlpine': ('mkbasepypyalpine', '3.13.3', 'alpine'),
     'ComposeMediaKrakenBasePYPYDebian': ('mkbasepypydebian', 'debian:buster-slim', 'debian'),
 }
 
@@ -46,27 +56,22 @@ STAGE_TWO_IMAGES = {
     'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg', 'alpine'),
-    # 'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg', 'alpine'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine')}
 
 # these are the final "compose" images
 STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
     'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase_alpinepy3', 'alpine'),
-    # 'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
     'ComposeMediaKrakenCron': ('mkcron', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDatabase13': ('mkdatabase', 'debian:buster-slim', 'debian'),
     'ComposeMediaKrakenDMS': ('mkdms', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
-    # 'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.12', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenInotify': ('mkinotify', 'alpine:3.13.3', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
-    # 'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'),
     'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
-    # 'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'),
     'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.13.3', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
@@ -75,7 +80,6 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.3', 'alpine'),
-    # 'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
     'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase_alpinepy3', 'alpine'),
 }
@@ -114,8 +118,7 @@ STAGE_TWO_TESTING_TOOLS = {
 
 STAGE_ONE_FS = {
     'ComposeMediaKrakenMooseFSChunkServer': ('mkmoosechunkserver', 'debian:strech', 'debian'),
-    'ComposeMediaKrakenMooseFSChunkServerClient': (
-    'mkmoosechunkserverclient', 'debian:strech', 'debian'),
+    'ComposeMediaKrakenMooseFSChunkServerClient': ('mkmoosechunkserverclient', 'debian:strech', 'debian'),
     'ComposeMediaKrakenMooseFSClient': ('mkmooseclient', 'debian:strech', 'debian'),
     'ComposeMediaKrakenMooseFSMaster': ('mkmoosemaster', 'debian:strech', 'debian'),
 }
