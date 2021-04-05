@@ -89,7 +89,7 @@ STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenBaseSteamCMDRoot': ('mkbasesteamcmdroot', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
-    'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:latest', 'game_server'),
+    #'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.3', 'game_server'),
     'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
 }
 
@@ -100,6 +100,9 @@ STAGE_TWO_GAME_SERVERS = {
     'ComposeMediaKrakenSteamCMDSquad': ('mksteamsquad', 'mkbasesteamcmdroot', 'game_server'),
     'ComposeMediaKrakenSteamCMDTF2': ('mksteamtf2', 'mkbasesteamcmdroot', 'game_server'),
     'ComposeMediaKrakenSteamCMDValheim': ('mksteamvalheim', 'mkbasesteamcmdroot', 'game_server'),
+    # 'ComposeMediaKrakenQ3A_CPMA': ('mkgameq3a_cpma', 'mkgameq3a', 'game_server'),
+    # 'ComposeMediaKrakenQ3A_OSP': ('mkgameq3a_osp', 'mkgameq3a', 'game_server'),
+    # 'ComposeMediaKrakenQ3A_RQ3': ('mkgameq3a_rq3', 'mkgameq3a', 'game_server'),
 }
 
 # these are for security and linting all code
