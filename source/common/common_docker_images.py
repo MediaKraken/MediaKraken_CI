@@ -88,7 +88,7 @@ STAGE_COMPOSE_IMAGES = {
 STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenBaseSteamCMDRoot': ('mkbasesteamcmdroot', 'debian:10.9-slim', 'game_server'),
-    'ComposeMediaKrakenBaseWine': ('mkbasewine', 'debian:10.9-slim', 'game_server'),
+    'ComposeMediaKrakenBaseWine': ('mkbasewine', 'ubuntu:20.10', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
     #'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.3', 'game_server'),
     'ComposeMediaKrakenQuake2': ('mkgamequake2', 'mkgamequake2', 'game_server'),
