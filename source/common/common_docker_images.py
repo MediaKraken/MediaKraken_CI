@@ -84,15 +84,19 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase_alpinepy3', 'alpine'),
 }
 
-# these are the base game servers
+# these are the base/unique game servers
 STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenBaseSteamCMDRoot': ('mkbasesteamcmdroot', 'debian:10.9-slim', 'game_server'),
+    'ComposeMediaKrakenBaseWine': ('mkbasewine', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
     #'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.3', 'game_server'),
+    'ComposeMediaKrakenQuake2': ('mkgamequake2', 'mkgamequake2', 'game_server'),
     'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
 }
 
+# depends on a base image from above
+# https://developer.valvesoftware.com/wiki/Dedicated_Servers_List
 STAGE_TWO_GAME_SERVERS = {
     'ComposeMediaKrakenSteamCMD_CSGO': ('mksteamcsgo', 'mkbasesteamcmdroot', 'game_server'),
     'ComposeMediaKrakenSteamCMD_HoldfastNaW': ('mksteamholdfastnaw', 'mkbasesteamcmdroot', 'game_server'),
@@ -103,7 +107,6 @@ STAGE_TWO_GAME_SERVERS = {
     # 'ComposeMediaKrakenQ3A_CPMA': ('mkgameq3a_cpma', 'mkgameq3a', 'game_server'),
     # 'ComposeMediaKrakenQ3A_OSP': ('mkgameq3a_osp', 'mkgameq3a', 'game_server'),
     # 'ComposeMediaKrakenQ3A_RQ3': ('mkgameq3a_rq3', 'mkgameq3a', 'game_server'),
-    'ComposeMediaKrakenQuake2': ('mkgamequake2', 'mkgamequake2', 'game_server'),
 }
 
 # these are for security and linting all code
