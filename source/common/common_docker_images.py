@@ -94,12 +94,12 @@ STAGE_ONE_GAME_SERVERS = {
 }
 
 STAGE_TWO_GAME_SERVERS = {
-    'ComposeMediaKrakenSteamCMDCSGO': ('mksteamcsgo', 'mkbasesteamcmdroot', 'game_server'),
-    'ComposeMediaKrakenSteamCMDHoldfastNaW': ('mksteamholdfastnaw', 'mkbasesteamcmdroot', 'game_server'),
-    'ComposeMediaKrakenSteamCMDMordhau': ('mksteammordhau', 'mkbasesteamcmdroot', 'game_server'),
-    'ComposeMediaKrakenSteamCMDSquad': ('mksteamsquad', 'mkbasesteamcmdroot', 'game_server'),
-    'ComposeMediaKrakenSteamCMDTF2': ('mksteamtf2', 'mkbasesteamcmdroot', 'game_server'),
-    'ComposeMediaKrakenSteamCMDValheim': ('mksteamvalheim', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_CSGO': ('mksteamcsgo', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_HoldfastNaW': ('mksteamholdfastnaw', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_Mordhau': ('mksteammordhau', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_Squad': ('mksteamsquad', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_TF2': ('mksteamtf2', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_Valheim': ('mksteamvalheim', 'mkbasesteamcmdroot', 'game_server'),
     # 'ComposeMediaKrakenQ3A_CPMA': ('mkgameq3a_cpma', 'mkgameq3a', 'game_server'),
     # 'ComposeMediaKrakenQ3A_OSP': ('mkgameq3a_osp', 'mkgameq3a', 'game_server'),
     # 'ComposeMediaKrakenQ3A_RQ3': ('mkgameq3a_rq3', 'mkgameq3a', 'game_server'),
