@@ -91,10 +91,12 @@ STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseWine': ('mkbasewine', 'ubuntu:20.10', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
     #'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.3', 'game_server'),
-    'ComposeMediaKrakenQuake2': ('mkgamequake2', 'mkgamequake2', 'game_server'),
+    #'ComposeMediaKrakenQuake': ('mkgamequake', 'FAKEOS', 'game_server'),
+    'ComposeMediaKrakenQuake2': ('mkgamequake2', 'ubuntu:20.10', 'game_server'),
+    'ComposeMediaKrakenQuake4': ('mkgamequake4', 'ubuntu:20.10', 'game_server'),
     'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
-    'ComposeMediaKrakenUT2004': ('mkut2004', 'debian:jessie', 'game_server'),
-    'ComposeMediaKrakenUT99': ('mkut99', 'i386/ubuntu:18.04', 'game_server'),
+    'ComposeMediaKrakenUT2004': ('mkgameut2004', 'debian:jessie', 'game_server'),
+    #'ComposeMediaKrakenUT99': ('mkgameut99', 'i386/ubuntu:19.04', 'game_server'),
 }
 
 # depends on a base image from above
