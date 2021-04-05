@@ -103,6 +103,7 @@ STAGE_TWO_GAME_SERVERS = {
     # 'ComposeMediaKrakenQ3A_CPMA': ('mkgameq3a_cpma', 'mkgameq3a', 'game_server'),
     # 'ComposeMediaKrakenQ3A_OSP': ('mkgameq3a_osp', 'mkgameq3a', 'game_server'),
     # 'ComposeMediaKrakenQ3A_RQ3': ('mkgameq3a_rq3', 'mkgameq3a', 'game_server'),
+    'ComposeMediaKrakenQuake2': ('mkgamequake2', 'mkgamequake2', 'game_server'),
 }
 
 # these are for security and linting all code
