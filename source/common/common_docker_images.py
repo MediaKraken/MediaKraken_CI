@@ -91,6 +91,7 @@ STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseWine': ('mkbasewine', 'ubuntu:20.10', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
     'ComposeMediaKrakenFactorio': ('mkgamefactorio', 'ubuntu:14.04', 'game_server'),
+    'ComposeMediaKrakenKerbalSpaceProgram': ('mkgamekerbalspaceprogram', 'mono:latest', 'game_server'),
     'ComposeMediaKrakenMinecraft': ('mkgameminecraft', 'adoptopenjdk/openjdk11:alpine-jre', 'game_server'),
     #'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.3', 'game_server'),
     #'ComposeMediaKrakenQuake': ('mkgamequake', 'FAKEOS', 'game_server'),
@@ -100,7 +101,7 @@ STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
     'ComposeMediaKrakenUT2004': ('mkgameut2004', 'debian:jessie', 'game_server'),
     #'ComposeMediaKrakenUT99': ('mkgameut99', 'i386/ubuntu:19.04', 'game_server'),
-    'ComposeMediaKrakenWindward': ('mkgamewindward', 'frolvlad/alpine-glibc:glibc-2.25', 'game_server'),
+    'ComposeMediaKrakenWindward': ('mkgamewindward', 'frolvlad/alpine-glibc:glibc-2.33', 'game_server'),
 }
 
 # depends on a base image from above
