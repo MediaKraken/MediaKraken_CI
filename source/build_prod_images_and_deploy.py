@@ -16,6 +16,9 @@
   MA 02110-1301, USA.
 '''
 
+# must login to docker hub first
+# docker login --username=mediakraken
+
 import shlex
 import subprocess
 
