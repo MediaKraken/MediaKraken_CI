@@ -23,11 +23,6 @@ cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenDownload/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenDownload/src/.
 cp ../../source/main_download.py ../../docker/alpine/ComposeMediaKrakenDownload/src/.
 
-# ffprobe
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenFFProbe/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenFFProbe/src/.
-cp ../../source/subprogram_ffprobe_metadata.py ../../docker/alpine/ComposeMediaKrakenFFProbe/src/.
-
 # load game/metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenGameData/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenGameData/src/.
@@ -41,15 +36,13 @@ cp ../../source/main_hardware.py ../../docker/alpine/ComposeMediaKrakenHardware/
 
 # metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
+cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp -R ../../source/metadata ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/main_server_metadata_api.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/main_server_metadata_api_worker.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp ../../source/build_image_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp ../../source/build_trailer_directory.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/subprogram*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
+cp ../../source/async*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/db_metadata_fix.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp ../../source/bulk_themoviedb_netfetch.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 
 # pika
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPika/src/.
@@ -68,10 +61,6 @@ cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenReactor/sr
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 cp ../../source/main_ripper.py ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 
-# roku thumb
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenRokuThumb/src/.
-cp ../../source/subprogram_roku_thumbnail_generate.py ../../docker/alpine/ComposeMediaKrakenRokuThumb/src/.
-
 # server
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenServer/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenServer/src/.
@@ -86,6 +75,11 @@ cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenServer/src
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenSlave/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenSlave/src/.
 cp ../../source/main_server_slave.py ../../docker/alpine/ComposeMediaKrakenSlave/src/.
+
+# transcode
+cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
+cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
+cp ../../source/async_transcode.py ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 
 # webserver - alpine sanic
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
