@@ -45,9 +45,9 @@ PROXY_USER_PASS = None
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
 # or simply stand alone images
 STAGE_ONE_IMAGES = {
-    'ComposeMediaKrakenBase3133Py3': ('mkbase_alpinepy3', 'alpine:3.13.3', 'alpine'),
-    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.13.2', 'alpine'),
-    'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.13.2', 'alpine'),
+    'ComposeMediaKrakenBase3135Py3': ('mkbase_alpinepy3', 'alpine:3.13.5', 'alpine'),
+    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.13.5', 'alpine'),
+    'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenBasePYPYDebian': ('mkbasepypydebian', 'debian:buster-slim', 'debian'),
 }
 
@@ -68,18 +68,18 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenInotify': ('mkinotify', 'alpine:3.13.3', 'alpine'),
+    'ComposeMediaKrakenInotify': ('mkinotify', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
-    'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.13.3', 'alpine'),
+    'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenServer': ('mkserver', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbaseffmpeg', 'alpine'),
-    'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.3', 'alpine'),
+    'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
     'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase_alpinepy3', 'alpine'),
 }
@@ -94,7 +94,7 @@ STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenFactorio': ('mkgamefactorio', 'ubuntu:14.04', 'game_server'),
     'ComposeMediaKrakenKerbalSpaceProgram': ('mkgamekerbalspaceprogram', 'mono:latest', 'game_server'),
     'ComposeMediaKrakenMinecraft': ('mkgameminecraft', 'adoptopenjdk/openjdk11:alpine-jre', 'game_server'),
-    #'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.3', 'game_server'),
+    #'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.5', 'game_server'),
     #'ComposeMediaKrakenQuake': ('mkgamequake', 'FAKEOS', 'game_server'),
     'ComposeMediaKrakenQuake2': ('mkgamequake2', 'ubuntu:20.10', 'game_server'),
     #'ComposeMediaKrakenQuake4': ('mkgamequake4', 'ubuntu:20.10', 'game_server'),

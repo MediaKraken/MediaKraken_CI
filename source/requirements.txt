@@ -1,5 +1,5 @@
 vulture==2.3
-pytype==2021.4.1
+pytype==2021.4.9
 radon==4.5.0
 python-taint==0.42
 bandit==1.7.0
