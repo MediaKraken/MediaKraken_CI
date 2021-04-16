@@ -45,10 +45,11 @@ PROXY_USER_PASS = None
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
 # or simply stand alone images
 STAGE_ONE_IMAGES = {
+    'ComposeMediaKrakenBase10_9Py3': ('mkbase_debianpy3', 'python:3.9.4-slim-buster', 'debian'),
     'ComposeMediaKrakenBase3135Py3': ('mkbase_alpinepy3', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.13.5', 'alpine'),
-    'ComposeMediaKrakenBasePYPYDebian': ('mkbasepypydebian', 'debian:buster-slim', 'debian'),
+    'ComposeMediaKrakenBasePYPYDebian': ('mkbase_pypydebian', 'debian:buster-slim', 'debian'),
 }
 
 # build on top of base os images from above
@@ -71,6 +72,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenInotify': ('mkinotify', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
+    'ComposeMediaKrakenMisterConv': ('mkmister', 'mkbase_debianpy3', 'debian'),
     'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
     'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),

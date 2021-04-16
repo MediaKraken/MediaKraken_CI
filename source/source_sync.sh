@@ -44,6 +44,10 @@ cp ../../source/subprogram*.py ../../docker/alpine/ComposeMediaKrakenMetadata/sr
 cp ../../source/async*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/db_metadata_fix.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 
+# mister
+cp -R ../../source/common ../../docker/debian/ComposeMediaKrakenMisterConv/src/.
+cp ../../source/async_mister*.py ../../docker/debian/ComposeMediaKrakenMisterConv/src/.
+
 # pika
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPika/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenPika/src/.
