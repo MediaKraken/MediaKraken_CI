@@ -54,18 +54,17 @@ STAGE_ONE_IMAGES = {
 
 # build on top of base os images from above
 STAGE_TWO_IMAGES = {
-    'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg', 'alpine'),
-    'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg', 'alpine'),
-    'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine')}
+#    'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg', 'alpine'),
+}
 
-# these are the final "compose" images
+# these are the final images
 STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
     'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase_alpinepy3', 'alpine'),
+    'ComposeMediaKrakenCastImage': ('mkcastimage', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenCron': ('mkcron', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDatabase13': ('mkdatabase', 'debian:buster-slim', 'debian'),
+    'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
@@ -78,11 +77,13 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
+    'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenServer': ('mkserver', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbaseffmpeg', 'alpine'),
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
+    'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase_alpinepy3', 'alpine'),
 }
 
@@ -91,25 +92,26 @@ STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenBaseSteamCMDRoot': ('mkbasesteamcmdroot', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenBaseWine': ('mkbasewine', 'scottyhardy/docker-remote-desktop', 'game_server'),
-    'ComposeMediaKrakenBF42': ('mkgamebf42', 'ubuntu:14.04', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
-    'ComposeMediaKrakenFactorio': ('mkgamefactorio', 'ubuntu:14.04', 'game_server'),
-    'ComposeMediaKrakenKerbalSpaceProgram': ('mkgamekerbalspaceprogram', 'mono:latest', 'game_server'),
-    'ComposeMediaKrakenMinecraft': ('mkgameminecraft', 'adoptopenjdk/openjdk11:alpine-jre', 'game_server'),
     #'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.5', 'game_server'),
-    #'ComposeMediaKrakenQuake': ('mkgamequake', 'FAKEOS', 'game_server'),
-    'ComposeMediaKrakenQuake2': ('mkgamequake2', 'ubuntu:20.10', 'game_server'),
-    #'ComposeMediaKrakenQuake4': ('mkgamequake4', 'ubuntu:20.10', 'game_server'),
-    #'ComposeMediaKrakenQuakeLive': ('mkgamequakelive', 'ubuntu:16.10', 'game_server'),
     'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
-    'ComposeMediaKrakenUT2004': ('mkgameut2004', 'debian:jessie', 'game_server'),
-    #'ComposeMediaKrakenUT99': ('mkgameut99', 'i386/ubuntu:19.04', 'game_server'),
-    #'ComposeMediaKrakenWindward': ('mkgamewindward', 'frolvlad/alpine-glibc:glibc-2.33', 'game_server'),
 }
 
 # depends on a base image from above
 # https://developer.valvesoftware.com/wiki/Dedicated_Servers_List
 STAGE_TWO_GAME_SERVERS = {
+    'ComposeMediaKrakenBF42': ('mkgamebf42', 'ubuntu:14.04', 'game_server'),
+    'ComposeMediaKrakenFactorio': ('mkgamefactorio', 'ubuntu:14.04', 'game_server'),
+    'ComposeMediaKrakenKerbalSpaceProgram': ('mkgamekerbalspaceprogram', 'mono:latest', 'game_server'),
+    'ComposeMediaKrakenMinecraft': ('mkgameminecraft', 'adoptopenjdk/openjdk11:alpine-jre', 'game_server'),
+    'ComposeMediaKrakenQuake2': ('mkgamequake2', 'ubuntu:20.10', 'game_server'),
+    'ComposeMediaKrakenUT2004': ('mkgameut2004', 'debian:jessie', 'game_server'),
+    # 'ComposeMediaKrakenUT99': ('mkgameut99', 'i386/ubuntu:19.04', 'game_server'),
+    # 'ComposeMediaKrakenWindward': ('mkgamewindward', 'frolvlad/alpine-glibc:glibc-2.33', 'game_server'),
+    # 'ComposeMediaKrakenQuake': ('mkgamequake', 'FAKEOS', 'game_server'),
+    # 'ComposeMediaKrakenQuake4': ('mkgamequake4', 'ubuntu:20.10', 'game_server'),
+    # 'ComposeMediaKrakenQuakeLive': ('mkgamequakelive', 'ubuntu:16.10', 'game_server'),
+
     # 'ComposeMediaKrakenQ3A_CPMA': ('mkgameq3a_cpma', 'mkgameq3a', 'game_server'),
     # 'ComposeMediaKrakenQ3A_OSP': ('mkgameq3a_osp', 'mkgameq3a', 'game_server'),
     # 'ComposeMediaKrakenQ3A_RQ3': ('mkgameq3a_rq3', 'mkgameq3a', 'game_server'),

@@ -25,7 +25,9 @@ import subprocess
 from common import common_docker_images
 
 for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
-                     common_docker_images.STAGE_TWO_IMAGES):
+                     common_docker_images.STAGE_TWO_IMAGES,
+                     common_docker_images.STAGE_ONE_GAME_SERVERS,
+                     ):
     for docker_images in build_stages:
         # retag all the images to latest
         pid_proc = subprocess.Popen(
