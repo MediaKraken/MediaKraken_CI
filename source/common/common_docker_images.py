@@ -47,14 +47,14 @@ PROXY_USER_PASS = None
 STAGE_ONE_IMAGES = {
     'ComposeMediaKrakenBase10_9Py3': ('mkbase_debianpy3', 'python:3.9.4-slim-buster', 'debian'),
     'ComposeMediaKrakenBase3135Py3': ('mkbase_alpinepy3', 'alpine:3.13.5', 'alpine'),
-    'ComposeMediaKrakenBaseFFMPEG': ('mkbaseffmpeg', 'alpine:3.13.5', 'alpine'),
-    'ComposeMediaKrakenBaseNodeJS': ('mkbasenode', 'alpine:3.13.5', 'alpine'),
+    'ComposeMediaKrakenBaseFFMPEG': ('mkbase_ffmpeg', 'alpine:3.13.5', 'alpine'),
+    'ComposeMediaKrakenBaseNodeJS': ('mkbase_node', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenBasePYPYDebian': ('mkbase_pypydebian', 'debian:buster-slim', 'debian'),
 }
 
 # build on top of base os images from above
 STAGE_TWO_IMAGES = {
-#    'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbasenodeffmpeg', 'mkbaseffmpeg', 'alpine'),
+#    'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbase_nodeffmpeg', 'mkbase_ffmpeg', 'alpine'),
 }
 
 # these are the final images
@@ -77,10 +77,10 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenRipper': ('mkripper', 'mkbaseffmpeg', 'alpine'),
+    'ComposeMediaKrakenRipper': ('mkripper', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenServer': ('mkserver', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
-    'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbaseffmpeg', 'alpine'),
+    'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine'),
