@@ -43,7 +43,7 @@ parser.add_argument('-r', '--release', metavar='release', required=False,
                     help='Push to DockerHub')
 parser.add_argument('-s', '--security', metavar='security', required=False,
                     help='Build security images')
-parser.add_argument('-t', '--type', metavar='type', required=True,
+parser.add_argument('-t', '--type', metavar='type', required=False,
                     help='The build type dev/prod')
 args = parser.parse_args()
 
