@@ -34,16 +34,16 @@ from common import common_network_email
 #  --build-arg ALPMIRROR=dl-cdn.alpinelinux.org --build-arg PIPMIRROR=pypi.python.org .
 
 parser = argparse.ArgumentParser(description='This program build and deploys MediaKraken')
-parser.add_argument('-b', '--base', metavar='base', required=False,
+parser.add_argument('-b', '--base', required=False,
                     help='Base images only', action="store_true")
 # set args.image variable if entered - ex. ComposeMediaKrakenBaseFFMPEG
 parser.add_argument('-i', '--image', metavar='image', required=False,
                     help='Image to build')
-parser.add_argument('-r', '--release', metavar='release', required=False,
+parser.add_argument('-r', '--release', required=False,
                     help='Push to DockerHub', action="store_true")
-parser.add_argument('-s', '--security', metavar='security', required=False,
+parser.add_argument('-s', '--security', required=False,
                     help='Build security images', action="store_true")
-parser.add_argument('-t', '--testing', metavar='testing', required=False,
+parser.add_argument('-t', '--testing', required=False,
                     help='Build testing images', action="store_true")
 parser.add_argument('-v', '--version', metavar='version', required=False,
                     help='The build version dev/prod')
@@ -190,19 +190,19 @@ pid_proc = subprocess.Popen(
 pid_proc.wait()
 
 # begin build process
-if args.base:
+if args.b:
     for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                          common_docker_images.STAGE_ONE_GAME_SERVERS,):
         build_email_push(build_stages, 'Build base dev image: ',
                          branch_tag=git_branch, push_hub_image=True)
 
-if args.security:
+if args.s:
     for build_stages in (common_docker_images.STAGE_ONE_SECURITY_TOOLS,
                          common_docker_images.STAGE_TWO_SECURITY_TOOLS,):
         build_email_push(build_stages, 'Build security image: ',
                          branch_tag=git_branch, push_hub_image=False)
 
-if args.testing:
+if args.t:
     for build_stages in (common_docker_images.STAGE_ONE_TESTING_TOOLS,
                          common_docker_images.STAGE_TWO_TESTING_TOOLS):
         build_email_push(build_stages, 'Build testing image: ',
