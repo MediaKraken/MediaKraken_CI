@@ -190,19 +190,19 @@ pid_proc = subprocess.Popen(
 pid_proc.wait()
 
 # begin build process
-if args.b:
+if args.base:
     for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
                          common_docker_images.STAGE_ONE_GAME_SERVERS,):
         build_email_push(build_stages, 'Build base dev image: ',
                          branch_tag=git_branch, push_hub_image=True)
 
-if args.s:
+if args.security:
     for build_stages in (common_docker_images.STAGE_ONE_SECURITY_TOOLS,
                          common_docker_images.STAGE_TWO_SECURITY_TOOLS,):
         build_email_push(build_stages, 'Build security image: ',
                          branch_tag=git_branch, push_hub_image=False)
 
-if args.t:
+if args.testing:
     for build_stages in (common_docker_images.STAGE_ONE_TESTING_TOOLS,
                          common_docker_images.STAGE_TWO_TESTING_TOOLS):
         build_email_push(build_stages, 'Build testing image: ',
