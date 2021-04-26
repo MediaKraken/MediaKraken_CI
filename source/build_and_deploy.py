@@ -156,7 +156,7 @@ while True:
         break
     print(line.rstrip(), flush=True)
     if line.rstrip().decode('utf-8').find('*') == 0:
-        git_branch = line.rstrip().decode('utf-8').split('')[1]
+        git_branch = line.rstrip().decode('utf-8').split(' ')[1]
         break
 pid_git_proc.wait()
 if git_branch is None:
