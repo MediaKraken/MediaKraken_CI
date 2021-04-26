@@ -43,8 +43,10 @@ parser.add_argument('-r', '--release', metavar='release', required=False,
                     help='Push to DockerHub')
 parser.add_argument('-s', '--security', metavar='security', required=False,
                     help='Build security images')
-parser.add_argument('-t', '--type', metavar='type', required=False,
-                    help='The build type dev/prod')
+parser.add_argument('-t', '--testing', metavar='testing', required=False,
+                    help='Build testing images')
+parser.add_argument('-v', '--version', metavar='version', required=False,
+                    help='The build version dev/prod')
 args = parser.parse_args()
 
 # load .env stats
@@ -205,7 +207,7 @@ if args.testing:
         build_email_push(build_stages, 'Build testing image: ',
                          branch_tag=git_branch, push_hub_image=False)
 
-if args.type == 'dev' or args.type == 'prod':
+if args.version == 'dev' or args.version == 'prod':
     for build_stages in (common_docker_images.STAGE_TWO_IMAGES,
                          common_docker_images.STAGE_COMPOSE_IMAGES,
                          common_docker_images.STAGE_TWO_GAME_SERVERS):
