@@ -35,16 +35,16 @@ from common import common_network_email
 
 parser = argparse.ArgumentParser(description='This program build and deploys MediaKraken')
 parser.add_argument('-b', '--base', metavar='base', required=False,
-                    help='Base images only')
+                    help='Base images only', action="store_true")
 # set args.image variable if entered - ex. ComposeMediaKrakenBaseFFMPEG
 parser.add_argument('-i', '--image', metavar='image', required=False,
                     help='Image to build')
 parser.add_argument('-r', '--release', metavar='release', required=False,
-                    help='Push to DockerHub')
+                    help='Push to DockerHub', action="store_true")
 parser.add_argument('-s', '--security', metavar='security', required=False,
-                    help='Build security images')
+                    help='Build security images', action="store_true")
 parser.add_argument('-t', '--testing', metavar='testing', required=False,
-                    help='Build testing images')
+                    help='Build testing images', action="store_true")
 parser.add_argument('-v', '--version', metavar='version', required=False,
                     help='The build version dev/prod')
 args = parser.parse_args()
