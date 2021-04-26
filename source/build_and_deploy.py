@@ -118,6 +118,20 @@ def build_email_push(build_group, email_subject, branch_tag, push_hub_image=Fals
                         break
                     print(line.rstrip(), flush=True)
                 pid_push_proc.wait()
+                # push to remote repo
+                if push_hub_image:
+                    pid_push_proc = subprocess.Popen(
+                        shlex.split('docker push %s/mediakraken/%s:%s'
+                                    % (common_docker_images.DOCKERHUB_REPOSITORY,
+                                       build_group[docker_images][0],
+                                       branch_tag)),
+                        stdout=subprocess.PIPE, shell=False)
+                    while True:
+                        line = pid_push_proc.stdout.readline()
+                        if not line:
+                            break
+                        print(line.rstrip(), flush=True)
+                    pid_push_proc.wait()
             # send success/fail email
             common_network_email.com_net_send_email(os.environ['MAILUSER'],
                                                     os.environ['MAILPASS'],
@@ -135,6 +149,7 @@ CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 # grab version to build via git branch
 pid_git_proc = subprocess.Popen(
     shlex.split('git branch | grep "*"'), stdout=subprocess.PIPE, shell=False)
+git_branch = None
 while True:
     line = pid_git_proc.stdout.readline()
     if not line:
@@ -142,18 +157,26 @@ while True:
     print(line.rstrip(), flush=True)
     git_branch = line.rstrip().decode('utf-8').split('')[1]
 pid_git_proc.wait()
+if git_branch is None:
+    print('Can\'t find Git branch!  Exiting!')
+    sys.exit()
+else:
+    print('Found Git branch: %s' % git_branch)
 
 if not os.path.exists(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment')):
     # backup to main dir with checkouts
     os.chdir(CWD_HOME_DIRECTORY)
     pid_proc = subprocess.Popen(
-        shlex.split('git clone -b dev https://github.com/MediaKraken/MediaKraken_Deployment'))
+        shlex.split('git clone -b %s https://github.com/MediaKraken/MediaKraken_Deployment'
+                    % git_branch))
     pid_proc.wait()
 else:
     # cd to MediaKraken_Deployment dir
     os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment'))
     # pull down latest code
     pid_proc = subprocess.Popen(['git', 'pull'])
+    pid_proc.wait()
+    pid_proc = subprocess.Popen(['git', 'checkout', git_branch])
     pid_proc.wait()
 
 # sync the latest code into the image locations for build

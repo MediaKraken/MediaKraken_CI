@@ -39,7 +39,6 @@ PROXY_USER_PASS = None
 # 'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'), pagespeed is suppossed to help speed
 
 # Not needed
-# 'ComposeMediaKrakenSlave': ('mkslave', 'mkbasenodeffmpeg', 'alpine'),
 # 'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
 # 'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.12', 'alpine'),
 # 'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
@@ -84,7 +83,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenServer': ('mkserver', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
-    'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),
+    'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),  # use node for chromecast stream?
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine'),
