@@ -53,7 +53,7 @@ args = parser.parse_args()
 load_dotenv()
 
 print('Number of arguments:', len(sys.argv), 'arguments.')
-print('Argument List:', str(sys.argv))
+print('Argument List:', args)
 
 
 def build_email_push(build_group, email_subject, branch_tag, push_hub_image=False):
