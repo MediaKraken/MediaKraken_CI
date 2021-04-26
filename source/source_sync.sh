@@ -75,17 +75,12 @@ cp ../../source/main_server.py ../../docker/alpine/ComposeMediaKrakenServer/src/
 cp ../../source/main_server_link.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
 cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenServer/src/.
 
-# slave
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenSlave/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenSlave/src/.
-cp ../../source/main_server_slave.py ../../docker/alpine/ComposeMediaKrakenSlave/src/.
-
 # transcode
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 cp ../../source/async_transcode.py ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 
-# webserver - alpine sanic
+# webserver
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
