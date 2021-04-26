@@ -4,9 +4,6 @@
 cp ../../source/subprogram_broadcast.py ../../docker/alpine/ComposeMediaKrakenBroadcast/src/.
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenBroadcast/src/.
 
-# cast images
-cp ../../source/castpy/cast.py ../../docker/alpine/ComposeMediaKrakenCastImage/src/.
-
 # cron
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenCron/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenCron/src/.
@@ -79,6 +76,7 @@ cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenServer/src
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 cp ../../source/async_transcode.py ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
+cp ../../source/castpy/cast.py ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 
 # webserver
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
