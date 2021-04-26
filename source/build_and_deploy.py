@@ -211,7 +211,7 @@ if args.version == 'dev' or args.version == 'prod':
     for build_stages in (common_docker_images.STAGE_TWO_IMAGES,
                          common_docker_images.STAGE_COMPOSE_IMAGES,
                          common_docker_images.STAGE_TWO_GAME_SERVERS):
-        if args.type == 'dev':
+        if args.version == 'dev':
             build_email_push(build_stages, 'Build dev image: ',
                              branch_tag=git_branch, push_hub_image=False)
         else:
