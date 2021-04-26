@@ -148,7 +148,7 @@ def build_email_push(build_group, email_subject, branch_tag, push_hub_image=Fals
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 # grab version to build via git branch
 pid_git_proc = subprocess.Popen(
-    shlex.split('git branch | grep "*"'), stdout=subprocess.PIPE, shell=False)
+    shlex.split('git branch | grep "*"'), stdout=subprocess.PIPE, shell=True)
 git_branch = None
 while True:
     line = pid_git_proc.stdout.readline()
