@@ -148,14 +148,16 @@ def build_email_push(build_group, email_subject, branch_tag, push_hub_image=Fals
 CWD_HOME_DIRECTORY = os.getcwd().rsplit('MediaKraken_CI', 1)[0]
 # grab version to build via git branch
 pid_git_proc = subprocess.Popen(
-    shlex.split('git branch | grep "*"'), stdout=subprocess.PIPE, shell=True)
+    shlex.split('git branch'), stdout=subprocess.PIPE, shell=False)
 git_branch = None
 while True:
     line = pid_git_proc.stdout.readline()
     if not line:
         break
     print(line.rstrip(), flush=True)
-    git_branch = line.rstrip().decode('utf-8').split('')[1]
+    if line.rstrip().decode('utf-8').find('*') == 0:
+        git_branch = line.rstrip().decode('utf-8').split('')[1]
+        break
 pid_git_proc.wait()
 if git_branch is None:
     print('Can\'t find Git branch!  Exiting!')
