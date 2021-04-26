@@ -123,9 +123,8 @@ def build_email_push(build_group, email_subject, branch_tag, push_hub_image=Fals
                 # push to remote repo
                 if push_hub_image:
                     pid_push_proc = subprocess.Popen(
-                        shlex.split('docker push %s/mediakraken/%s:%s'
-                                    % (common_docker_images.DOCKERHUB_REPOSITORY,
-                                       build_group[docker_images][0],
+                        shlex.split('docker push mediakraken/%s:%s'
+                                    % (build_group[docker_images][0],
                                        branch_tag)),
                         stdout=subprocess.PIPE, shell=False)
                     while True:
