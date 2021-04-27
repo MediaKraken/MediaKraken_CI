@@ -72,11 +72,12 @@ def build_email_push(build_group, email_subject, branch_tag, push_hub_image=Fals
             # Successfully tagged
             # Let the mirror's be passed, if not used it will just throw a warning
             pid_build_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:%s'
+                                                          ' --build-arg BRANCHTAG=%s'
                                                           ' --build-arg ALPMIRROR=%s'
                                                           ' --build-arg DEBMIRROR=%s'
                                                           ' --build-arg PIPMIRROR=%s .' %
                                                           (build_group[docker_images][0],
-                                                           branch_tag,
+                                                           branch_tag, branch_tag,
                                                            common_docker_images.ALPINE_MIRROR,
                                                            common_docker_images.DEBIAN_MIRROR,
                                                            common_docker_images.PYPI_MIRROR)),
