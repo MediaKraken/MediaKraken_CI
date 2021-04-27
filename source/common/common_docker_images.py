@@ -57,7 +57,7 @@ STAGE_ONE_IMAGES = {
 
 # build on top of base os images from above
 STAGE_TWO_IMAGES = {
-    #    'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbase_nodeffmpeg', 'mkbase_ffmpeg', 'alpine'),
+    'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbase_nodeffmpeg', 'mkbase_ffmpeg', 'alpine'),
 }
 
 # these are the final images
@@ -73,7 +73,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenInotify': ('mkinotify', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenMisterConv': ('mkmister', 'mkbase_debianpy3', 'debian'),
+    #'ComposeMediaKrakenMisterConv': ('mkmister', 'mkbase_debianpy3', 'debian'),
     'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
     'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
