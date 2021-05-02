@@ -51,6 +51,7 @@ STAGE_ONE_IMAGES = {
     'ComposeMediaKrakenBase10_9Py3': ('mkbase_debianpy3', 'python:3.9.4-slim-buster', 'debian'),
     'ComposeMediaKrakenBase3135Py3': ('mkbase_alpinepy3', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenBase3135Rust': ('mkbase_alpinerust', 'alpine:3.13.5', 'alpine'),
+    'ComposeMediaKrakenBase3135RustBuilder': ('mkbase_alpinerustbuilder', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenBaseFFMPEG': ('mkbase_ffmpeg', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenBaseNodeJS': ('mkbase_node', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenBasePYPYDebian': ('mkbase_pypydebian', 'debian:buster-slim', 'debian'),
