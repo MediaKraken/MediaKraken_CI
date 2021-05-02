@@ -66,7 +66,8 @@ STAGE_TWO_IMAGES = {
 STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
     'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenBroadcastRust': ('mkbroadcastrust', 'alpine:3.13.5', 'alpine'),
+    #'ComposeMediaKrakenBroadcastRust': ('mkbroadcastrust', 'alpine:3.13.5', 'alpine'),
+    'ComposeMediaKrakenConsumeRust': ('mkconsumerust', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenCron': ('mkcron', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDatabase13': ('mkdatabase', 'debian:buster-slim', 'debian'),
     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase_alpinepy3', 'alpine'),
