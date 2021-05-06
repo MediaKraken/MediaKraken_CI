@@ -62,10 +62,15 @@ def build_email_push(build_group, email_subject, branch_tag, push_hub_image=Fals
             # do the actual build process for docker image
             try:
                 # catch images that are in a testing branch that might not exist
-                os.chdir(os.path.join(CWD_HOME_DIRECTORY,
-                                      'MediaKraken_Deployment/docker',
-                                      build_group[docker_images][2],
-                                      docker_images))
+                if args.testing or args.security:
+                    os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+                                          'MediaKraken_CI/docker',
+                                          docker_images))
+                else:
+                    os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+                                          'MediaKraken_Deployment/docker',
+                                          build_group[docker_images][2],
+                                          docker_images))
             except FileNotFoundError:
                 continue
             # TODO check for errors/warnings and stop if found
