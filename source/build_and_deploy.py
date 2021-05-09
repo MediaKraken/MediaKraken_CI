@@ -39,8 +39,8 @@ parser.add_argument('-b', '--base', required=False,
 # set args.image variable if entered - ex. ComposeMediaKrakenBaseFFMPEG
 parser.add_argument('-i', '--image', metavar='image', required=False,
                     help='Image to build')
-parser.add_argument('-r', '--release', required=False,
-                    help='Push to DockerHub', action="store_true")
+parser.add_argument('-r', '--rebuild', required=False,
+                    help='Force rebuild with no cached layers', action="store_true")
 parser.add_argument('-s', '--security', required=False,
                     help='Build security images', action="store_true")
 parser.add_argument('-t', '--testing', required=False,
@@ -57,6 +57,10 @@ print('Argument List:', args)
 
 
 def build_email_push(build_group, email_subject, branch_tag, push_hub_image=False):
+    if args.rebuild:
+        docker_no_cache = '--pull --no-cache'  # include pull to force update to new image
+    else:
+        docker_no_cache = ''
     for docker_images in build_group:
         if args.image is None or (args.image is not None and docker_images == args.image):
             # do the actual build process for docker image
@@ -76,12 +80,14 @@ def build_email_push(build_group, email_subject, branch_tag, push_hub_image=Fals
             # TODO check for errors/warnings and stop if found
             # Successfully tagged
             # Let the mirror's be passed, if not used it will just throw a warning
-            pid_build_proc = subprocess.Popen(shlex.split('docker build -t mediakraken/%s:%s'
+            pid_build_proc = subprocess.Popen(shlex.split('docker build %s'
+                                                          ' -t mediakraken/%s:%s'
                                                           ' --build-arg BRANCHTAG=%s'
                                                           ' --build-arg ALPMIRROR=%s'
                                                           ' --build-arg DEBMIRROR=%s'
                                                           ' --build-arg PIPMIRROR=%s .' %
-                                                          (build_group[docker_images][0],
+                                                          (docker_no_cache,
+                                                           build_group[docker_images][0],
                                                            branch_tag, branch_tag,
                                                            common_docker_images.ALPINE_MIRROR,
                                                            common_docker_images.DEBIAN_MIRROR,
