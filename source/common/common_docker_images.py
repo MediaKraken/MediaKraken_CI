@@ -35,7 +35,6 @@ PROXY_USER_PASS = None
 # TODO
 # 'ComposeMediaKrakenDMS': ('mkdms', 'mkbaseffmpeg', 'alpine'), - dlna
 # 'ComposeMediaKrakenBasePYPYAlpine': ('mkbasepypyalpine', '3.13.3', 'alpine'), - most images are alpine
-# 'ComposeMediaKrakenMusicBrainz': ('mkmusicbrainz', 'lsiobase/alpine:3.6', 'alpine'), - use official image
 # 'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'), pagespeed is suppossed to help speed
 
 # Not needed
@@ -260,7 +259,6 @@ STAGE_ONE_TESTING_TOOLS = {
     'filebeat': ('mkfilebeat', 'docker.elastic.co/beats/filebeat:7.5.2'),
     'logspout': ('mklogspout', 'alpine:3.9'),
     'metricbeat': ('mkmetricbeat', 'docker.elastic.co/beats/metricbeat:7.6.0'),
-    'pgadmin4': ('mkpgadmin', 'python:alpine3.9'),
 }
 
 STAGE_TWO_TESTING_TOOLS = {
