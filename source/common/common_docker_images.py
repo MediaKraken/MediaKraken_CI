@@ -61,6 +61,14 @@ STAGE_TWO_IMAGES = {
     'ComposeMediaKrakenBaseNodeFFMPEG': ('mkbase_nodeffmpeg', 'mkbase_ffmpeg', 'alpine'),
 }
 
+# these are the cross compile rust images with OPENSSL
+'''
+docker run --rm -it -v "$(pwd)":/home/rust/src messense/rust-musl-cross:x86_64-musl cargo build --release
+'''
+STAGE_RUST_OPENSSL_IMAGES = {
+    'ComposeMediaKrakenBroadcastRust': ('mkbroadcastrust', 'alpine:3.13.5', 'alpine'),
+}
+
 # these are the final images
 STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
