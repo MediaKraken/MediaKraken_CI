@@ -235,30 +235,31 @@ elif args.version == 'rust':
     for file_dir in os.listdir(os.path.join(CWD_HOME_DIRECTORY,
                                             'MediaKraken_Deployment/source_rust')):
         if file_dir[0:4] == 'lib_':
-            os.chdir(os.path.join(CWD_HOME_DIRECTORY,
-                                  'MediaKraken_Deployment/source_rust', file_dir))
-            pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
-                                              stdout=subprocess.PIPE, shell=False)
-            email_body = ''
-            while True:
-                line = pid_build_proc.stdout.readline()
-                if not line:
-                    break
-                email_body += line.decode("utf-8")
-                print(line.rstrip(), flush=True)
-            pid_build_proc.wait()
-            subject_text = ' FAILED'
-            if email_body.find('Finished release') != -1:
-                subject_text = ' SUCCESS'
-                copyfile("./target/release/*.rlib", os.path.join(CWD_HOME_DIRECTORY,
-                                                                 'MediaKraken_Deployment/source_rust',
-                                                                 'mk_libs/.'))
-            # send success/fail email
-            common_network_email.com_net_send_email(os.environ['MAILUSER'],
-                                                    os.environ['MAILPASS'],
-                                                    os.environ['MAILUSER'],
-                                                    file_dir
-                                                    + subject_text,
-                                                    email_body,
-                                                    smtp_server=os.environ['MAILSERVER'],
-                                                    smtp_port=os.environ['MAILPORT'])
+            if args.image is None or (args.image is not None and file_dir == args.image):
+                os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+                                      'MediaKraken_Deployment/source_rust', file_dir))
+                pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
+                                                  stdout=subprocess.PIPE, shell=False)
+                email_body = ''
+                while True:
+                    line = pid_build_proc.stdout.readline()
+                    if not line:
+                        break
+                    email_body += line.decode("utf-8")
+                    print(line.rstrip(), flush=True)
+                pid_build_proc.wait()
+                subject_text = ' FAILED'
+                if email_body.find('Finished release') != -1:
+                    subject_text = ' SUCCESS'
+                    copyfile("./target/release/*.rlib", os.path.join(CWD_HOME_DIRECTORY,
+                                                                     'MediaKraken_Deployment/source_rust',
+                                                                     'mk_libs/.'))
+                # send success/fail email
+                common_network_email.com_net_send_email(os.environ['MAILUSER'],
+                                                        os.environ['MAILPASS'],
+                                                        os.environ['MAILUSER'],
+                                                        file_dir
+                                                        + subject_text,
+                                                        email_body,
+                                                        smtp_server=os.environ['MAILSERVER'],
+                                                        smtp_port=os.environ['MAILPORT'])
