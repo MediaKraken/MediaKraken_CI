@@ -261,7 +261,7 @@ elif args.version == 'rust':
                                           'MediaKraken_Deployment/source_rust', file_dir,
                                           "target/release/libmk_%s.rlib") % file_dir,
                              os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/source_rust',
-                                          'mk_libs/.'))
+                                          'mk_libs/libmk_%s.rlib') % file_dir)
                 # send success/fail email
                 common_network_email.com_net_send_email(os.environ['MAILUSER'],
                                                         os.environ['MAILPASS'],
