@@ -239,11 +239,13 @@ elif args.version == 'rust':
                 os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                                       'MediaKraken_Deployment/source_rust', file_dir))
                 pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
-                                                  stdout=subprocess.PIPE, shell=False)
+                                                  stderr=subprocess.PIPE,
+                                                  stdout=subprocess.PIPE)
+                print("wah", pid_build_proc.stdout, pid_build_proc.stderr)
                 email_body = ''
                 while True:
                     print('what')
-                    line = pid_build_proc.stdout.readline()
+                    line = pid_build_proc.stderr.readline()
                     print('what2', line)
                     if not line:
                         print('what3', line)
