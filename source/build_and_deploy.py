@@ -257,9 +257,11 @@ elif args.version == 'rust':
                 subject_text = ' FAILED'
                 if email_body.find('Finished release') != -1:
                     subject_text = ' SUCCESS'
-                    copyfile("./target/release/*.rlib", os.path.join(CWD_HOME_DIRECTORY,
-                                                                     'MediaKraken_Deployment/source_rust',
-                                                                     'mk_libs/.'))
+                    copyfile(os.path.join(CWD_HOME_DIRECTORY,
+                                          'MediaKraken_Deployment/source_rust', file_dir,
+                                          "target/release/*.rlib"),
+                             os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/source_rust',
+                                          'mk_libs/.'))
                 # send success/fail email
                 common_network_email.com_net_send_email(os.environ['MAILUSER'],
                                                         os.environ['MAILPASS'],
