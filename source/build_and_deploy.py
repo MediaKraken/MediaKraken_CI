@@ -236,6 +236,9 @@ elif args.version == 'rust':
                                             'MediaKraken_Deployment/source_rust')):
         if file_dir[0:4] == 'lib_':
             if args.image is None or (args.image is not None and file_dir == args.image):
+                os.remove(os.path.join(CWD_HOME_DIRECTORY,
+                                          'MediaKraken_Deployment/source_rust', file_dir,
+                                          "target/release/libmk_%s.rlib") % file_dir)
                 os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                                       'MediaKraken_Deployment/source_rust', file_dir))
                 pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
@@ -251,14 +254,15 @@ elif args.version == 'rust':
                     print(line.rstrip(), flush=True)
                 pid_build_proc.wait()
                 subject_text = ' FAILED'
-                if email_body.find('Finished release') != -1\
-                        and email_body.find('error') == -1:
-                    subject_text = ' SUCCESS'
+                try:
                     copyfile(os.path.join(CWD_HOME_DIRECTORY,
                                           'MediaKraken_Deployment/source_rust', file_dir,
                                           "target/release/libmk_%s.rlib") % file_dir,
                              os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/source_rust',
                                           'mk_libs/libmk_%s.rlib') % file_dir)
+                    subject_text = ' SUCCESS'
+                except FileNotFoundError:
+                    pass
                 # send success/fail email
                 common_network_email.com_net_send_email(os.environ['MAILUSER'],
                                                         os.environ['MAILPASS'],
