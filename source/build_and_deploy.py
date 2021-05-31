@@ -241,7 +241,7 @@ elif args.version == 'rust':
                 pid_build_proc = subprocess.run(shlex.split('cargo build --release'),
                                                   stdout=subprocess.PIPE, shell=False)
                 email_body = ''
-                print("pid_build_proc:", pid_build_proc.stdout)
+                print("pid_build_proc:", pid_build_proc.stdout.decode('utf-8'))
                 # out, err = pid_build_proc.communicate()
                 # print("out:", out)
                 # while True:
