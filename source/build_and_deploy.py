@@ -242,6 +242,7 @@ elif args.version == 'rust':
                                                   stdout=subprocess.PIPE, shell=False)
                 email_body = ''
                 while True:
+                    print('what')
                     line = pid_build_proc.stdout.readline()
                     if not line:
                         break
