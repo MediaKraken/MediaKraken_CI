@@ -252,7 +252,7 @@ elif args.version == 'rust':
                 pid_build_proc.wait()
                 subject_text = ' FAILED'
                 if email_body.find('Finished release') != -1\
-                        and email_body.find('error: build failed') == -1:
+                        and email_body.find('build failed') == -1:
                     subject_text = ' SUCCESS'
                     copyfile(os.path.join(CWD_HOME_DIRECTORY,
                                           'MediaKraken_Deployment/source_rust', file_dir,
