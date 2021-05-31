@@ -24,6 +24,7 @@ import os
 import shlex
 import subprocess
 import sys
+from shutil import copyfile
 
 from dotenv import load_dotenv
 
@@ -232,10 +233,10 @@ if args.version == 'dev' or args.version == 'prod':
                              branch_tag=git_branch, push_hub_image=True)
 elif args.version == 'rust':
     for file_dir in os.listdir(os.path.join(CWD_HOME_DIRECTORY,
-                                             'MediaKraken_Deployment/source_rust')):
-        print('file_dir:', file_dir[0:4])
+                                            'MediaKraken_Deployment/source_rust')):
         if file_dir[0:4] == 'lib_':
-            os.chdir(file_dir)
+            os.chdir(os.path.join(CWD_HOME_DIRECTORY,
+                                  'MediaKraken_Deployment/source_rust', file_dir))
             pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
                                               stdout=subprocess.PIPE, shell=False)
             email_body = ''
@@ -249,6 +250,9 @@ elif args.version == 'rust':
             subject_text = ' FAILED'
             if email_body.find('Finished release') != -1:
                 subject_text = ' SUCCESS'
+                copyfile("./target/release/*.rlib", os.path.join(CWD_HOME_DIRECTORY,
+                                                                 'MediaKraken_Deployment/source_rust',
+                                                                 'mk_libs/.'))
             # send success/fail email
             common_network_email.com_net_send_email(os.environ['MAILUSER'],
                                                     os.environ['MAILPASS'],
