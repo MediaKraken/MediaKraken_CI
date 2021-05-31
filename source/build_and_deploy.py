@@ -194,6 +194,8 @@ else:
     pid_proc = subprocess.Popen(['git', 'checkout', git_branch])
     pid_proc.wait()
 
+# below is needed for the source sync to work!
+os.chdir(os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/docker/alpine'))
 # sync the latest code into the image locations for build
 pid_proc = subprocess.Popen(
     [os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_CI', 'source/source_sync.sh')])
