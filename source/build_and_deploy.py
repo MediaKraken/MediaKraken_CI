@@ -233,6 +233,7 @@ if args.version == 'dev' or args.version == 'prod':
 elif args.version == 'rust':
     for file_dir in os.listdir(os.path.join(CWD_HOME_DIRECTORY,
                                              'MediaKraken_Deployment/source_rust')):
+        print('file_dir:', file_dir[0:3])
         if file_dir[0:3] == 'lib_':
             os.chdir(file_dir)
             pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
