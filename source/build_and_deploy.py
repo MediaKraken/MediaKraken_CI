@@ -248,6 +248,7 @@ elif args.version == 'rust':
                     if not line:
                         break
                     email_body += line.decode("utf-8")
+                    print(line.rstrip(), flush=True)
                 pid_build_proc.wait()
                 subject_text = ' FAILED'
                 if email_body.find('Finished release') != -1:
