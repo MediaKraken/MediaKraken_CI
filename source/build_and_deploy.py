@@ -244,7 +244,7 @@ elif args.version == 'rust':
                 while True:
                     print('what')
                     line = pid_build_proc.stdout.readline()
-                    print('what2')
+                    print('what2', line)
                     if not line:
                         print('what3', line)
                         break
