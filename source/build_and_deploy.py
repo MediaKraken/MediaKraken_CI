@@ -259,7 +259,7 @@ elif args.version == 'rust':
                     subject_text = ' SUCCESS'
                     copyfile(os.path.join(CWD_HOME_DIRECTORY,
                                           'MediaKraken_Deployment/source_rust', file_dir,
-                                          "target/release/*.rlib"),
+                                          "target/release/libmk_%s.rlib") % file_dir,
                              os.path.join(CWD_HOME_DIRECTORY, 'MediaKraken_Deployment/source_rust',
                                           'mk_libs/.'))
                 # send success/fail email
