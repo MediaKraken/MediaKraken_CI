@@ -238,22 +238,23 @@ elif args.version == 'rust':
             if args.image is None or (args.image is not None and file_dir == args.image):
                 os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                                       'MediaKraken_Deployment/source_rust', file_dir))
-                pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
-                                                  stdout=subprocess.PIPE, shell=True)
+                pid_build_proc = subprocess.run(shlex.split('cargo build --release'),
+                                                  stdout=subprocess.PIPE, shell=False)
                 email_body = ''
-                out, err = pid_build_proc.communicate()
-                print("out:", out)
-                while True:
-                    print('what')
-                    line = pid_build_proc.stdout.readline()
-                    print('what2', line)
-                    if not line:
-                        print('what3', line)
-                        break
-                    email_body += line.decode("utf-8")
-                    print(type(line))
-                    print(line.rstrip(), flush=True)
-                pid_build_proc.wait()
+                print("pid_build_proc:", pid_build_proc.stdout)
+                # out, err = pid_build_proc.communicate()
+                # print("out:", out)
+                # while True:
+                #     print('what')
+                #     line = pid_build_proc.stdout.readline()
+                #     print('what2', line)
+                #     if not line:
+                #         print('what3', line)
+                #         break
+                #     email_body += line.decode("utf-8")
+                #     print(type(line))
+                #     print(line.rstrip(), flush=True)
+                # pid_build_proc.wait()
                 subject_text = ' FAILED'
                 if email_body.find('Finished release') != -1:
                     subject_text = ' SUCCESS'
