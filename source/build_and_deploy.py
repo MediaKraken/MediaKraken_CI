@@ -236,9 +236,12 @@ elif args.version == 'rust':
                                             'MediaKraken_Deployment/source_rust')):
         if file_dir[0:4] == 'lib_':
             if args.image is None or (args.image is not None and file_dir == args.image):
-                os.remove(os.path.join(CWD_HOME_DIRECTORY,
-                                          'MediaKraken_Deployment/source_rust', file_dir,
-                                          "target/release/libmk_%s.rlib") % file_dir)
+                try:
+                    os.remove(os.path.join(CWD_HOME_DIRECTORY,
+                                              'MediaKraken_Deployment/source_rust', file_dir,
+                                              "target/release/libmk_%s.rlib") % file_dir)
+                except FileNotFoundError:
+                    pass
                 os.chdir(os.path.join(CWD_HOME_DIRECTORY,
                                       'MediaKraken_Deployment/source_rust', file_dir))
                 pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
