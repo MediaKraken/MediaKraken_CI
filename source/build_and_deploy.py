@@ -46,7 +46,7 @@ parser.add_argument('-s', '--security', required=False,
 parser.add_argument('-t', '--testing', required=False,
                     help='Build testing images', action="store_true")
 parser.add_argument('-v', '--version', metavar='version', required=False,
-                    help='The build version dev/prod')
+                    help='The build version dev/prod/rust')
 args = parser.parse_args()
 
 # load .env stats
@@ -230,3 +230,30 @@ if args.version == 'dev' or args.version == 'prod':
         else:
             build_email_push(build_stages, 'Build prod image: ',
                              branch_tag=git_branch, push_hub_image=True)
+elif args.version == 'rust':
+    for file_dir in os.listdir(os.path.join(CWD_HOME_DIRECTORY,
+                                             'MediaKraken_Deployment/source_rust')):
+        if file_dir[0:3] == 'lib_':
+            os.chdir(file_dir)
+            pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
+                                              stdout=subprocess.PIPE, shell=False)
+            email_body = ''
+            while True:
+                line = pid_build_proc.stdout.readline()
+                if not line:
+                    break
+                email_body += line.decode("utf-8")
+                print(line.rstrip(), flush=True)
+            pid_build_proc.wait()
+            subject_text = ' FAILED'
+            if email_body.find('Finished release') != -1:
+                subject_text = ' SUCCESS'
+            # send success/fail email
+            common_network_email.com_net_send_email(os.environ['MAILUSER'],
+                                                    os.environ['MAILPASS'],
+                                                    os.environ['MAILUSER'],
+                                                    file_dir
+                                                    + subject_text,
+                                                    email_body,
+                                                    smtp_server=os.environ['MAILSERVER'],
+                                                    smtp_port=os.environ['MAILPORT'])
