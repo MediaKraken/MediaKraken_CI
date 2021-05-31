@@ -241,18 +241,13 @@ elif args.version == 'rust':
                 pid_build_proc = subprocess.Popen(shlex.split('cargo build --release'),
                                                   stderr=subprocess.PIPE,
                                                   stdout=subprocess.PIPE)
-                print("wah", pid_build_proc.stdout, pid_build_proc.stderr)
+                # print("wah", pid_build_proc.stdout, pid_build_proc.stderr)
                 email_body = ''
                 while True:
-                    print('what')
                     line = pid_build_proc.stderr.readline()
-                    print('what2', line)
                     if not line:
-                        print('what3', line)
                         break
                     email_body += line.decode("utf-8")
-                    print(type(line))
-                    print(line.rstrip(), flush=True)
                 pid_build_proc.wait()
                 subject_text = ' FAILED'
                 if email_body.find('Finished release') != -1:
