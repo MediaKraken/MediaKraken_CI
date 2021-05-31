@@ -245,7 +245,7 @@ elif args.version == 'rust':
                     line = pid_build_proc.stdout.readline()
                     if not line:
                         break
-                    email_body += line.decode("utf-8")
+                    email_body += line  #.decode("utf-8")
                     print(line.rstrip(), flush=True)
                 pid_build_proc.wait()
                 subject_text = ' FAILED'
