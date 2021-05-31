@@ -246,7 +246,7 @@ elif args.version == 'rust':
                     line = pid_build_proc.stdout.readline()
                     print('what2')
                     if not line:
-                        print('what3')
+                        print('what3', line)
                         break
                     email_body += line.decode("utf-8")
                     print(type(line))
