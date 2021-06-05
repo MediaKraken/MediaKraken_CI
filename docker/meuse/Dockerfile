@@ -16,10 +16,11 @@ COPY --from=build-env /app/target/uberjar/meuse-*-standalone.jar /app/meuse.jar
 RUN chown -R meuse:meuse /app
 
 RUN apt-get update && apt-get -y upgrade && apt-get install -y git
-user meuse
 
 RUN mkdir /mediakraken
 COPY meuse.cfg /mediakraken/meuse.cfg
+
+user meuse
 
 ENTRYPOINT ["java"]
 
