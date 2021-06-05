@@ -27,7 +27,7 @@ services:
     image: mediakraken/meuse:dev2021_04
     environment:
       - MEUSE_CONFIGURATION=/mediakraken/meuse.cfg
-    command: -jar /app/meuse.jar
+    command: java -jar /app/meuse.jar
     container_name: mkstack_meuse
     stop_grace_period: 30s
     stop_signal: SIGTERM
