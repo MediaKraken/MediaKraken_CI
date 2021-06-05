@@ -279,6 +279,7 @@ STAGE_ONE_TESTING_TOOLS = {
 STAGE_TWO_TESTING_TOOLS = {
     'jenkins': ('mkjenkins', 'jenkins/jenkins:lts'),
     'joxit_ui': ('mkjoxitui', 'node:10-alpine'),
+    'meuse': ('mkmeuse', 'openjdk:11'),
     'registry': ('mkregistry', 'alpine:3.8'),
     'testwebapp': ('mktestwebapp', 'mkbase_alpinepy3'),
 }
