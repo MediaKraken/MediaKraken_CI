@@ -12,7 +12,7 @@ services:
       - MAX_WORKER_PROCESSES=4
       - MAX_PARALLEL_WORKERS_PER_GATHER=2
       - MAX_PARALLEL_WORKERS=4
-      - POSTGRES_PASSWORD=${DBPASS}
+      - POSTGRES_PASSWORD=meuse
     command: postgres
     container_name: mkstack_database
     stop_grace_period: 30s
@@ -81,5 +81,6 @@ networks:
 
 volumes:
   portainer_data:
+  mediakraken_vol_meuse:
   mediakraken_vol_pgadmin:
   mediakraken_vol_postgresql:
