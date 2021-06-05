@@ -18,6 +18,9 @@ RUN chown -R meuse:meuse /app
 RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 user meuse
 
+RUN mkdir /mediakraken
+COPY meuse.cfg /mediakraken/meuse.cfg
+
 ENTRYPOINT ["java"]
 
 CMD ["-jar", "/app/meuse.jar"]

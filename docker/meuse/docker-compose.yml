@@ -23,6 +23,20 @@ services:
       - mediakraken_network
     restart: unless-stopped
 
+  meuse:
+    image: mediakraken/meuse:dev2021_04
+    environment:
+      - MEUSE_CONFIGURATION=/mediakraken/meuse.cfg
+    command: -jar /app/meuse.jar
+    container_name: mkstack_meuse
+    stop_grace_period: 30s
+    stop_signal: SIGTERM
+    volumes:
+      - mediakraken_vol_meuse:/mediakraken/cargo
+    networks:
+      - mediakraken_network
+    restart: unless-stopped
+
   portainer:
     image: portainer/portainer-ce:2.1.1-alpine
     command: -H unix:///var/run/docker.sock
