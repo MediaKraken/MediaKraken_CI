@@ -24,7 +24,7 @@ services:
     restart: unless-stopped
 
   meuse:
-    image: mediakraken/meuse:dev2021_04
+    image: mediakraken/mkmeuse:dev2021_04
     environment:
       - MEUSE_CONFIGURATION=/mediakraken/meuse.cfg
     command: java -jar /app/meuse.jar
