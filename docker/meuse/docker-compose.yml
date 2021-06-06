@@ -28,7 +28,7 @@ services:
     stop_grace_period: 30s
     stop_signal: SIGTERM
     volumes:
-      - mediakraken_vol_meuse:/mediakraken/cargo
+      - /root/cargo:/mediakraken/cargo
     networks:
       - mediakraken_network
     ports:
@@ -79,6 +79,5 @@ networks:
 
 volumes:
   portainer_data:
-  mediakraken_vol_meuse:
   mediakraken_vol_pgadmin:
   mediakraken_vol_postgresql:
