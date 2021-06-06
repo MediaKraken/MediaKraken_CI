@@ -17,7 +17,7 @@ RUN chown -R meuse:meuse /app
 
 RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 
-RUN mkdir /mediakraken
+RUN mkdir /mediakraken && mkdir /mediakraken/cargo
 COPY meuse.cfg /mediakraken/meuse.cfg
 
 user meuse
