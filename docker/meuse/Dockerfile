@@ -19,6 +19,7 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 
 RUN mkdir /mediakraken && mkdir /mediakraken/cargo
 COPY meuse.cfg /mediakraken/meuse.cfg
+COPY config.json /mediakraken/cargo/config.json
 
 user meuse
 
