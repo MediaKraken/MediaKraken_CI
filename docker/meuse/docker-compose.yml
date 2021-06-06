@@ -35,6 +35,8 @@ services:
       - mediakraken_vol_meuse:/mediakraken/cargo
     networks:
       - mediakraken_network
+    ports:
+      - "8855:8855"
     restart: unless-stopped
 
   pgadmin:
