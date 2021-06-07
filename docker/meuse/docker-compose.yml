@@ -19,20 +19,20 @@ services:
       - mediakraken_network
     restart: unless-stopped
 
-  meuse:
-    image: mediakraken/mkmeuse:dev2021_04
-    environment:
-      - MEUSE_CONFIGURATION=/mediakraken/meuse.cfg
-    container_name: mkstack_meuse
-    stop_grace_period: 30s
-    stop_signal: SIGTERM
-    volumes:
-      - /root/cargo:/mediakraken/cargo
-    networks:
-      - mediakraken_network
-    ports:
-      - "8855:8855"
-    restart: unless-stopped
+#  meuse:
+#    image: mediakraken/mkmeuse:dev2021_04
+#    environment:
+#      - MEUSE_CONFIGURATION=/mediakraken/meuse.cfg
+#    container_name: mkstack_meuse
+#    stop_grace_period: 30s
+#    stop_signal: SIGTERM
+#    volumes:
+#      - /root/cargo:/mediakraken/cargo
+#    networks:
+#      - mediakraken_network
+#    ports:
+#      - "8855:8855"
+#    restart: unless-stopped
 
   pgadmin:
     image: dpage/pgadmin4:5.3
