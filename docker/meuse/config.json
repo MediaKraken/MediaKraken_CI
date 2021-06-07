@@ -1,5 +1,5 @@
 {
-    "dl": "http://localhost:8855/api/v1/crates",
-    "api": "http://localhost:8855",
+    "dl": "http://10.0.0.147:8855/api/v1/crates",
+    "api": "http://10.0.0.147:8855",
     "allowed-registries": ["https://github.com/rust-lang/crates.io-index"]
 }
