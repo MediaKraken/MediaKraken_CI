@@ -104,7 +104,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenWebActixWebRust': ('mkwebappaxtix', 'alpine:3.13.5', 'alpine'),
+    'ComposeMediaKrakenWebActixWebRust': ('mkwebappactix', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase_alpinepy3', 'alpine'),
 }
 
