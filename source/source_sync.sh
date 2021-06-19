@@ -14,7 +14,6 @@ cp ../../source/subprogram_cron_checker.py ../../docker/alpine/ComposeMediaKrake
 cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/alpine/ComposeMediaKrakenCronRust/src/.
 cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/alpine/ComposeMediaKrakenCronRust/src/.
 cp ../../source_rust/mk_lib_database/src/mk_lib_database_cron.rs ../../docker/alpine/ComposeMediaKrakenCronRust/src/.
-cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/alpine/ComposeMediaKrakenCronRust/src/.
 
 # devicescanner
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenDevicescan/src/.
