@@ -72,10 +72,11 @@ STAGE_RUST_OPENSSL_IMAGES = {
 
 STAGE_RUST_IMAGES = {
     'ComposeMediaKrakenBroadcastRust': ('mkbroadcastrust', 'scratch', 'rust'),
+    'ComposeMediaKrakenConsumerRust': ('mkrabbitmqrust', 'busybox:1.33.1-uclibc', 'rust'),
     'ComposeMediaKrakenCronRust': ('mkcronrust', 'busybox:1.33.1-uclibc', 'rust'),
     'ComposeMediaKrakenDownloadRust': ('mkdownloadrust', 'busybox:1.33.1-uclibc', 'rust'),
-    'ComposeMediaKrakenGameDataRust': ('mkgamedatarust', 'alpine:3.13.5', 'rust'),
-    'ComposeMediaKrakenRabbitMQConsumeRust': ('mkrabbitmqrust', 'busybox:1.33.1-uclibc', 'rust'),
+    'ComposeMediaKrakenGameDataRust': ('mkgamedatarust', 'scratch', 'rust'),
+    'ComposeMediaKrakenInotifyRust': ('mkinotifyrust', 'busybox:1.33.1-uclibc', 'rust'),
     'ComposeMediaKrakenTranscodeRust': ('mktranscoderust', 'mkbase_ffmpeg', 'rust'),
     'ComposeMediaKrakenWebActixWebRust': ('mkwebappactix', 'busybox:1.33.1-uclibc', 'rust'),
 }
@@ -90,7 +91,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenInotify': ('mkinotify', 'alpine:3.13.5', 'alpine'),
+    #'ComposeMediaKrakenInotify': ('mkinotify', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
     #'ComposeMediaKrakenMisterConv': ('mkmister', 'mkbase_debianpy3', 'debian'),
