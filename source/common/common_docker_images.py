@@ -70,20 +70,25 @@ STAGE_RUST_OPENSSL_IMAGES = {
 
 }
 
+STAGE_RUST_IMAGES = {
+    'ComposeMediaKrakenBroadcastRust': ('mkbroadcastrust', 'scratch', 'rust'),
+    'ComposeMediaKrakenCronRust': ('mkcronrust', 'busybox:1.33.1-uclibc', 'rust'),
+    'ComposeMediaKrakenDownloadRust': ('mkdownloadrust', 'busybox:1.33.1-uclibc', 'rust'),
+    'ComposeMediaKrakenGameDataRust': ('mkgamedatarust', 'alpine:3.13.5', 'rust'),
+    'ComposeMediaKrakenRabbitMQConsumeRust': ('mkrabbitmqrust', 'busybox:1.33.1-uclibc', 'rust'),
+    'ComposeMediaKrakenTranscodeRust': ('mktranscoderust', 'mkbase_ffmpeg', 'rust'),
+    'ComposeMediaKrakenWebActixWebRust': ('mkwebappactix', 'busybox:1.33.1-uclibc', 'rust'),
+}
+
 # these are the final images
 STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
-    'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenBroadcastRust': ('mkbroadcastrust', 'alpine:3.13.5', 'alpine'),
-    #'ComposeMediaKrakenConsumeRust': ('mkconsumerust', 'alpine:3.13.5', 'alpine'),
-    'ComposeMediaKrakenCron': ('mkcron', 'alpine:3.13.5', 'alpine'),
-    'ComposeMediaKrakenCronRust': ('mkcronrust', 'mkbase_alpinepy3', 'alpine'),
+    #'ComposeMediaKrakenBroadcast': ('mkbroadcast', 'mkbase_alpinepy3', 'alpine'),
+    #'ComposeMediaKrakenCron': ('mkcron', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenDatabase13': ('mkdatabase', 'debian:buster-slim', 'debian'),
     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenDownloadRust': ('mkdownloadrust', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenGameDataRust': ('mkgamedatarust', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenInotify': ('mkinotify', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
@@ -93,18 +98,15 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
-    'ComposeMediaKrakenRabbitMQConsumeRust': ('mkrabbitmqrust', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenServer': ('mkserver', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
     # use node for chromecast stream?
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),
-    'ComposeMediaKrakenTranscodeRust': ('mktranscoderust', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenWebActixWebRust': ('mkwebappactix', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase_alpinepy3', 'alpine'),
 }
 
