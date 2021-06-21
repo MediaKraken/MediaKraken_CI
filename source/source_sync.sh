@@ -40,11 +40,6 @@ cp ../../source/main_server_metadata_api.py ../../docker/alpine/ComposeMediaKrak
 cp ../../source/main_server_metadata_api_worker.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/subprogram*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/async*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp ../../source/db_metadata_fix.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-
-# mister
-cp -R ../../source/common ../../docker/debian/ComposeMediaKrakenMisterConv/src/.
-cp ../../source/async_mister*.py ../../docker/debian/ComposeMediaKrakenMisterConv/src/.
 
 # pika
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPika/src/.
@@ -58,20 +53,14 @@ cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenReactor/src/.
+cp ../../source/main_reactor_line.py  ../../docker/alpine/ComposeMediaKrakenReactor/src/.
+cp ../../source/db_create_update.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
+cp ../../source/db_update_version.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
+cp ../../source/main_server_link.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 
 # ripper
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 cp ../../source/main_ripper.py ../../docker/alpine/ComposeMediaKrakenRipper/src/.
-
-# server
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/db_create_update.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/db_update_version.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/main_server.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/main_server_link.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenServer/src/.
 
 # transcode
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
