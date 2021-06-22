@@ -71,7 +71,7 @@ STAGE_RUST_OPENSSL_IMAGES = {
 }
 
 STAGE_RUST_IMAGES = {
-    'bulk_themoviedb_netfetch': ('mknulktmdbrust', 'busybox:1.33.1-uclibc', 'rust'),
+    'bulk_themoviedb_netfetch': ('mkbulktmdbrust', 'scratch', 'rust'),
     'ComposeMediaKrakenBroadcastRust': ('mkbroadcastrust', 'scratch', 'rust'),
     'ComposeMediaKrakenConsumerRust': ('mkrabbitmqrust', 'busybox:1.33.1-uclibc', 'rust'),
     'ComposeMediaKrakenCronRust': ('mkcronrust', 'busybox:1.33.1-uclibc', 'rust'),
