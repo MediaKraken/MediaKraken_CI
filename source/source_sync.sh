@@ -1,11 +1,5 @@
 #!/bin/sh
 
-# cron
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenCron/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenCron/src/.
-cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenCron/src/.
-cp ../../source/subprogram_cron_checker.py ../../docker/alpine/ComposeMediaKrakenCron/src/.
-
 # cron RUST
 cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/ComposeMediaKrakenCronRust/src/.
 cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/rust/ComposeMediaKrakenCronRust/src/.
