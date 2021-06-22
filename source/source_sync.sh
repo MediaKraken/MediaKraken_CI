@@ -26,6 +26,11 @@ cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenHardware/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenHardware/src/.
 cp ../../source/main_hardware.py ../../docker/alpine/ComposeMediaKrakenHardware/src/.
 
+# inotify rust
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/ComposeMediaKrakenInotifyRust/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/rust/ComposeMediaKrakenInotifyRust/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database_library.rs ../../docker/rust/ComposeMediaKrakenInotifyRust/src/.
+
 # metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
