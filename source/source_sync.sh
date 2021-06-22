@@ -1,4 +1,13 @@
 #!/bin/sh
+# bulk tmdb net fetch RUST
+cp ../../source_rust/mk_lib_common/src/mk_lib_common.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_common_enum_media_type/src/mk_lib_common_enum_media_type.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_compression/src/mk_lib_compression.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_database_download/src/mk_lib_database_download.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_database_metadata/src/mk_lib_database_metadata.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_networks/src/mk_lib_networks.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
 
 # cron RUST
 cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/ComposeMediaKrakenCronRust/src/.
