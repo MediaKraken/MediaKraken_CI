@@ -70,6 +70,9 @@ cp ../../source/main_server_link.py ../../docker/alpine/ComposeMediaKrakenReacto
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 cp ../../source/main_ripper.py ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 
+# TEST reqwest RUST
+cp ../../source_rust/mk_lib_database/src/mk_lib_network.rs ../../docker/rust/ComposeMediaKrakenTESTReqwestRust/src/.
+
 # transcode
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
