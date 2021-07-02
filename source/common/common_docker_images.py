@@ -78,6 +78,7 @@ STAGE_RUST_IMAGES = {
     #'ComposeMediaKrakenDownloadRust': ('mkdownloadrust', 'busybox:1.33.1-uclibc', 'rust'),
     'ComposeMediaKrakenGameDataRust': ('mkgamedatarust', 'scratch', 'rust'),
     'ComposeMediaKrakenInotifyRust': ('mkinotifyrust', 'busybox:1.33.1-uclibc', 'rust'),
+    'ComposeMediaKrakenTESTReqwestRust': ('mktestreqwestrust', 'scratch', 'rust'),
     'ComposeMediaKrakenTranscodeRust': ('mktranscoderust', 'mkbase_ffmpeg', 'rust'),
     'ComposeMediaKrakenWebActixWebRust': ('mkwebappactix', 'busybox:1.33.1-uclibc', 'rust'),
 }
