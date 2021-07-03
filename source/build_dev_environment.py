@@ -16,12 +16,21 @@
   MA 02110-1301, USA.
 '''
 
+'''
+# TODO redo this for debian probably!!!
+'''
 import os
 import shlex
 import subprocess
 
+
+'''
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+'''
+
 centos_packages = {'python3-devel'}
-debian_packages = {}
+debian_packages = {'libssl-dev', 'pkg-config'}
 # install base packages per OS (centos, debian)
 pid_proc = subprocess.Popen(shlex.split('yum install -y', centos_packages),
                             stdout=subprocess.PIPE, shell=False)

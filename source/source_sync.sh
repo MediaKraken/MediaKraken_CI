@@ -1,17 +1,18 @@
 #!/bin/sh
+# bulk tmdb net fetch RUST
+cp ../../source_rust/mk_lib_common/src/mk_lib_common.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_common/src/mk_lib_common_enum_media_type.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_compression/src/mk_lib_compression.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database_download.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database_metadata.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
+cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/rust/bulk_themoviedb_netfetch/src/.
 
-# broadcast
-cp ../../source/subprogram_broadcast.py ../../docker/alpine/ComposeMediaKrakenBroadcast/src/.
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenBroadcast/src/.
-
-# cast images
-cp ../../source/castpy/cast.py ../../docker/alpine/ComposeMediaKrakenCastImage/src/.
-
-# cron
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenCron/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenCron/src/.
-cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenCron/src/.
-cp ../../source/subprogram_cron_checker.py ../../docker/alpine/ComposeMediaKrakenCron/src/.
+# cron RUST
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/ComposeMediaKrakenCronRust/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/rust/ComposeMediaKrakenCronRust/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database_cron.rs ../../docker/rust/ComposeMediaKrakenCronRust/src/.
 
 # devicescanner
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenDevicescan/src/.
@@ -34,6 +35,11 @@ cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenHardware/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenHardware/src/.
 cp ../../source/main_hardware.py ../../docker/alpine/ComposeMediaKrakenHardware/src/.
 
+# inotify rust
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/ComposeMediaKrakenInotifyRust/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/rust/ComposeMediaKrakenInotifyRust/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database_library.rs ../../docker/rust/ComposeMediaKrakenInotifyRust/src/.
+
 # metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
@@ -42,7 +48,6 @@ cp ../../source/main_server_metadata_api.py ../../docker/alpine/ComposeMediaKrak
 cp ../../source/main_server_metadata_api_worker.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/subprogram*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 cp ../../source/async*.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
-cp ../../source/db_metadata_fix.py ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
 
 # pika
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenPika/src/.
@@ -56,32 +61,26 @@ cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenReactor/src/.
+cp ../../source/main_reactor_line.py  ../../docker/alpine/ComposeMediaKrakenReactor/src/.
+cp ../../source/db_create_update.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
+cp ../../source/db_update_version.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
+cp ../../source/main_server_link.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 
 # ripper
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 cp ../../source/main_ripper.py ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 
-# server
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/db_create_update.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/db_update_version.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/main_server.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/main_server_link.py ../../docker/alpine/ComposeMediaKrakenServer/src/.
-cp ../../source/subprogram*.py  ../../docker/alpine/ComposeMediaKrakenServer/src/.
-
-# slave
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenSlave/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenSlave/src/.
-cp ../../source/main_server_slave.py ../../docker/alpine/ComposeMediaKrakenSlave/src/.
+# TEST reqwest RUST
+cp ../../source_rust/mk_lib_compression/src/mk_lib_compression.rs ../../docker/rust/ComposeMediaKrakenTESTReqwestRust/src/.
+cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/rust/ComposeMediaKrakenTESTReqwestRust/src/.
 
 # transcode
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 cp ../../source/async_transcode.py ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
+cp ../../source/castpy/cast.py ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 
-# webserver - alpine sanic
+# webserver
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
 cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.

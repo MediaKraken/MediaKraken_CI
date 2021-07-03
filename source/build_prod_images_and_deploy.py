@@ -16,21 +16,22 @@
   MA 02110-1301, USA.
 '''
 
+# must login to docker hub first
+# docker login --username=mediakraken
+
 import shlex
+import sys
 import subprocess
 
 from common import common_docker_images
 
-for build_stages in (common_docker_images.STAGE_ONE_IMAGES,
-                     common_docker_images.STAGE_TWO_IMAGES,
-                     common_docker_images.STAGE_COMPOSE_IMAGES,
-                     common_docker_images.STAGE_ONE_GAME_SERVERS,
+print('Number of arguments:', len(sys.argv), 'arguments.')
+print('Argument List:', str(sys.argv))
+
+for build_stages in (common_docker_images.STAGE_COMPOSE_IMAGES,
                      common_docker_images.STAGE_TWO_GAME_SERVERS,
-                     common_docker_images.STAGE_ONE_SECURITY_TOOLS,
-                     common_docker_images.STAGE_TWO_SECURITY_TOOLS,
                      common_docker_images.STAGE_ONE_TESTING_TOOLS,
-                     common_docker_images.STAGE_TWO_TESTING_TOOLS,
-                     common_docker_images.STAGE_ONE_FS):
+                     ):
     for docker_images in build_stages:
         # retag all the images to latest
         pid_proc = subprocess.Popen(
