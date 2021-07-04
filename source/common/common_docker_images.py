@@ -37,11 +37,6 @@ PROXY_USER_PASS = None
 # 'ComposeMediaKrakenBasePYPYAlpine': ('mkbasepypyalpine', '3.13.3', 'alpine'), - most images are alpine
 # 'ComposeMediaKrakenNginxPagespeed': ('mknginxpagespeed', 'alpine:3.8', 'alpine'), pagespeed is suppossed to help speed
 
-# Not needed
-# 'ComposeMediaKrakenConsul': ('mkconsul', 'alpine:3.9', 'alpine'),
-# 'ComposeMediaKrakenHAProxy': ('mkpghaproxy', 'alpine:3.12', 'alpine'),
-# 'ComposeMediaKrakenTraefik': ('mktraefik', 'alpine:3.11', 'alpine'),
-
 # the data is directory, name of container, base image used to build container
 
 # base OS images to build off of, meaning there is a 'from' in the docker file(s) that use these
@@ -70,21 +65,32 @@ STAGE_RUST_OPENSSL_IMAGES = {
 
 }
 
-STAGE_RUST_IMAGES = {
-    # why do I need the following?  to keep track of user commands and containers?
-    'amqp_consumer': ('mkamqpconsumer', 'busybox:1.33.1-uclibc', 'rust'),
-
+STAGE_CORE_IMAGES = {
+    # amqp service (rabbitmq)
+    'amqp_service': ('mkrabbitmq', 'alpine:3.11', 'core'),
     # broadcast server IP for web and client connectivity
-    'broadcast_server': ('mkbroadcast', 'scratch', 'rust'),
+    'broadcast_server': ('mkbroadcast', 'scratch', 'core'),
     # process cron jobs from the database to amqp or direct container launch
-    'cron_processor': ('mkcron', 'busybox:1.33.1-uclibc', 'rust'),
-    # inotify of fs changes to amqp
-    'file_system_inotify': ('mkinotify', 'busybox:1.33.1-uclibc', 'rust'),
+    'cron_processor': ('mkcron', 'busybox:1.33.1-uclibc', 'core'),
+    # database via postgresql
+    'database_postgresql': ('mkdatabase', 'debian:buster-slim', 'core'),
+    # database connection pooler
+    'database_postgresql_pooler': ('mkpgbouncer', 'alpine:3.13.5', 'core'),
+    # inotify of file system changes to amqp
+    'file_system_inotify': ('mkinotify', 'busybox:1.33.1-uclibc', 'core'),
+    # nginx proxy for http to https
+    'nginx_proxy': ('mknginx', 'alpine:3.10', 'core'),
     # download tmdb dump of ids in database and insert into downloads - run and exit
-    'tmdb_netfetch_bulk': ('mktmdbnetfetchbulk', 'scratch', 'rust'),
+    'tmdb_netfetch_bulk': ('mktmdbnetfetchbulk', 'scratch', 'core'),
+    # website via python and flask
+    'web_application': ('mkwebappsanic', 'mkbase_alpinepy3', 'core'),
+}
+
+STAGE_RUST_IMAGES = {
+    # keep track of user commands and containers
+    'amqp_consumer': ('mkamqpconsumer', 'busybox:1.33.1-uclibc', 'rust'),
     # download tmdb update file of ids and update and/or fetch new metadata - run and exit
     'tmdb_netfetch_update': ('mktmdbnetfetchupdate', 'scratch', 'rust'),
-
     # 'ComposeMediaKrakenDownloadRust': ('mkdownload', 'busybox:1.33.1-uclibc', 'rust'),
     'ComposeMediaKrakenGameDataRust': ('mkgamedata', 'scratch', 'rust'),
     'ComposeMediaKrakenTESTReqwestRust': ('mktestreqwest', 'scratch', 'rust'),
@@ -95,17 +101,13 @@ STAGE_RUST_IMAGES = {
 # these are the final images
 STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
-    'ComposeMediaKrakenDatabase13': ('mkdatabase', 'debian:buster-slim', 'debian'),
     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
     #'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenNginx': ('mknginx', 'alpine:3.10', 'alpine'),
-    'ComposeMediaKrakenPGBouncer': ('mkpgbouncer', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
@@ -114,7 +116,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenWebSanic': ('mkwebappsanic', 'mkbase_alpinepy3', 'alpine'),
+
 }
 
 # these are the base/unique game servers
