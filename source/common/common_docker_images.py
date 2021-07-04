@@ -78,7 +78,7 @@ STAGE_CORE_IMAGES = {
     'database_postgresql_pooler': ('mkpgbouncer', 'alpine:3.13.5', 'core'),
     # inotify of file system changes to amqp
     'file_system_inotify': ('mkinotify', 'busybox:1.33.1-uclibc', 'core'),
-    # nginx proxy for http to https
+    # nginx proxy for http to https and some bot blocking
     'nginx_proxy': ('mknginx', 'alpine:3.10', 'core'),
     # download tmdb dump of ids in database and insert into downloads - run and exit
     'tmdb_netfetch_bulk': ('mktmdbnetfetchbulk', 'scratch', 'core'),
@@ -89,6 +89,10 @@ STAGE_CORE_IMAGES = {
 STAGE_RUST_IMAGES = {
     # keep track of user commands and containers
     'amqp_consumer': ('mkamqpconsumer', 'busybox:1.33.1-uclibc', 'rust'),
+
+    # download libretro cores that are newer - run and exit
+    'libretro_core_netfetch': ('mklibretrocorefetchupdate', 'scratch', 'rust'),
+
     # download tmdb update file of ids and update and/or fetch new metadata - run and exit
     'tmdb_netfetch_update': ('mktmdbnetfetchupdate', 'scratch', 'rust'),
     # 'ComposeMediaKrakenDownloadRust': ('mkdownload', 'busybox:1.33.1-uclibc', 'rust'),
@@ -105,7 +109,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
     #'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenLDAP': ('mkldap', 'lsiobase/alpine:3.11', 'alpine'),
+    'ComposeMediaKrakenLDAP': ('mkldap', 'ghcr.io/linuxserver/baseimage-alpine:3.13', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
@@ -123,8 +127,7 @@ STAGE_COMPOSE_IMAGES = {
 STAGE_ONE_GAME_SERVERS = {
     'ComposeMediaKrakenBaseSteamCMD': ('mkbasesteamcmd', 'debian:10.9-slim', 'game_server'),
     'ComposeMediaKrakenBaseSteamCMDRoot': ('mkbasesteamcmdroot', 'debian:10.9-slim', 'game_server'),
-    'ComposeMediaKrakenBaseWine': (
-    'mkbasewine', 'scottyhardy/docker-remote-desktop', 'game_server'),
+    'ComposeMediaKrakenBaseWine': ('mkbasewine', 'scottyhardy/docker-remote-desktop', 'game_server'),
     'ComposeMediaKrakenDosBoxWeb': ('mkdosboxweb', 'ubuntu:18.04', 'game_server'),
     # 'ComposeMediaKrakenQ3A': ('mkgameq3a', 'alpine:3.13.5', 'game_server'),
     'ComposeMediaKrakenRetroArchWeb': ('mkretroarchweb', 'debian:buster', 'game_server'),
@@ -135,10 +138,8 @@ STAGE_ONE_GAME_SERVERS = {
 STAGE_TWO_GAME_SERVERS = {
     'ComposeMediaKrakenBF42': ('mkgamebf42', 'ubuntu:14.04', 'game_server'),
     'ComposeMediaKrakenFactorio': ('mkgamefactorio', 'ubuntu:14.04', 'game_server'),
-    'ComposeMediaKrakenKerbalSpaceProgram': (
-    'mkgamekerbalspaceprogram', 'mono:latest', 'game_server'),
-    'ComposeMediaKrakenMinecraft': (
-    'mkgameminecraft', 'adoptopenjdk/openjdk11:alpine-jre', 'game_server'),
+    'ComposeMediaKrakenKerbalSpaceProgram': ('mkgamekerbalspaceprogram', 'mono:latest', 'game_server'),
+    'ComposeMediaKrakenMinecraft': ('mkgameminecraft', 'adoptopenjdk/openjdk11:alpine-jre', 'game_server'),
     'ComposeMediaKrakenQuake2': ('mkgamequake2', 'ubuntu:20.10', 'game_server'),
     'ComposeMediaKrakenUT2004': ('mkgameut2004', 'debian:jessie', 'game_server'),
     # 'ComposeMediaKrakenUT99': ('mkgameut99', 'i386/ubuntu:19.04', 'game_server'),
@@ -192,15 +193,13 @@ STAGE_TWO_GAME_SERVERS = {
     # 'ComposeMediaKrakenSteamCMD_Dayz': ('mksteam_dayz', 'mkbasewine', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_DontStarveTogether': ('mksteam_FAKE', 'mkbasesteamcmdroot', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_Dota2': ('mksteam_dota2', 'mkbasesteamcmdroot', 'game_server'),
-    'ComposeMediaKrakenSteamCMD_DoubleAction': (
-    'mksteam_doubleaction', 'gameservers/steamcmd', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_DoubleAction': ('mksteam_doubleaction', 'gameservers/steamcmd', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_Dystopia': ('mksteam_dystopia', 'mkbasewine', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_EdenStar': ('mksteam_edenstar', 'mkbasewine', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_EYE': ('mksteam_eye', 'mkbasewine', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_Empires': ('mksteam_empires', 'mkbasewine', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_EternalSilence': ('mksteam_eternalsilence', 'mkbasewine', 'game_server'),
-    'ComposeMediaKrakenSteamCMD_FistfulofFrags': (
-    'mksteam_fistfulloffrags', 'gameservers/steamcmd', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_FistfulofFrags': ('mksteam_fistfulloffrags', 'gameservers/steamcmd', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_The Forest': ('mksteam_FAKE', 'mkbasewine', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_Fortress Forever': ('mksteam_FAKE', 'mkbasewine', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_GarrysMod': ('mksteam_FAKE', 'mkbasesteamcmdroot', 'game_server'),
@@ -208,12 +207,10 @@ STAGE_TWO_GAME_SERVERS = {
     # 'ComposeMediaKrakenSteamCMD_Half-Life Deathmatch': ('mksteam_FAKE', 'mkbasesteamcmdroot', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_HalfLife': ('mksteam_FAKE', 'mkbasesteamcmdroot', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_HalfLife: Opposing Force': ('mksteam_FAKE', 'mkbasesteamcmdroot', 'game_server'),
-    'ComposeMediaKrakenSteamCMD_HoldfastNaW': (
-    'mksteam_holdfastnaw', 'mkbasesteamcmdroot', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_HoldfastNaW': ('mksteam_holdfastnaw', 'mkbasesteamcmdroot', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_Homefront': ('mksteam_homefront', 'mkbasewine', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_Hurtworld': ('mksteam_hurtworld', 'mkbasesteamcmdroot', 'game_server'),
-    'ComposeMediaKrakenSteamCMD_Insurgency': (
-    'mksteam_insurgency', 'gameservers/steamcmd', 'game_server'),
+    'ComposeMediaKrakenSteamCMD_Insurgency': ('mksteam_insurgency', 'gameservers/steamcmd', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_Insurgency: Modern Infantry Combat': ('mksteam_FAKE', 'mkbasesteamcmdroot', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_JustCause 2: Multiplayer': ('mksteam_FAKE', 'mkbasesteamcmdroot', 'game_server'),
     # 'ComposeMediaKrakenSteamCMD_KF': ('mksteam_kf', 'mkbasesteamcmdroot', 'game_server'),
@@ -297,8 +294,7 @@ STAGE_TWO_TESTING_TOOLS = {
 
 STAGE_ONE_FS = {
     'ComposeMediaKrakenMooseFSChunkServer': ('mkmoosechunkserver', 'debian:strech', 'debian'),
-    'ComposeMediaKrakenMooseFSChunkServerClient': (
-    'mkmoosechunkserverclient', 'debian:strech', 'debian'),
+    'ComposeMediaKrakenMooseFSChunkServerClient': ('mkmoosechunkserverclient', 'debian:strech', 'debian'),
     'ComposeMediaKrakenMooseFSClient': ('mkmooseclient', 'debian:strech', 'debian'),
     'ComposeMediaKrakenMooseFSMaster': ('mkmoosemaster', 'debian:strech', 'debian'),
 }
