@@ -71,15 +71,24 @@ STAGE_RUST_OPENSSL_IMAGES = {
 }
 
 STAGE_RUST_IMAGES = {
-    'bulk_themoviedb_netfetch': ('mkbulktmdbrust', 'scratch', 'rust'),
-    'ComposeMediaKrakenBroadcastRust': ('mkbroadcastrust', 'scratch', 'rust'),
-    'ComposeMediaKrakenConsumerRust': ('mkrabbitmqrust', 'busybox:1.33.1-uclibc', 'rust'),
-    'ComposeMediaKrakenCronRust': ('mkcronrust', 'busybox:1.33.1-uclibc', 'rust'),
-    #'ComposeMediaKrakenDownloadRust': ('mkdownloadrust', 'busybox:1.33.1-uclibc', 'rust'),
-    'ComposeMediaKrakenGameDataRust': ('mkgamedatarust', 'scratch', 'rust'),
-    'ComposeMediaKrakenInotifyRust': ('mkinotifyrust', 'busybox:1.33.1-uclibc', 'rust'),
-    'ComposeMediaKrakenTESTReqwestRust': ('mktestreqwestrust', 'scratch', 'rust'),
-    'ComposeMediaKrakenTranscodeRust': ('mktranscoderust', 'mkbase_ffmpeg', 'rust'),
+    # why do I need the following?  to keep track of user commands and containers?
+    'amqp_consumer': ('mkamqpconsumer', 'busybox:1.33.1-uclibc', 'rust'),
+
+    # broadcast server IP for web and client connectivity
+    'broadcast_server': ('mkbroadcast', 'scratch', 'rust'),
+    # process cron jobs from the database to amqp or direct container launch
+    'cron_processor': ('mkcron', 'busybox:1.33.1-uclibc', 'rust'),
+    # inotify of fs changes to amqp
+    'file_system_inotify': ('mkinotify', 'busybox:1.33.1-uclibc', 'rust'),
+    # download tmdb dump of ids in database and insert into downloads - run and exit
+    'tmdb_netfetch_bulk': ('mktmdbnetfetchbulk', 'scratch', 'rust'),
+    # download tmdb update file of ids and update and/or fetch new metadata - run and exit
+    'tmdb_netfetch_update': ('mktmdbnetfetchupdate', 'scratch', 'rust'),
+
+    # 'ComposeMediaKrakenDownloadRust': ('mkdownload', 'busybox:1.33.1-uclibc', 'rust'),
+    'ComposeMediaKrakenGameDataRust': ('mkgamedata', 'scratch', 'rust'),
+    'ComposeMediaKrakenTESTReqwestRust': ('mktestreqwest', 'scratch', 'rust'),
+    'ComposeMediaKrakenTranscodeRust': ('mktranscode', 'mkbase_ffmpeg', 'rust'),
     'ComposeMediaKrakenWebActixWebRust': ('mkwebappactix', 'busybox:1.33.1-uclibc', 'rust'),
 }
 
@@ -99,7 +108,6 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenRabbitMQ': ('mkrabbitmq', 'alpine:3.11', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbase_ffmpeg', 'alpine'),
-    #'ComposeMediaKrakenServer': ('mkserver', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
     # use node for chromecast stream?
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),
