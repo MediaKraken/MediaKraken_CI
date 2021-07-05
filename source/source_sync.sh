@@ -9,6 +9,16 @@ cp ../../source_rust/mk_lib_database/src/mk_lib_database_metadata.rs ../../docke
 cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/tmdb_netfetch_bulk/src/.
 cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/core/tmdb_netfetch_bulk/src/.
 
+# update tmdb net fetch RUST
+cp ../../source_rust/mk_lib_common/src/mk_lib_common.rs ../../docker/rust/tmdb_netfetch_update/src/.
+cp ../../source_rust/mk_lib_common/src/mk_lib_common_enum_media_type.rs ../../docker/rust/tmdb_netfetch_update/src/.
+cp ../../source_rust/mk_lib_compression/src/mk_lib_compression.rs ../../docker/rust/tmdb_netfetch_update/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/rust/tmdb_netfetch_update/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database_download.rs ../../docker/rust/tmdb_netfetch_update/src/.
+cp ../../source_rust/mk_lib_database/src/mk_lib_database_metadata.rs ../../docker/rust/tmdb_netfetch_update/src/.
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/tmdb_netfetch_update/src/.
+cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/rust/tmdb_netfetch_update/src/.
+
 # cron RUST
 cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/cron_processor/src/.
 cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/core/cron_processor/src/.
@@ -39,6 +49,9 @@ cp ../../source/main_hardware.py ../../docker/alpine/ComposeMediaKrakenHardware/
 cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/file_system_inotify/src/.
 cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/core/file_system_inotify/src/.
 cp ../../source_rust/mk_lib_database/src/mk_lib_database_library.rs ../../docker/core/file_system_inotify/src/.
+
+# libretro core download
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/tmdb_netfetch_bulk/src/.
 
 # metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
