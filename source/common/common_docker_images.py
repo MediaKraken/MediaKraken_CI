@@ -72,6 +72,8 @@ STAGE_CORE_IMAGES = {
     'broadcast_server': ('mkbroadcast', 'scratch', 'core'),
     # chat server via mumble
     'chat_server_mumble': ('mkchatmumble', 'alpine:3.13.5', 'core'),
+    # chat server via ts3 - free license version
+    'chat_server_teamspeak3': ('mkchatteamspeak', 'alpine:3.13.5', 'core'),
     # process cron jobs from the database to amqp or direct container launch
     'cron_processor': ('mkcron', 'busybox:1.33.1-uclibc', 'core'),
     # database via postgresql
@@ -118,7 +120,7 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbase_ffmpeg', 'alpine'),
-    'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
+
     # use node for chromecast stream?
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
