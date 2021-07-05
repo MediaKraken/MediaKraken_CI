@@ -70,6 +70,8 @@ STAGE_CORE_IMAGES = {
     'amqp_service': ('mkrabbitmq', 'alpine:3.11', 'core'),
     # broadcast server IP for web and client connectivity
     'broadcast_server': ('mkbroadcast', 'scratch', 'core'),
+    # chat server via mumble
+    'chat_server_mumble': ('mkchatmumble', 'alpine:3.13.5', 'core'),
     # process cron jobs from the database to amqp or direct container launch
     'cron_processor': ('mkcron', 'busybox:1.33.1-uclibc', 'core'),
     # database via postgresql
