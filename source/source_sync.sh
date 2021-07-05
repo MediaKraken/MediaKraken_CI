@@ -51,7 +51,7 @@ cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/core/fi
 cp ../../source_rust/mk_lib_database/src/mk_lib_database_library.rs ../../docker/core/file_system_inotify/src/.
 
 # libretro core download
-cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/tmdb_netfetch_bulk/src/.
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/rust/libretro_core_netfetch/src/.
 
 # metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
