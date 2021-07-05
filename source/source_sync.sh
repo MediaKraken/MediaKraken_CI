@@ -94,7 +94,7 @@ cp ../../source/async_transcode.py ../../docker/alpine/ComposeMediaKrakenTransco
 cp ../../source/castpy/cast.py ../../docker/alpine/ComposeMediaKrakenTranscode/src/.
 
 # webserver
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
-cp -R ../../source/database_async ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
-cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
-cp -R ../../source/web_app_sanic ../../docker/alpine/ComposeMediaKrakenWebSanic/src/.
+cp -R ../../source/common ../../docker/core/web_application/src/.
+cp -R ../../source/database_async ../../docker/core/web_application/src/.
+cp -R ../../source/network ../../docker/core/web_application/src/.
+cp -R ../../source/web_app_sanic ../../docker/core/web_application/src/.

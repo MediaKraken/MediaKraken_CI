@@ -82,6 +82,8 @@ STAGE_CORE_IMAGES = {
     'nginx_proxy': ('mknginx', 'alpine:3.10', 'core'),
     # download tmdb dump of ids in database and insert into downloads - run and exit
     'tmdb_netfetch_bulk': ('mktmdbnetfetchbulk', 'scratch', 'core'),
+    # transmission server
+    'transmission_server': ('mktransmission', 'alpine:3.13.5', 'core'),
     # website via python and flask
     'web_application': ('mkwebappsanic', 'mkbase_alpinepy3', 'core'),
 }
@@ -117,7 +119,6 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenTeamspeak': ('mkteamspeak', 'alpine:3.8', 'alpine'),
     # use node for chromecast stream?
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),
-    'ComposeMediaKrakenTransmission': ('mktransmission', 'alpine:3.13.5', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
     'ComposeMediaKrakenTwitchRecordUser': ('mktwitchrecorduser', 'mkbase_alpinepy3', 'alpine'),
 
