@@ -82,6 +82,8 @@ STAGE_CORE_IMAGES = {
     'database_postgresql_pooler': ('mkpgbouncer', 'alpine:3.13.5', 'core'),
     # inotify of file system changes to amqp
     'file_system_inotify': ('mkinotify', 'busybox:1.33.1-uclibc', 'core'),
+    # download libretro cores that are newer - run and exit
+    'libretro_core_netfetch': ('mklibretrocorefetchupdate', 'scratch', 'core'),
     # nginx proxy for http to https and some bot blocking
     'nginx_proxy': ('mknginx', 'alpine:3.10', 'core'),
     # download tmdb dump of ids in database and insert into downloads - run and exit
@@ -95,9 +97,6 @@ STAGE_CORE_IMAGES = {
 STAGE_RUST_IMAGES = {
     # keep track of user commands and containers
     'amqp_consumer': ('mkamqpconsumer', 'busybox:1.33.1-uclibc', 'rust'),
-
-    # download libretro cores that are newer - run and exit
-    'libretro_core_netfetch': ('mklibretrocorefetchupdate', 'scratch', 'rust'),
 
     # download tmdb update file of ids and update and/or fetch new metadata - run and exit
     'tmdb_netfetch_update': ('mktmdbnetfetchupdate', 'scratch', 'rust'),
