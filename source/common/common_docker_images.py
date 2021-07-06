@@ -66,6 +66,8 @@ STAGE_RUST_OPENSSL_IMAGES = {
 }
 
 STAGE_CORE_IMAGES = {
+    # keep track of user commands and containers
+    'amqp_consumer': ('mkamqpconsumer', 'busybox:1.33.1-uclibc', 'core'),   # TODO
     # amqp service (rabbitmq)
     'amqp_service': ('mkrabbitmq', 'alpine:3.11', 'core'),
     # broadcast server IP for web and client connectivity
@@ -82,28 +84,28 @@ STAGE_CORE_IMAGES = {
     'database_postgresql_pooler': ('mkpgbouncer', 'alpine:3.13.5', 'core'),
     # inotify of file system changes to amqp
     'file_system_inotify': ('mkinotify', 'busybox:1.33.1-uclibc', 'core'),
+    # download mame and mess metadata - run and exit
+    'game_metadata_mame': ('mkgamemetamame', 'scratch', 'core'),  # TODO
     # download libretro cores that are newer - run and exit
-    'libretro_core_netfetch': ('mklibretrocorefetchupdate', 'scratch', 'core'),
+    'libretro_core_netfetch': ('mklibretrocorefetchupdate', 'scratch', 'core'),  # TODO
     # nginx proxy for http to https and some bot blocking
     'nginx_proxy': ('mknginx', 'alpine:3.10', 'core'),
+    # fetch updated info from schedules direct - run and exit
+    'schedules_direct_update': ('mkschedulesdirect', 'scratch', 'core'),    # TODO
     # download tmdb dump of ids in database and insert into downloads - run and exit
     'tmdb_netfetch_bulk': ('mktmdbnetfetchbulk', 'scratch', 'core'),
+    # download tmdb update file of ids and update and/or fetch new metadata - run and exit
+    'tmdb_netfetch_update': ('mktmdbnetfetchupdate', 'scratch', 'core'),    # TODO
+    # transcode and streaming client  - run andxit
+    'transcode_media': ('mktranscodemedia', 'alpine:3.13.5', 'core'),     # TODO
     # transmission server
     'transmission_server': ('mktransmission', 'alpine:3.13.5', 'core'),
-    # website via python and flask
+    # website via python and sanic
     'web_application': ('mkwebappsanic', 'mkbase_alpinepy3', 'core'),
 }
 
 STAGE_RUST_IMAGES = {
-    # keep track of user commands and containers
-    'amqp_consumer': ('mkamqpconsumer', 'busybox:1.33.1-uclibc', 'rust'),
-
-    # download tmdb update file of ids and update and/or fetch new metadata - run and exit
-    'tmdb_netfetch_update': ('mktmdbnetfetchupdate', 'scratch', 'rust'),
-    # 'ComposeMediaKrakenDownloadRust': ('mkdownload', 'busybox:1.33.1-uclibc', 'rust'),
-    'ComposeMediaKrakenGameDataRust': ('mkgamedata', 'scratch', 'rust'),
     'ComposeMediaKrakenTESTReqwestRust': ('mktestreqwest', 'scratch', 'rust'),
-    'ComposeMediaKrakenTranscodeRust': ('mktranscode', 'mkbase_ffmpeg', 'rust'),
     'ComposeMediaKrakenWebActixWebRust': ('mkwebappactix', 'busybox:1.33.1-uclibc', 'rust'),
 }
 
@@ -112,14 +114,12 @@ STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
     'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
-    #'ComposeMediaKrakenGameData': ('mkgamedata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'ghcr.io/linuxserver/baseimage-alpine:3.13', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenRipper': ('mkripper', 'mkbase_ffmpeg', 'alpine'),
-
     # use node for chromecast stream?
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
