@@ -24,15 +24,17 @@ cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/cron
 cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/core/cron_processor/src/.
 cp ../../source_rust/mk_lib_database/src/mk_lib_database_cron.rs ../../docker/core/cron_processor/src/.
 
-# devicescanner
+# device scanner
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenDevicescan/src/.
 cp ../../source/main_hardware_discover.py ../../docker/alpine/ComposeMediaKrakenDevicescan/src/.
 
-# download
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenDownload/src/.
-cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenDownload/src/.
-cp -R ../../source/network ../../docker/alpine/ComposeMediaKrakenDownload/src/.
-cp ../../source/main_download.py ../../docker/alpine/ComposeMediaKrakenDownload/src/.
+# download rust
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/download_server/src/.
+cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/core/download_server/src/.
+
+# file system media scanner rust
+cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/file_system_media_scanner/src/.
+cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/core/file_system_media_scanner/src/.
 
 # load game/metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenGameData/src/.
@@ -51,7 +53,10 @@ cp ../../source_rust/mk_lib_database/src/mk_lib_database.rs ../../docker/core/fi
 cp ../../source_rust/mk_lib_database/src/mk_lib_database_library.rs ../../docker/core/file_system_inotify/src/.
 
 # libretro core download
+cp ../../source_rust/mk_lib_file/src/mk_lib_file.rs ../../docker/core/libretro_core_netfetch/src/.
+cp ../../source_rust/mk_lib_hash/src/mk_lib_hash_md5.rs ../../docker/core/libretro_core_netfetch/src/.
 cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/libretro_core_netfetch/src/.
+cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/core/libretro_core_netfetch/src/.
 
 # metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenMetadata/src/.
@@ -78,10 +83,6 @@ cp ../../source/main_reactor_line.py  ../../docker/alpine/ComposeMediaKrakenReac
 cp ../../source/db_create_update.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 cp ../../source/db_update_version.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
 cp ../../source/main_server_link.py ../../docker/alpine/ComposeMediaKrakenReactor/src/.
-
-# ripper
-cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenRipper/src/.
-cp ../../source/main_ripper.py ../../docker/alpine/ComposeMediaKrakenRipper/src/.
 
 # TEST reqwest RUST
 cp ../../source_rust/mk_lib_compression/src/mk_lib_compression.rs ../../docker/rust/ComposeMediaKrakenTESTReqwestRust/src/.

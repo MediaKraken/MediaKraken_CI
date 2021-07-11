@@ -77,17 +77,21 @@ STAGE_CORE_IMAGES = {
     # chat server via ts3 - free license version
     'chat_server_teamspeak3': ('mkchatteamspeak', 'alpine:3.13.5', 'core'),
     # process cron jobs from the database to amqp or direct container launch
-    'cron_processor': ('mkcron', 'busybox:1.33.1-uclibc', 'core'),
+    'cron_processor': ('mkcron', 'busybox:1.33.1-uclibc', 'core'),  # TODO TEST
     # database via postgresql
     'database_postgresql': ('mkdatabase', 'debian:buster-slim', 'core'),
     # database connection pooler
     'database_postgresql_pooler': ('mkpgbouncer', 'alpine:3.13.5', 'core'),
+    # download server - requests from rabbitmq
+    'download_server': ('mkdownloadserver', 'scratch', 'core'),  # TODO
     # inotify of file system changes to amqp
-    'file_system_inotify': ('mkinotify', 'busybox:1.33.1-uclibc', 'core'),
+    'file_system_inotify': ('mkinotify', 'busybox:1.33.1-uclibc', 'core'),  # TODO TEST
     # download mame and mess metadata - run and exit
     'game_metadata_mame': ('mkgamemetamame', 'scratch', 'core'),  # TODO
+    # scan for hardware - run and exit
+    'hardware_scanner': ('mkhardwarescan', 'scratch', 'core'),  # TODO
     # download libretro cores that are newer - run and exit
-    'libretro_core_netfetch': ('mklibretrocorefetchupdate', 'scratch', 'core'),  # TODO
+    'libretro_core_netfetch': ('mklibretrocorefetchupdate', 'scratch', 'core'),  # TODO TEST
     # nginx proxy for http to https and some bot blocking
     'nginx_proxy': ('mknginx', 'alpine:3.10', 'core'),
     # fetch updated info from schedules direct - run and exit
@@ -96,12 +100,12 @@ STAGE_CORE_IMAGES = {
     'tmdb_netfetch_bulk': ('mktmdbnetfetchbulk', 'scratch', 'core'),
     # download tmdb update file of ids and update and/or fetch new metadata - run and exit
     'tmdb_netfetch_update': ('mktmdbnetfetchupdate', 'scratch', 'core'),    # TODO
-    # transcode and streaming client  - run andxit
+    # transcode and streaming client  - run and exit
     'transcode_media': ('mktranscodemedia', 'alpine:3.13.5', 'core'),     # TODO
     # transmission server
     'transmission_server': ('mktransmission', 'alpine:3.13.5', 'core'),
     # website via python and sanic
-    'web_application': ('mkwebappsanic', 'mkbase_alpinepy3', 'core'),
+    'web_application': ('mkwebappsanic', 'mkbase_alpinepy3', 'core'),  # TODO TEST
 }
 
 STAGE_RUST_IMAGES = {
@@ -112,14 +116,10 @@ STAGE_RUST_IMAGES = {
 # these are the final images
 STAGE_COMPOSE_IMAGES = {
     'ComposeMediaKrakenBarman': ('mkbarman', 'debian:jessie', 'debian'),
-    'ComposeMediaKrakenDevicescan': ('mkdevicescan', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenDownload': ('mkdownload', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenHardware': ('mkhardware', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenLDAP': ('mkldap', 'ghcr.io/linuxserver/baseimage-alpine:3.13', 'alpine'),
     'ComposeMediaKrakenMetadata': ('mkmetadata', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenPika': ('mkpika', 'mkbase_alpinepy3', 'alpine'),
     'ComposeMediaKrakenReactor': ('mkreactor', 'mkbase_alpinepy3', 'alpine'),
-    'ComposeMediaKrakenRipper': ('mkripper', 'mkbase_ffmpeg', 'alpine'),
     # use node for chromecast stream?
     'ComposeMediaKrakenTranscode': ('mktranscode', 'mkbase_ffmpeg', 'alpine'),
     'ComposeMediaKrakenTVHeadend': ('mktvheadend', 'lsiobase/alpine:3.12', 'alpine'),
