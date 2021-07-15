@@ -105,7 +105,7 @@ STAGE_CORE_IMAGES = {
     # transmission server
     'transmission_server': ('mktransmission', 'alpine:3.13.5', 'core'),
     # website via python and sanic
-    'web_application': ('mkwebappsanic', 'mkbase_alpinepy3', 'core'),  # TODO TEST
+    'web_application': ('mkwebapp', 'mkbase_alpinepy3', 'core'),  # TODO TEST
 }
 
 STAGE_RUST_IMAGES = {
