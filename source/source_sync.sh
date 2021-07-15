@@ -26,7 +26,7 @@ cp ../../source_rust/mk_lib_database/src/mk_lib_database_cron.rs ../../docker/co
 
 # device scanner
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenDevicescan/src/.
-cp ../../source/main_hardware_discover.py ../../docker/alpine/ComposeMediaKrakenDevicescan/src/.
+#cp ../../source/main_hardware_discover.py ../../docker/alpine/ComposeMediaKrakenDevicescan/src/.
 
 # download rust
 cp ../../source_rust/mk_lib_logging/src/mk_lib_logging.rs ../../docker/core/download_server/src/.
@@ -39,7 +39,7 @@ cp ../../source_rust/mk_lib_network/src/mk_lib_network.rs ../../docker/core/file
 # load game/metadata
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenGameData/src/.
 cp -R ../../source/database ../../docker/alpine/ComposeMediaKrakenGameData/src/.
-cp ../../source/subprogram_metadata_games.py ../../docker/alpine/ComposeMediaKrakenGameData/src/.
+#cp ../../source/subprogram_metadata_games.py ../../docker/alpine/ComposeMediaKrakenGameData/src/.
 
 # hardware
 cp -R ../../source/common ../../docker/alpine/ComposeMediaKrakenHardware/src/.
