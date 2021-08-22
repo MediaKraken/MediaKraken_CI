@@ -20,7 +20,6 @@
 import os
 import shlex
 import subprocess
-import sys
 import time
 from dotenv import load_dotenv
 
